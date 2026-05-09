@@ -23,11 +23,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     report = run(Path(args.root))
-    if args.json:
-        print(json.dumps(report.to_dict(), indent=2, ensure_ascii=False))
-    else:
-        print(report.render())
-    return 0 if report.passed else 1
+    return _finish(report.to_dict(), report.render(), report.passed, args.json)
 
 
 def issue_triage_main(argv: list[str]) -> int:
@@ -38,11 +34,7 @@ def issue_triage_main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
 
     report = run_issue_triage(Path(args.issues), capacity=args.capacity)
-    if args.json:
-        print(json.dumps(report, indent=2, ensure_ascii=False))
-    else:
-        print(render_issue_report(report))
-    return 0 if report["qa"]["status"] == "passed" else 1
+    return _finish(report, render_issue_report(report), report["qa"]["status"] == "passed", args.json)
 
 
 def release_readiness_main(argv: list[str]) -> int:
@@ -53,11 +45,12 @@ def release_readiness_main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
 
     report = run_release_readiness(Path(args.manifest), risk_budget=args.risk_budget)
-    if args.json:
-        print(json.dumps(report, indent=2, ensure_ascii=False))
-    else:
-        print(render_release_report(report))
-    return 0 if report["qa"]["status"] == "passed" else 1
+    return _finish(report, render_release_report(report), report["qa"]["status"] == "passed", args.json)
+
+
+def _finish(payload: dict, text: str, passed: bool, as_json: bool) -> int:
+    print(json.dumps(payload, indent=2, ensure_ascii=False) if as_json else text)
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":

@@ -32,9 +32,16 @@ flowchart LR
     E --> G["Sprint Contract"]
     E --> H["QA + Handoff"]
 
+    J["examples/release_readiness/manifest.json"] --> K["Release Readiness Harness"]
+    K --> L["Dependency Graph"]
+    K --> M["Release Contract"]
+    K --> N["QA Gate"]
+
     B -. "validates agent contracts" .-> E
+    B -. "validates agent contracts" .-> K
     I["tests/"] --> B
     I --> E
+    I --> K
 ```
 
 ## 已有 Agents
