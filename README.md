@@ -24,6 +24,33 @@ python -m unittest discover -s tests -v
 
 ![My Harness Workflow architecture](docs/assets/harness-architecture.png)
 
+## Independent or Cooperative
+
+Each harness can run independently, and the three harnesses can also be combined as a release-quality workflow.
+
+| Mode | How it works |
+| --- | --- |
+| Independent | Run `python -m harness .`, `issue-triage`, or `release-readiness` directly against its own input. |
+| Cooperative | Run contract validation first, then use the executable harnesses as task-level and release-level gates. |
+| Shared foundation | All executable harnesses share the same 11-agent pipeline and common input/status helpers. |
+
+Independence matters when you only need one check: contract validation for agent spec hygiene, issue triage for planning, or release readiness for shipment. Cooperation matters when you want a full path from agent contract quality to task selection to release decision. The harnesses are not tightly coupled by hidden global state; they cooperate through explicit artifacts and repeated QA gates.
+
+Typical cooperative order:
+
+```mermaid
+%%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
+flowchart LR
+    A["1. Validate<br/>Agent Contracts"] --> B["2. Triage<br/>Task Work"]
+    B --> C["3. Check<br/>Release Readiness"]
+    C --> D["4. Ship / Block<br/>With QA Evidence"]
+    classDef step fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
+    classDef result fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
+    class A,B,C step
+    class D result
+    linkStyle default stroke:#334155,stroke-width:3px
+```
+
 ## Existing Agents
 
 | Agent | Role |
@@ -52,6 +79,12 @@ Each harness is intentionally small, explicit, and testable. The sections below 
 
 **Purpose:** validate the control-plane contracts that define the available agents.
 
+**What it does:** this harness is the safety gate for the agent control plane. It checks whether every agent exposes the same minimum contract: human-readable spec, interface document, JSON schemas, examples, and support directory. Run it alone before adding or changing agents; in a cooperative workflow, run it first so task and release harnesses can trust the agent surface.
+
+It is intentionally strict and mechanical. The goal is not to judge agent creativity; the goal is to make sure every agent is callable, inspectable, testable, and documented in a consistent way. A failing result means the harness ecosystem itself is not reliable enough for downstream task execution.
+
+**Use it when:** adding agents, changing schemas, reviewing support files, or checking that Python files still respect the project line-budget discipline.
+
 **Entrypoint:**
 
 ```powershell
@@ -79,31 +112,29 @@ python -m harness . --json
 | [harness/__init__.py](harness/__init__.py) | Public Python API exports. |
 | [tests/test_harness.py](tests/test_harness.py) | Regression tests for schema validation, agent checks, CLI JSON, and line-budget enforcement. |
 
-**Agents used:**
+**Agents used:** every agent under `.harness/agents/*` is discovered and validated; this harness verifies contracts rather than executing behavior.
 
-- Discovers and validates every agent under `.harness/agents/*`.
-- It does not execute agent behavior; it verifies contracts, schemas, examples, and support files.
-
-**Architecture flow:**
+**Agent contract validation flow:**
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
 flowchart LR
-    A["Input<br/>Project Root"] --> B["Discover<br/>Agent Specs"]
-    B --> C["Validate<br/>Files + Schemas"]
-    C --> D["Validate<br/>Examples"]
-    D --> E["Check<br/>300-Line Budget"]
-    E --> F{"Clean?"}
-    F -->|Yes| G["PASS"]
-    F -->|No| H["FAIL<br/>Findings"]
+    A["Project Root"] --> B["Discover<br/>All Agents"]
+    B --> C["Check<br/>agent.md + interface.md"]
+    C --> D["Check<br/>input/output schemas"]
+    D --> E["Check<br/>request/output examples"]
+    E --> F["Check<br/>line budget"]
+    F --> G{"Valid?"}
+    G -->|Yes| H["PASS"]
+    G -->|No| I["FAIL<br/>Findings"]
     classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
     classDef step fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
     classDef decision fill:#fefce8,stroke:#ca8a04,stroke-width:3px,color:#0f172a
     classDef result fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
     class A source
-    class B,C,D,E step
-    class F decision
-    class G,H result
+    class B,C,D,E,F step
+    class G decision
+    class H,I result
     linkStyle default stroke:#334155,stroke-width:3px
 ```
 
@@ -114,6 +145,12 @@ flowchart LR
 **Detailed README:** [examples/issue_triage/README.md](examples/issue_triage/README.md)
 
 **Purpose:** run a realistic but compact GitHub issue triage workflow from offline fixture data.
+
+**What it does:** this harness converts issue-like work into an executable planning packet. It normalizes raw tickets, links duplicates and dependencies, ranks work, fits a sprint within capacity, defines validation, and produces a QA-checked handoff. Run it alone for backlog grooming; in a cooperative workflow, run it after contract validation and before release readiness.
+
+The architecture models a practical product-engineering loop: user intent is captured first, the fixture is mapped, issue records are curated, planning chooses the highest-value work, and QA checks that the selected sprint is coherent. This makes the harness useful for many GitHub-style maintenance tasks without depending on live network access.
+
+**Use it when:** ranking issues, preparing a sprint, detecting duplicate tickets, generating acceptance criteria, or producing a handoff that another agent or developer can execute.
 
 **Entrypoint:**
 
@@ -141,37 +178,30 @@ python -m harness issue-triage examples\issue_triage\issues.json --capacity 13 -
 | [examples/issue_triage/README.md](examples/issue_triage/README.md) | Detailed guide for the issue triage harness. |
 | [tests/test_issue_triage.py](tests/test_issue_triage.py) | End-to-end tests for all-agent execution, scoring, duplicate detection, capacity, CLI JSON, and invalid input. |
 
-**Agents used:**
-
-1. `human_steering`
-2. `harness_orchestrator`
-3. `initializer_agent`
-4. `repo_cartographer`
-5. `feature_registry_curator`
-6. `product_planner`
-7. `sprint_contract_agent`
-8. `implementation_generator`
-9. `test_strategist`
-10. `qa_evaluator`
-11. `handoff_writer`
+**Agents used:** `human_steering`, `harness_orchestrator`, `initializer_agent`, `repo_cartographer`, `feature_registry_curator`, `product_planner`, `sprint_contract_agent`, `implementation_generator`, `test_strategist`, `qa_evaluator`, `handoff_writer`.
 
 **Architecture flow:**
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
 flowchart LR
-    A["Input<br/>Issue JSON"] --> B["Steer + Route<br/>human / orchestrator"]
-    B --> C["Normalize + Map<br/>initializer / cartographer"]
-    C --> D["Register + Rank<br/>registry / planner"]
-    D --> E["Sprint Contract<br/>contract agent"]
-    E --> F["Plan + Test<br/>implementation / test strategist"]
-    F --> G["QA + Handoff<br/>evaluator / writer"]
+    A["Issue JSON"] --> B["human_steering<br/>Goal + constraints"]
+    B --> C["harness_orchestrator<br/>Route order"]
+    C --> D["initializer_agent<br/>Normalize issues"]
+    D --> E["repo_cartographer<br/>Map fixture"]
+    E --> F["feature_registry_curator<br/>Feature records"]
+    F --> G["product_planner<br/>Rank backlog"]
+    G --> H["sprint_contract_agent<br/>Capacity sprint"]
+    H --> I["implementation_generator<br/>Scoped plan"]
+    I --> J["test_strategist<br/>Validation matrix"]
+    J --> K["qa_evaluator<br/>Invariant checks"]
+    K --> L["handoff_writer<br/>Summary"]
     classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
     classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
     classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
     class A source
-    class B,C,D,E,F stage
-    class G output
+    class B,C,D,E,F,G,H,I,J,K stage
+    class L output
     linkStyle default stroke:#334155,stroke-width:3px
 ```
 
@@ -182,6 +212,12 @@ flowchart LR
 **Detailed README:** [examples/release_readiness/README.md](examples/release_readiness/README.md)
 
 **Purpose:** evaluate whether a FastAPI-inspired Python API framework release is ready to ship under a defined risk budget.
+
+**What it does:** this harness turns a release manifest into a release decision. It builds the dependency graph, records changed surfaces, scores risk against a budget, selects release actions, plans CI coverage, and blocks shipment when QA invariants fail. Run it alone as a release gate; in a cooperative workflow, run it after issue triage to check whether planned work is ready to ship.
+
+The harness treats release readiness as a budgeted risk problem instead of a vague checklist. Each change contributes dependency and compatibility risk; the release contract decides what can ship now and what should be deferred. QA then verifies that included changes have matching test coverage and that the final decision is explainable.
+
+**Use it when:** preparing a release, deciding whether to defer risky changes, checking CI matrix coverage, or creating a concise release handoff.
 
 **Entrypoint:**
 
@@ -209,37 +245,30 @@ python -m harness release-readiness examples\release_readiness\manifest.json --r
 | [examples/release_readiness/README.md](examples/release_readiness/README.md) | Detailed guide for the release readiness harness. |
 | [tests/test_release_readiness.py](tests/test_release_readiness.py) | Tests for agent coverage, dependency graph, risk budget, test matrix, CLI JSON, and invalid manifests. |
 
-**Agents used:**
-
-1. `human_steering`
-2. `harness_orchestrator`
-3. `initializer_agent`
-4. `repo_cartographer`
-5. `feature_registry_curator`
-6. `product_planner`
-7. `sprint_contract_agent`
-8. `implementation_generator`
-9. `test_strategist`
-10. `qa_evaluator`
-11. `handoff_writer`
+**Agents used:** `human_steering`, `harness_orchestrator`, `initializer_agent`, `repo_cartographer`, `feature_registry_curator`, `product_planner`, `sprint_contract_agent`, `implementation_generator`, `test_strategist`, `qa_evaluator`, `handoff_writer`.
 
 **Architecture flow:**
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
 flowchart LR
-    A["Input<br/>Release Manifest"] --> B["Steer + Route<br/>release boundary"]
-    B --> C["Normalize + Map<br/>manifest + source"]
-    C --> D["Registry + Risk<br/>changes + risk ledger"]
-    D --> E["Release Contract<br/>risk budget gate"]
-    E --> F["Plan + CI Matrix<br/>actions + tests"]
-    F --> G["QA + Handoff<br/>ship / block"]
+    A["Release Manifest"] --> B["human_steering<br/>Risk budget"]
+    B --> C["harness_orchestrator<br/>Route order"]
+    C --> D["initializer_agent<br/>Normalize manifest"]
+    D --> E["repo_cartographer<br/>Source map"]
+    E --> F["feature_registry_curator<br/>Change registry"]
+    F --> G["product_planner<br/>Rank release work"]
+    G --> H["sprint_contract_agent<br/>Release contract"]
+    H --> I["implementation_generator<br/>Release actions"]
+    I --> J["test_strategist<br/>CI/test matrix"]
+    J --> K["qa_evaluator<br/>Release gate"]
+    K --> L["handoff_writer<br/>Ship / block"]
     classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
     classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
     classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
     class A source
-    class B,C,D,E,F stage
-    class G output
+    class B,C,D,E,F,G,H,I,J,K stage
+    class L output
     linkStyle default stroke:#334155,stroke-width:3px
 ```
 
