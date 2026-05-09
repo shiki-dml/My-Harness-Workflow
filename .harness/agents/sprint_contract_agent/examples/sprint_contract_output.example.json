@@ -1,0 +1,273 @@
+{
+  "sprint_brief": {
+    "steering_contract_status": "ready",
+    "orchestration_decision_status": "route_ready",
+    "product_plan_status": "planned",
+    "repository_map_status": "mapped",
+    "selected_feature": "FEAT-0001 Workflow Visibility",
+    "sprint_objective": "Create a bounded implementation target for workflow visibility without writing code in the contract step.",
+    "sprint_scope": [
+      "Define workflow status data requirements",
+      "Define blocker and approval visibility requirements",
+      "Define implementation boundaries"
+    ],
+    "non_goals": [
+      "Write implementation code",
+      "Write tests",
+      "Perform QA"
+    ],
+    "approval_check": "Selected feature is approved_for_sprint; no additional approval is required for the normal contract draft.",
+    "open_questions": []
+  },
+  "sprint_contract": {
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "source_feature_title": "Workflow Visibility",
+    "objective": "Provide implementation_generator with a bounded contract for adding workflow visibility behavior.",
+    "problem_statement": "Humans and downstream agents need a clear view of workflow phase, completed agents, blockers, and next routing.",
+    "user_value": "Reduces ambiguity before implementation begins.",
+    "scope": [
+      "Expose current workflow phase",
+      "Expose completed and pending agents",
+      "Expose blockers and required human decisions"
+    ],
+    "non_goals": [
+      "Implement unrelated product planning changes",
+      "Modify QA reports",
+      "Change approval policy"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-001",
+        "description": "Workflow status includes the current phase.",
+        "verification_method": "Inspect implementation output against sprint contract requirements.",
+        "source": "FEAT-0001",
+        "required": true
+      },
+      {
+        "id": "AC-002",
+        "description": "Workflow status includes blockers and required human decisions.",
+        "verification_method": "Inspect implementation output against sprint contract requirements.",
+        "source": "FEAT-0001",
+        "required": true
+      }
+    ],
+    "implementation_boundary": {
+      "allowed_file_areas": [
+        "To be selected by implementation_generator within repository-map-approved areas"
+      ],
+      "forbidden_file_areas": [
+        ".harness/agents/**",
+        ".git/**",
+        ".env",
+        ".env.*"
+      ],
+      "allowed_change_types": [
+        "Bounded implementation changes needed for FEAT-0001"
+      ],
+      "forbidden_change_types": [
+        "Approval policy changes",
+        "Dependency additions without approval",
+        "Deployment or CI/CD changes",
+        "Unrelated refactoring"
+      ],
+      "dependency_restrictions": [
+        "No new dependencies unless explicitly approved"
+      ],
+      "security_or_privacy_constraints": [
+        "Do not read or expose secrets"
+      ],
+      "approval_gates": [
+        "Escalate before changing permissions, secrets, deployment, CI/CD, or dependencies"
+      ],
+      "stop_conditions": [
+        "Implementation requires out-of-scope files",
+        "Acceptance criteria become unclear",
+        "Approval-gated change is needed"
+      ]
+    },
+    "repository_context": [
+      "Repository map is available",
+      "No source or test areas were present in the neutral example"
+    ],
+    "validation_requirements": [
+      "Implementation output must satisfy all required acceptance criteria",
+      "Implementation must stay within allowed file areas",
+      "No QA result is claimed by sprint_contract_agent"
+    ],
+    "quality_bar": [
+      "Implementation contract is bounded and testable",
+      "Approval gates and stop conditions are explicit"
+    ],
+    "risks": [
+      "Allowed implementation file areas may need refinement if repository map changes"
+    ],
+    "dependencies": [
+      "Valid steering contract",
+      "Valid repository map",
+      "Selected feature approved for sprint"
+    ],
+    "assumptions": [
+      "The selected feature remains approved_for_sprint"
+    ],
+    "open_questions": [],
+    "human_approval_required": false,
+    "approval_status": "not_required_for_approved_feature_contract",
+    "stop_conditions": [
+      "A required approval is missing",
+      "Implementation would require code outside approved boundaries",
+      "Contract scope conflicts with steering constraints"
+    ],
+    "handoff_notes_for_implementation_generator": [
+      "Implement only the selected feature scope.",
+      "Return to harness_orchestrator if approval-gated work is needed."
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Workflow status includes the current phase.",
+      "verification_method": "Inspect implementation output against sprint contract requirements.",
+      "source": "FEAT-0001",
+      "required": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Workflow status includes blockers and required human decisions.",
+      "verification_method": "Inspect implementation output against sprint contract requirements.",
+      "source": "FEAT-0001",
+      "required": true
+    }
+  ],
+  "implementation_boundary": {
+    "allowed_file_areas": [
+      "To be selected by implementation_generator within repository-map-approved areas"
+    ],
+    "forbidden_file_areas": [
+      ".harness/agents/**",
+      ".git/**",
+      ".env",
+      ".env.*"
+    ],
+    "allowed_change_types": [
+      "Bounded implementation changes needed for FEAT-0001"
+    ],
+    "forbidden_change_types": [
+      "Approval policy changes",
+      "Dependency additions without approval",
+      "Deployment or CI/CD changes",
+      "Unrelated refactoring"
+    ],
+    "dependency_restrictions": [
+      "No new dependencies unless explicitly approved"
+    ],
+    "security_or_privacy_constraints": [
+      "Do not read or expose secrets"
+    ],
+    "approval_gates": [
+      "Escalate before changing permissions, secrets, deployment, CI/CD, or dependencies"
+    ],
+    "stop_conditions": [
+      "Implementation requires out-of-scope files",
+      "Acceptance criteria become unclear",
+      "Approval-gated change is needed"
+    ]
+  },
+  "contract_files": [
+    {
+      "path": "docs/sprints/SPRINT-0001.md",
+      "artifact_type": "markdown_contract",
+      "purpose": "Human-readable sprint contract",
+      "approval_required": false
+    },
+    {
+      "path": ".harness/state/sprint_contracts/SPRINT-0001.json",
+      "artifact_type": "machine_readable_contract",
+      "purpose": "Machine-readable sprint contract",
+      "approval_required": false
+    },
+    {
+      "path": ".harness/state/sprint_manifest.json",
+      "artifact_type": "manifest",
+      "purpose": "Sprint contract manifest",
+      "approval_required": false
+    }
+  ],
+  "created_files": [
+    {
+      "path": "docs/sprints/SPRINT-0001.md",
+      "reason": "Create human-readable sprint contract for FEAT-0001"
+    },
+    {
+      "path": ".harness/state/sprint_contracts/SPRINT-0001.json",
+      "reason": "Create machine-readable sprint contract for FEAT-0001"
+    },
+    {
+      "path": ".harness/state/sprint_manifest.json",
+      "reason": "Create sprint manifest"
+    }
+  ],
+  "updated_files": [],
+  "skipped_files": [],
+  "blocked_files": [],
+  "validation_results": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "single_feature_selected",
+        "passed": true,
+        "message": "Exactly one feature is selected."
+      },
+      {
+        "name": "acceptance_criteria_testable",
+        "passed": true,
+        "message": "Acceptance criteria are observable and testable."
+      },
+      {
+        "name": "no_implementation_content",
+        "passed": true,
+        "message": "Contract contains no code, patches, test implementation, implementation output, or QA result."
+      }
+    ]
+  },
+  "contract_report": {
+    "summary": "Drafted a bounded sprint contract for FEAT-0001.",
+    "contract_status": "contract_written",
+    "feature_status_recommendation": "preserve approved_for_sprint",
+    "warnings": []
+  },
+  "feature_status_recommendation": {
+    "feature_id": "FEAT-0001",
+    "current_status": "approved_for_sprint",
+    "recommended_status": "in_sprint_contract",
+    "reason": "A sprint contract has been written for the approved feature.",
+    "requires_human_approval": false
+  },
+  "handoff_summary": {
+    "current_status": "contract_written",
+    "sprint_contract_completed": true,
+    "sprint_id": "SPRINT-0001",
+    "source_feature": "FEAT-0001 Workflow Visibility",
+    "contract_file": "docs/sprints/SPRINT-0001.md",
+    "machine_readable_contract": ".harness/state/sprint_contracts/SPRINT-0001.json",
+    "approval_status": "not_required_for_approved_feature_contract",
+    "blockers": [],
+    "known_gaps": [],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "implementation",
+    "notes_for_harness_orchestrator": [
+      "Review the sprint contract before routing to implementation_generator.",
+      "Do not invoke implementation_generator directly from sprint_contract_agent output."
+    ],
+    "notes_for_implementation_generator": [
+      "Implement only FEAT-0001 within the contract boundaries.",
+      "Escalate to harness_orchestrator if approval-gated work is needed."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "implementation",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "contract_written"
+}

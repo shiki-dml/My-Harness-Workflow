@@ -1,0 +1,125 @@
+{
+  "curation_plan": {
+    "registry_path": "feature_registry.json",
+    "features_in_scope": [
+      "FEAT-0001"
+    ],
+    "source_evidence": [
+      "AGENT_HANDOFF.md references FEAT-0001",
+      ".harness/agents/handoff_writer/agent.md exists"
+    ],
+    "safe_update_scope": [
+      "Add verification gap note",
+      "Preserve existing feature ID and status"
+    ]
+  },
+  "registry_changes": {
+    "target_path": "feature_registry.json",
+    "created_feature_ids": [],
+    "updated_feature_ids": [
+      "FEAT-0001"
+    ],
+    "preserved_feature_ids": [
+      "FEAT-0001"
+    ],
+    "merged_feature_ids": [],
+    "skipped_feature_ids": [],
+    "blocked_feature_ids": []
+  },
+  "feature_changes": [
+    {
+      "feature_id": "FEAT-0001",
+      "name": "Persist handoff artifacts",
+      "change_type": "evidence_added",
+      "previous_status": "implemented",
+      "new_status": "implemented",
+      "evidence": [
+        {
+          "type": "agent_report",
+          "reference": "AGENT_HANDOFF.md",
+          "summary": "Handoff indicates verification evidence remains incomplete"
+        }
+      ],
+      "history_entry": {
+        "date": "2026-05-07",
+        "from_status": "implemented",
+        "to_status": "implemented",
+        "reason": "Recorded verification gap without changing status",
+        "evidence": "AGENT_HANDOFF.md"
+      }
+    }
+  ],
+  "duplicate_findings": [],
+  "dependency_findings": [],
+  "evidence_gaps": [
+    {
+      "title": "Missing verification evidence",
+      "description": "FEAT-0001 has implementation evidence but no passed verification evidence tied to acceptance criteria.",
+      "evidence": [
+        "feature_registry.json evidence.verification is empty"
+      ],
+      "recommendation": "Keep status implemented until verification evidence exists."
+    }
+  ],
+  "validation_results": [
+    {
+      "check": "JSON parse",
+      "result": "passed",
+      "evidence": "feature_registry.json parsed after update"
+    },
+    {
+      "check": "ID uniqueness",
+      "result": "passed",
+      "evidence": "FEAT-0001 appears once"
+    },
+    {
+      "check": "Status validity",
+      "result": "passed",
+      "evidence": "implemented is an approved lifecycle status"
+    },
+    {
+      "check": "Dependency references",
+      "result": "passed",
+      "evidence": "No dependencies declared"
+    }
+  ],
+  "updated_files": [
+    {
+      "path": "feature_registry.json",
+      "reason": "Recorded feature evidence gap"
+    }
+  ],
+  "skipped_files": [],
+  "blocked_files": [],
+  "reconciliation_summary": {
+    "summary": "Feature remained implemented because verification evidence is incomplete.",
+    "source_precedence": [
+      "Registry implementation evidence was preserved.",
+      "Handoff verification gap was added as current evidence."
+    ],
+    "unresolved_conflicts": []
+  },
+  "handoff_summary": {
+    "current_status": "Registry curated with evidence gap preserved.",
+    "registry_updated": true,
+    "features_changed": [
+      "FEAT-0001"
+    ],
+    "known_gaps": [
+      "FEAT-0001 needs verification evidence before it can be marked verified."
+    ],
+    "notes_for_harness_orchestrator": [
+      "Route to test strategy or QA only if verification planning or execution is now needed."
+    ],
+    "notes_for_handoff_writer": [
+      "Record that FEAT-0001 remains implemented, not verified."
+    ],
+    "notes_for_human": []
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "orchestration",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "registry_updated"
+}

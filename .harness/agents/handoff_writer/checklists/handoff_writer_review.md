@@ -1,0 +1,27 @@
+# handoff_writer Review Checklist
+
+- [ ] Only `handoff_writer` was defined during setup, except required routing/index references.
+- [ ] No root handoff files were created during setup.
+- [ ] Runtime handoff scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `handoff_writer`.
+- [ ] `AGENT_HANDOFF.md` required structure is explicit.
+- [ ] `PROGRESS.md` required structure is explicit.
+- [ ] `SESSION_LOG.jsonl` schema is explicit.
+- [ ] JSONL append-only behavior is explicit.
+- [ ] Completed work requires evidence.
+- [ ] Incomplete work is recorded separately.
+- [ ] Skipped and unknown validation are recorded honestly.
+- [ ] The agent cannot mark builds passed without evidence.
+- [ ] The agent cannot mark tests passed without evidence.
+- [ ] The agent cannot mark work complete solely because it was planned.
+- [ ] Product code modification is forbidden.
+- [ ] Test modification is forbidden.
+- [ ] Implementation, QA, and routing are forbidden.
+- [ ] Optional decision, risk, and next-action updates do not create duplicates.
+- [ ] Interactions with `harness_orchestrator` and `human_steering` are explicit.
+- [ ] Optional interactions with `feature_registry_curator`, `docs_gardener`, and `test_strategist` are explicit.
+- [ ] Handoff returns to `harness_orchestrator` or escalates to `human`.
+- [ ] Schemas are valid JSON.
+- [ ] Examples conform to schemas.

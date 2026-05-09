@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "repo_cartographer",
+  "generated_at": "",
+  "top_level_structure": [],
+  "harness_agents": [],
+  "governance_files": [],
+  "documentation_files": [],
+  "scripts": [],
+  "source_areas": [],
+  "test_areas": [],
+  "configuration_files": [],
+  "generated_external_ignored_paths": [],
+  "restricted_sensitive_paths": [],
+  "unknown_or_unmapped_paths": [],
+  "modification_rules": []
+}

@@ -1,0 +1,87 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "recommended_next_agent": "harness_orchestrator",
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Overwriting files",
+        "Creating files outside the allowed initialization scope",
+        "Adding dependencies",
+        "Changing security, deployment, CI/CD, secrets, or permissions"
+      ],
+      "forbidden_actions": [
+        "Write business code",
+        "Create product backlog items",
+        "Create sprint contracts",
+        "Create later agent definitions"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "initializer_agent",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "A valid steering contract exists and initialization has not occurred."
+  },
+  "repository_state_summary": {
+    "description": "Early harness setup with steering and orchestration agent definitions present.",
+    "expected_state": "No root scaffold files have been initialized yet.",
+    "material_differences": []
+  },
+  "initialization_scope": {
+    "allowed_runtime_outputs": [
+      "AGENTS.md",
+      "PROGRESS.md",
+      "feature_registry.json",
+      "docs/project_overview.md",
+      "docs/workflow_overview.md",
+      "docs/approval_policy.md",
+      "scripts/validate_harness_structure.py",
+      ".harness/state/workflow_state.json",
+      ".harness/state/initialization_manifest.json"
+    ],
+    "forbidden_runtime_outputs": [
+      "README.md",
+      "CODEMAP.md",
+      "src/**",
+      "tests/**",
+      "product backlog files",
+      "sprint contract files",
+      "implementation files",
+      "QA reports"
+    ],
+    "overwrite_policy": "skip_existing_and_block_conflicts_without_explicit_human_approval"
+  },
+  "existing_files": [],
+  "requested_initialization_outputs": [
+    "AGENTS.md",
+    "PROGRESS.md",
+    "feature_registry.json",
+    "docs/project_overview.md",
+    "docs/workflow_overview.md",
+    "docs/approval_policy.md",
+    "scripts/validate_harness_structure.py",
+    ".harness/state/workflow_state.json",
+    ".harness/state/initialization_manifest.json"
+  ],
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "constraints": [
+    "Create only minimal non-business scaffold files",
+    "Do not create README.md",
+    "Do not create business code",
+    "Return control to harness_orchestrator after completion"
+  ],
+  "current_phase": "initialization",
+  "initialization_mode": "apply_minimal_scaffold",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Initialize only the approved minimal scaffold when selected by harness_orchestrator.",
+      "approval_granted": false
+    }
+  ]
+}

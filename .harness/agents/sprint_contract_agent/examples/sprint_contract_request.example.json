@@ -1,0 +1,117 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Creating a contract for a feature not approved for sprint",
+        "Combining multiple features into one sprint",
+        "Expanding scope beyond the selected feature",
+        "Adding dependencies",
+        "Modifying feature_registry.json",
+        "Marking a sprint contract as approved"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "sprint_contract_agent",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "Product planning is complete and one approved feature was selected for sprint contracting."
+  },
+  "product_plan": {
+    "status": "planned",
+    "recommended_sprint_candidate": "FEAT-0001"
+  },
+  "feature_registry": {
+    "features": [
+      {
+        "feature_id": "FEAT-0001",
+        "title": "Workflow Visibility",
+        "status": "approved_for_sprint"
+      }
+    ]
+  },
+  "selected_feature": {
+    "feature_id": "FEAT-0001",
+    "title": "Workflow Visibility",
+    "status": "approved_for_sprint",
+    "problem_statement": "Humans and downstream agents need a clear view of workflow phase, completed agents, blockers, and next routing.",
+    "user_value": "Reduces ambiguity before implementation begins.",
+    "scope": [
+      "Represent current workflow phase",
+      "Represent completed and pending agents",
+      "Represent blockers and required human decisions"
+    ],
+    "non_goals": [
+      "Implement UI code in this contract",
+      "Perform QA in this contract"
+    ],
+    "acceptance_criteria": [
+      "Workflow status includes current phase",
+      "Workflow status includes blockers",
+      "Workflow status avoids implementation details"
+    ],
+    "dependencies": [
+      "Valid repository map"
+    ],
+    "assumptions": [
+      "Root scaffold exists from initializer_agent"
+    ],
+    "open_questions": []
+  },
+  "repository_map": {
+    "schema_version": "1.0",
+    "generated_by": "repo_cartographer",
+    "source_areas": [],
+    "test_areas": [],
+    "documentation_files": [
+      "docs/product_backlog.md",
+      "docs/product_roadmap.md"
+    ],
+    "restricted_paths": [
+      ".git/**",
+      ".env",
+      ".env.*"
+    ]
+  },
+  "codemap_summary": "Repository map is available. No source or test areas exist yet; contract should define boundaries without writing code.",
+  "contract_scope": {
+    "allowed_runtime_outputs": [
+      "docs/sprints/SPRINT-*.md",
+      ".harness/state/sprint_contracts/SPRINT-*.json",
+      ".harness/state/sprint_manifest.json"
+    ],
+    "forbidden_runtime_outputs": [
+      "src/**",
+      "tests/**",
+      "implementation outputs",
+      "QA outputs",
+      "later agent directories"
+    ],
+    "single_feature_default": true
+  },
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "implementation_constraints": [
+    "Do not add dependencies unless explicitly approved",
+    "Do not modify restricted paths",
+    "Do not write code during sprint contracting"
+  ],
+  "validation_expectations": [
+    "Acceptance criteria are observable and testable",
+    "Implementation boundaries list allowed and forbidden file areas",
+    "Contract contains no code or patches"
+  ],
+  "current_phase": "sprint_contracting",
+  "contract_mode": "write_contract",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Create a sprint contract only for the selected approved feature.",
+      "approval_granted": false
+    }
+  ]
+}

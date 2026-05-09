@@ -1,0 +1,324 @@
+{
+  "product_planning_brief": {
+    "steering_contract_status": "ready",
+    "orchestration_decision_status": "route_ready",
+    "repository_map_status": "mapped",
+    "project_goal": "Build an agentic workflow project",
+    "human_intent": "Establish a controlled agentic workflow where later agents follow explicit steering and approval rules.",
+    "success_criteria": [
+      "A product-level backlog exists before sprint contracting",
+      "Features remain proposed, deferred, or blocked unless explicitly approved",
+      "Planning outputs avoid implementation details"
+    ],
+    "non_goals": [
+      "Write business code during planning",
+      "Create sprint contracts during planning",
+      "Perform QA during planning"
+    ],
+    "constraints": [
+      "Do not create sprint contracts",
+      "Do not write implementation tasks",
+      "Return control to harness_orchestrator"
+    ],
+    "planning_scope": [
+      "feature_registry.json",
+      "docs/product_backlog.md",
+      "docs/product_roadmap.md",
+      ".harness/state/product_plan.json",
+      ".harness/state/planning_manifest.json"
+    ],
+    "assumptions": [
+      "The current planning pass should remain product-level and neutral."
+    ],
+    "open_questions": []
+  },
+  "feature_candidates": [
+    {
+      "feature_id": "FEAT-0001",
+      "title": "Workflow Visibility",
+      "problem_statement": "Humans and downstream agents need a clear view of current workflow phase, completed agents, blockers, and next expected routing.",
+      "target_user_or_actor": "Human reviewer and harness_orchestrator",
+      "user_value": "Reduces ambiguity about workflow state before sprint contracting.",
+      "scope": [
+        "Show current phase",
+        "Show completed and pending agents",
+        "Show blockers and required human decisions"
+      ],
+      "non_goals": [
+        "Implement UI code",
+        "Create sprint contract"
+      ],
+      "acceptance_criteria": [
+        "Workflow status can be represented without code changes",
+        "Blocked states and required approvals are visible",
+        "Output remains usable by sprint_contract_agent"
+      ],
+      "priority": "P0",
+      "effort_estimate": "medium",
+      "risk_level": "low",
+      "dependencies": [
+        "Valid steering contract",
+        "Repository map"
+      ],
+      "assumptions": [
+        "The initialized scaffold includes progress and state artifacts."
+      ],
+      "open_questions": [],
+      "status": "proposed"
+    },
+    {
+      "feature_id": "FEAT-0002",
+      "title": "Approval Gate Traceability",
+      "problem_statement": "Agents need a product-level way to surface which actions require human approval before sprint work is selected.",
+      "target_user_or_actor": "Human reviewer and downstream agents",
+      "user_value": "Prevents accidental approval bypass during later workflow steps.",
+      "scope": [
+        "Track approval-gated feature concerns",
+        "Record open approval questions",
+        "Preserve blocked status for uncertain features"
+      ],
+      "non_goals": [
+        "Grant approval",
+        "Modify security policy"
+      ],
+      "acceptance_criteria": [
+        "Approval-sensitive features remain proposed or blocked",
+        "Open approval questions are visible",
+        "No feature is marked approved for implementation"
+      ],
+      "priority": "P1",
+      "effort_estimate": "medium",
+      "risk_level": "medium",
+      "dependencies": [
+        "Human approval rules from steering contract"
+      ],
+      "assumptions": [
+        "Human approval remains explicit and non-delegable."
+      ],
+      "open_questions": [
+        "Which stakeholder should review approval-sensitive features?"
+      ],
+      "status": "blocked"
+    }
+  ],
+  "prioritized_features": [
+    {
+      "feature_id": "FEAT-0001",
+      "title": "Workflow Visibility",
+      "problem_statement": "Humans and downstream agents need a clear view of current workflow phase, completed agents, blockers, and next expected routing.",
+      "target_user_or_actor": "Human reviewer and harness_orchestrator",
+      "user_value": "Reduces ambiguity about workflow state before sprint contracting.",
+      "scope": [
+        "Show current phase",
+        "Show completed and pending agents",
+        "Show blockers and required human decisions"
+      ],
+      "non_goals": [
+        "Implement UI code",
+        "Create sprint contract"
+      ],
+      "acceptance_criteria": [
+        "Workflow status can be represented without code changes",
+        "Blocked states and required approvals are visible",
+        "Output remains usable by sprint_contract_agent"
+      ],
+      "priority": "P0",
+      "effort_estimate": "medium",
+      "risk_level": "low",
+      "dependencies": [
+        "Valid steering contract",
+        "Repository map"
+      ],
+      "assumptions": [
+        "The initialized scaffold includes progress and state artifacts."
+      ],
+      "open_questions": [],
+      "status": "proposed"
+    },
+    {
+      "feature_id": "FEAT-0002",
+      "title": "Approval Gate Traceability",
+      "problem_statement": "Agents need a product-level way to surface which actions require human approval before sprint work is selected.",
+      "target_user_or_actor": "Human reviewer and downstream agents",
+      "user_value": "Prevents accidental approval bypass during later workflow steps.",
+      "scope": [
+        "Track approval-gated feature concerns",
+        "Record open approval questions",
+        "Preserve blocked status for uncertain features"
+      ],
+      "non_goals": [
+        "Grant approval",
+        "Modify security policy"
+      ],
+      "acceptance_criteria": [
+        "Approval-sensitive features remain proposed or blocked",
+        "Open approval questions are visible",
+        "No feature is marked approved for implementation"
+      ],
+      "priority": "P1",
+      "effort_estimate": "medium",
+      "risk_level": "medium",
+      "dependencies": [
+        "Human approval rules from steering contract"
+      ],
+      "assumptions": [
+        "Human approval remains explicit and non-delegable."
+      ],
+      "open_questions": [
+        "Which stakeholder should review approval-sensitive features?"
+      ],
+      "status": "blocked"
+    }
+  ],
+  "rejected_or_deferred_items": [
+    {
+      "title": "Implementation Task Generation",
+      "reason": "Implementation tasks belong to a later agent and would cross planning boundaries.",
+      "decision": "deferred",
+      "revisit_condition": "Only after a sprint contract is approved and implementation_generator is routed."
+    }
+  ],
+  "feature_registry_changes": {
+    "action": "append_proposed_features",
+    "target_path": "feature_registry.json",
+    "added_features": [
+      "FEAT-0001",
+      "FEAT-0002"
+    ],
+    "updated_features": [],
+    "preserved_features": [],
+    "removed_features": [],
+    "approval_required": false,
+    "conflict_detected": false
+  },
+  "created_files": [
+    {
+      "path": "docs/product_backlog.md",
+      "reason": "Create product-level backlog planning artifact"
+    },
+    {
+      "path": "docs/product_roadmap.md",
+      "reason": "Create product-level roadmap planning artifact"
+    },
+    {
+      "path": ".harness/state/product_plan.json",
+      "reason": "Create machine-readable product plan"
+    },
+    {
+      "path": ".harness/state/planning_manifest.json",
+      "reason": "Create planning manifest"
+    }
+  ],
+  "updated_files": [
+    {
+      "path": "feature_registry.json",
+      "reason": "Append proposed features with stable IDs"
+    }
+  ],
+  "skipped_files": [],
+  "blocked_files": [],
+  "dependency_notes": [
+    "FEAT-0001 depends on valid workflow state and repository map artifacts.",
+    "FEAT-0002 depends on explicit human approval rules from the steering contract."
+  ],
+  "risk_notes": [
+    "Approval-sensitive features remain blocked until human review resolves open questions."
+  ],
+  "validation_results": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "allowed_outputs_only",
+        "passed": true,
+        "message": "Only allowed planning artifacts are created or updated."
+      },
+      {
+        "name": "feature_ids_unique",
+        "passed": true,
+        "message": "Feature IDs are unique."
+      },
+      {
+        "name": "no_implementation_details",
+        "passed": true,
+        "message": "Feature records contain no code, patches, sprint contracts, implementation tasks, or QA results."
+      }
+    ]
+  },
+  "planning_report": {
+    "summary": "Drafted a product-level backlog with proposed and blocked features only.",
+    "prioritized_feature_ids": [
+      "FEAT-0001",
+      "FEAT-0002"
+    ],
+    "deferred_or_rejected_count": 1,
+    "warnings": []
+  },
+  "product_plan": {
+    "schema_version": "1.0",
+    "generated_by": "product_planner",
+    "planning_basis": [
+      "Steering contract",
+      "Repository map",
+      "Success criteria",
+      "Non-goals and constraints"
+    ],
+    "feature_summary": "Two product-level feature candidates were identified without implementation details.",
+    "prioritized_features": [
+      "FEAT-0001",
+      "FEAT-0002"
+    ],
+    "deferred_features": [
+      "Implementation Task Generation"
+    ],
+    "blocked_features": [
+      "FEAT-0002"
+    ],
+    "assumptions": [
+      "The backlog should remain proposal-only until human approval changes feature status."
+    ],
+    "open_questions": [
+      "Which stakeholder should review approval-sensitive features?"
+    ],
+    "recommended_sprint_candidate": "FEAT-0001"
+  },
+  "planning_manifest": {
+    "generated_by": "product_planner",
+    "created_files": [
+      "docs/product_backlog.md",
+      "docs/product_roadmap.md",
+      ".harness/state/product_plan.json",
+      ".harness/state/planning_manifest.json"
+    ],
+    "updated_files": [
+      "feature_registry.json"
+    ],
+    "skipped_files": [],
+    "blocked_files": [],
+    "feature_count": 2,
+    "warnings": [],
+    "status": "planned"
+  },
+  "handoff_summary": {
+    "current_status": "planned",
+    "planning_completed": true,
+    "feature_registry_status": "updated_with_proposed_features",
+    "product_backlog_status": "created",
+    "product_roadmap_status": "created",
+    "recommended_sprint_candidate": "FEAT-0001",
+    "known_gaps": [
+      "Approval-sensitive feature ownership remains an open question."
+    ],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "sprint_contracting",
+    "notes_for_harness_orchestrator": [
+      "Review the recommended sprint candidate before routing.",
+      "Do not invoke sprint_contract_agent directly from product_planner output."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "sprint_contracting",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "planned"
+}

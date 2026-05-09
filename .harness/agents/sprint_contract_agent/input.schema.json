@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/sprint_contract_agent/input.schema.json",
+  "title": "sprint_contract_agent input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "selected_feature",
+    "repository_map",
+    "contract_scope",
+    "approval_policy",
+    "current_phase",
+    "contract_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "orchestration_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_next_agent": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "routing_rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "product_plan": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "feature_registry": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "selected_feature": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "repository_map": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "codemap_summary": {
+      "type": "string"
+    },
+    "contract_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed_runtime_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_runtime_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "single_feature_default": {
+          "type": "boolean"
+        }
+      }
+    },
+    "approval_policy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "approval_for": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "granted_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "approval_for",
+          "status"
+        ]
+      }
+    },
+    "implementation_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation_expectations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "sprint_contracting",
+        "blocked"
+      ]
+    },
+    "contract_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "draft_contract",
+        "write_contract",
+        "refresh_contract"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "approval_granted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}

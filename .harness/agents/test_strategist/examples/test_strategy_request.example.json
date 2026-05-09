@@ -1,0 +1,70 @@
+{
+  "steering_contract": {
+    "project_name": "Example Project",
+    "status": "ready"
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "test_strategist",
+    "routing_rationale": "FEAT-0001 is implemented but lacks verification strategy."
+  },
+  "feature_registry": {
+    "schema_version": "1.0",
+    "features": [
+      {
+        "id": "FEAT-0001",
+        "name": "Persist handoff artifacts",
+        "status": "implemented",
+        "acceptance_criteria": [
+          "Writes AGENT_HANDOFF.md with completed and incomplete work.",
+          "Records skipped validation honestly."
+        ]
+      }
+    ]
+  },
+  "feature_registry_path": "feature_registry.json",
+  "test_strategy_artifacts": [],
+  "coverage_matrix_artifacts": [],
+  "test_artifacts": [],
+  "ci_artifacts": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "kind": "ci_workflow",
+      "summary": "CI workflow exists but coverage mapping is unknown",
+      "feature_ids": []
+    }
+  ],
+  "handoff_artifacts": [
+    {
+      "path": "AGENT_HANDOFF.md",
+      "kind": "handoff",
+      "summary": "Handoff notes FEAT-0001 is implemented but not verified",
+      "feature_ids": [
+        "FEAT-0001"
+      ]
+    }
+  ],
+  "planning_artifacts": [],
+  "implementation_artifacts": [],
+  "verification_artifacts": [],
+  "candidate_features": [
+    {
+      "id": "FEAT-0001",
+      "name": "Persist handoff artifacts",
+      "status": "implemented",
+      "risk": "medium",
+      "source": "feature_registry.json"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "feature_id": "FEAT-0001",
+      "criterion": "Writes AGENT_HANDOFF.md with completed and incomplete work.",
+      "source": "feature_registry.json"
+    }
+  ],
+  "validation_commands": [],
+  "risk_context": [],
+  "human_messages": [],
+  "current_phase": "test_strategy",
+  "strategy_mode": "map_acceptance_criteria"
+}

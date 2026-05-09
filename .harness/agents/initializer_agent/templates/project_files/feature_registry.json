@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "project_name": "",
+  "source_of_truth": "human_steering steering contract",
+  "features": [],
+  "status_definitions": {
+    "proposed": "A possible feature recorded for later human review.",
+    "approved": "A feature explicitly approved by the human for planning.",
+    "in_sprint_contract": "A feature included in an approved sprint contract.",
+    "implemented": "A feature with implementation output returned for QA.",
+    "accepted": "A feature accepted after QA or human review."
+  },
+  "last_updated": ""
+}

@@ -1,0 +1,21 @@
+# initializer_agent Review Checklist
+
+- [ ] Only `initializer_agent` was defined during setup.
+- [ ] `human_steering` and `harness_orchestrator` were not modified.
+- [ ] No root initialization files were created during setup.
+- [ ] No later agents were created.
+- [ ] Runtime initialization scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `initializer_agent`.
+- [ ] Idempotency rules are defined.
+- [ ] Existing file conflicts block by default.
+- [ ] Overwrites require human approval.
+- [ ] No deletion is allowed.
+- [ ] `feature_registry.json` starts with no features.
+- [ ] `CODEMAP.md` is forbidden.
+- [ ] Product planning is forbidden.
+- [ ] Implementation is forbidden.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

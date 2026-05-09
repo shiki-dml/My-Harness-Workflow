@@ -1,0 +1,118 @@
+{
+  "strategy_plan": {
+    "strategy_mode": "map_acceptance_criteria",
+    "features_in_scope": [
+      "FEAT-0001"
+    ],
+    "source_evidence": [
+      "feature_registry.json lists FEAT-0001 as implemented",
+      "AGENT_HANDOFF.md says verification is incomplete"
+    ],
+    "safe_update_scope": [
+      "Create coverage mapping",
+      "Document validation command candidates",
+      "Preserve unknown validation as unknown"
+    ]
+  },
+  "coverage_changes": [
+    {
+      "feature_id": "FEAT-0001",
+      "feature_name": "Persist handoff artifacts",
+      "acceptance_criterion": "Writes AGENT_HANDOFF.md with completed and incomplete work.",
+      "risk": "medium",
+      "test_level": "contract",
+      "test_case_or_command": "Validate AGENT_HANDOFF.md required headings and evidence fields",
+      "coverage_status": "planned",
+      "evidence": "No test output available",
+      "gap_or_next_step": "Add or run a contract check before marking verified"
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "python scripts/check_handoff.py",
+      "purpose": "Validate handoff artifact structure",
+      "expected_runtime": "fast",
+      "when_to_run": "After handoff_writer updates AGENT_HANDOFF.md",
+      "environment": "Python and repository scripts available",
+      "safety": "cheap",
+      "status": "unknown",
+      "evidence": "Command has not been confirmed to exist or run"
+    }
+  ],
+  "test_gaps": [
+    {
+      "gap_type": "test_exists_not_run",
+      "feature_id": "FEAT-0001",
+      "description": "No validation output proves the handoff structure criterion passed.",
+      "impact": "Feature should remain implemented, not verified.",
+      "recommended_next_step": "Run or create a contract check tied to the criterion.",
+      "owner_agent": "harness_orchestrator",
+      "blocks_verification": true
+    }
+  ],
+  "flaky_tests": [],
+  "manual_checks": [],
+  "smoke_tests": [],
+  "regression_tests": [],
+  "risk_summary": [
+    {
+      "feature_id": "FEAT-0001",
+      "risk": "medium",
+      "reason": "Handoff continuity affects future agent correctness.",
+      "required_coverage": [
+        "contract",
+        "manual"
+      ]
+    }
+  ],
+  "created_files": [],
+  "updated_files": [
+    {
+      "path": "docs/TEST_MATRIX.md",
+      "reason": "Mapped FEAT-0001 acceptance criterion to planned contract coverage"
+    }
+  ],
+  "skipped_files": [],
+  "blocked_files": [],
+  "validation_results": [
+    {
+      "check": "Markdown code fences",
+      "result": "passed",
+      "evidence": "No unclosed code fences found in updated strategy files"
+    }
+  ],
+  "reconciliation_summary": {
+    "summary": "FEAT-0001 remains implemented because verification evidence is missing.",
+    "source_precedence": [
+      "Feature registry status was preserved.",
+      "Handoff verification gap was treated as current evidence."
+    ],
+    "unresolved_conflicts": []
+  },
+  "handoff_summary": {
+    "current_status": "Coverage mapping planned but verification evidence is still missing.",
+    "strategy_updated": true,
+    "features_with_gaps": [
+      "FEAT-0001"
+    ],
+    "known_gaps": [
+      "FEAT-0001 lacks passed validation evidence tied to acceptance criteria."
+    ],
+    "notes_for_harness_orchestrator": [
+      "Route implementation or QA work only after selecting the validation owner."
+    ],
+    "notes_for_feature_registry_curator": [
+      "Do not mark FEAT-0001 verified until passed evidence exists."
+    ],
+    "notes_for_handoff_writer": [
+      "Preserve FEAT-0001 verification gap in session continuity artifacts."
+    ],
+    "notes_for_human": []
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "orchestration",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "coverage_matrix_updated"
+}

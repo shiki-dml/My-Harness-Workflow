@@ -1,0 +1,82 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "recommended_next_agent": "harness_orchestrator",
+    "approval_policy": {
+      "autonomy_level": "execute_with_approval_gates",
+      "requires_human_approval_for": [
+        "Deleting files",
+        "Security policy changes",
+        "Deployment, CI/CD, secrets, or permissions changes",
+        "External dependency introduction",
+        "Project goal changes",
+        "Technical direction changes",
+        "Large-scale refactoring",
+        "User data, privacy, or compliance concerns",
+        "Irreversible operations",
+        "High-impact uncertain actions"
+      ],
+      "forbidden_actions": [
+        "Bypass human approval gates",
+        "Treat silence as approval",
+        "Create downstream agent definitions"
+      ],
+      "default_when_uncertain": "stop_and_ask_human"
+    },
+    "stop_conditions": [
+      "Goals conflict",
+      "Authorization is insufficient",
+      "Risk level is critical",
+      "A downstream agent appears to be bypassing human approval"
+    ]
+  },
+  "workflow_state": {
+    "current_phase": "orchestration",
+    "completed_agents": [
+      "human_steering"
+    ],
+    "pending_agents": [
+      "initializer_agent"
+    ],
+    "last_agent": "human_steering",
+    "known_outputs": [
+      "steering_contract"
+    ],
+    "pending_approvals": [],
+    "known_risks": [],
+    "blockers": []
+  },
+  "requested_action": "Determine the next agent after human_steering has produced a ready steering contract.",
+  "available_agents": [
+    "human_steering",
+    "harness_orchestrator",
+    "initializer_agent",
+    "human"
+  ],
+  "last_agent_output": {
+    "agent": "human_steering",
+    "status": "ready",
+    "recommended_next_agent": "harness_orchestrator"
+  },
+  "repository_state_summary": {
+    "description": "Early harness setup with human_steering complete and no project initialization performed.",
+    "expected_state": "Only steering artifacts exist before initialization.",
+    "material_differences": []
+  },
+  "pending_approvals": [],
+  "risk_events": [],
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Proceed one agent at a time after steering is established.",
+      "approval_granted": false
+    }
+  ],
+  "constraints": [
+    "Do not create product plans",
+    "Do not write business code",
+    "Do not create later agent definitions"
+  ],
+  "current_phase": "orchestration",
+  "orchestration_mode": "route_next_agent"
+}

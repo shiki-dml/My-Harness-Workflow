@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "sprint_contract_agent",
+  "generated_at": "",
+  "sprint_id": "",
+  "source_feature_id": "",
+  "objective": "",
+  "scope": [],
+  "non_goals": [],
+  "acceptance_criteria": [],
+  "implementation_boundary": {
+    "allowed_file_areas": [],
+    "forbidden_file_areas": [],
+    "allowed_change_types": [],
+    "forbidden_change_types": [],
+    "dependency_restrictions": [],
+    "approval_gates": [],
+    "stop_conditions": []
+  },
+  "validation_requirements": [],
+  "risks": [],
+  "dependencies": [],
+  "assumptions": [],
+  "open_questions": [],
+  "approval_status": "",
+  "stop_conditions": [],
+  "handoff_notes_for_implementation_generator": []
+}

@@ -1,0 +1,328 @@
+{
+  "handoff_plan": {
+    "target_files": [
+      "AGENT_HANDOFF.md",
+      "PROGRESS.md",
+      "SESSION_LOG.jsonl"
+    ],
+    "source_evidence": [
+      "orchestration_decision selected handoff_writer",
+      "qa_evaluator output reported passed"
+    ],
+    "safety_checks": [
+      "No product files will be modified.",
+      "Skipped tests are recorded as skipped."
+    ],
+    "optional_documents_considered": [
+      {
+        "path": "docs/risk_register.md",
+        "reason": "File does not exist; no duplicate risk structure will be created."
+      }
+    ]
+  },
+  "agent_handoff": {
+    "session_summary": "QA output was prepared for routing and handoff artifacts were refreshed from available evidence.",
+    "current_project_state": "Current phase is handoff; final routing remains with harness_orchestrator.",
+    "completed_work": [
+      {
+        "summary": "QA artifact was produced before handoff.",
+        "evidence": [
+          "qa_evaluator output"
+        ]
+      }
+    ],
+    "incomplete_work": [
+      {
+        "summary": "Final human review has not happened.",
+        "evidence": [
+          "workflow_state pending_agents includes harness_orchestrator"
+        ]
+      }
+    ],
+    "validation_status": [
+      {
+        "name": "qa_evaluator",
+        "kind": "qa",
+        "status": "passed",
+        "evidence": "qa_evaluator output reported passed.",
+        "limitations": "handoff_writer did not rerun QA."
+      },
+      {
+        "name": "tests",
+        "kind": "test",
+        "status": "skipped",
+        "evidence": "No test command was run by handoff_writer.",
+        "limitations": "No additional runtime validation was performed during handoff."
+      }
+    ],
+    "decisions_made": [
+      {
+        "decision": "Refresh handoff artifacts before final routing.",
+        "source": "orchestration_decision",
+        "evidence": [
+          "selected_next_agent was handoff_writer"
+        ],
+        "approval_status": "not_required"
+      }
+    ],
+    "risks_and_blockers": [
+      {
+        "description": "Validation evidence may become stale if files change after QA.",
+        "level": "medium",
+        "status": "open",
+        "mitigation": "Rerun relevant validation after additional changes."
+      }
+    ],
+    "recommended_next_actions": [
+      {
+        "action": "Return to harness_orchestrator for final routing.",
+        "owner": "harness_orchestrator",
+        "priority": "high",
+        "requires_approval": false
+      }
+    ],
+    "files_changed": [
+      {
+        "path": "AGENT_HANDOFF.md",
+        "action": "updated",
+        "status": "completed",
+        "evidence": [
+          "handoff_writer output"
+        ]
+      },
+      {
+        "path": "PROGRESS.md",
+        "action": "updated",
+        "status": "completed",
+        "evidence": [
+          "handoff_writer output"
+        ]
+      },
+      {
+        "path": "SESSION_LOG.jsonl",
+        "action": "appended",
+        "status": "completed",
+        "evidence": [
+          "session_log_entry"
+        ]
+      }
+    ],
+    "suggested_next_agent": "harness_orchestrator",
+    "suggested_next_agent_reason": "Routing decisions after handoff writing belong to harness_orchestrator."
+  },
+  "progress_update": {
+    "current_status": "Handoff artifacts refreshed; final routing remains pending.",
+    "milestones": [
+      {
+        "name": "QA evaluated",
+        "status": "completed",
+        "evidence": [
+          "qa_evaluator output reported passed"
+        ]
+      },
+      {
+        "name": "Human final review",
+        "status": "in_progress",
+        "evidence": [
+          "next action routes to harness_orchestrator"
+        ]
+      }
+    ],
+    "recent_updates": [
+      {
+        "summary": "Handoff files were refreshed from QA evidence.",
+        "evidence": [
+          "handoff_writer output"
+        ]
+      }
+    ],
+    "open_threads": [
+      {
+        "action": "Route final review or next repair step.",
+        "owner": "harness_orchestrator",
+        "priority": "high",
+        "requires_approval": false
+      }
+    ]
+  },
+  "session_log_entry": {
+    "timestamp": "2026-05-07T10:30:00Z",
+    "session_id": "SESSION-2026-05-07-001",
+    "trigger": "qa_complete",
+    "agents_involved": [
+      "qa_evaluator",
+      "handoff_writer"
+    ],
+    "summary": "QA output was summarized for routing; no product files were changed by handoff_writer.",
+    "files_changed": [
+      {
+        "path": "AGENT_HANDOFF.md",
+        "action": "updated",
+        "status": "completed",
+        "evidence": [
+          "handoff_writer output"
+        ]
+      },
+      {
+        "path": "PROGRESS.md",
+        "action": "updated",
+        "status": "completed",
+        "evidence": [
+          "handoff_writer output"
+        ]
+      },
+      {
+        "path": "SESSION_LOG.jsonl",
+        "action": "appended",
+        "status": "completed",
+        "evidence": [
+          "session_log_entry"
+        ]
+      }
+    ],
+    "feature_ids": [
+      "FEAT-001"
+    ],
+    "validation": [
+      {
+        "name": "qa_evaluator",
+        "kind": "qa",
+        "status": "passed",
+        "evidence": "qa_evaluator output reported passed.",
+        "limitations": "handoff_writer did not rerun QA."
+      },
+      {
+        "name": "tests",
+        "kind": "test",
+        "status": "skipped",
+        "evidence": "No test command was run by handoff_writer.",
+        "limitations": "No additional runtime validation was performed during handoff."
+      }
+    ],
+    "decisions": [
+      {
+        "decision": "Refresh handoff artifacts before final routing.",
+        "source": "orchestration_decision",
+        "evidence": [
+          "selected_next_agent was handoff_writer"
+        ],
+        "approval_status": "not_required"
+      }
+    ],
+    "risks": [
+      {
+        "description": "Validation evidence may become stale if files change after QA.",
+        "level": "medium",
+        "status": "open",
+        "mitigation": "Rerun relevant validation after additional changes."
+      }
+    ],
+    "next_actions": [
+      {
+        "action": "Return to harness_orchestrator for final routing.",
+        "owner": "harness_orchestrator",
+        "priority": "high",
+        "requires_approval": false
+      }
+    ]
+  },
+  "optional_document_updates": [
+    {
+      "path": "docs/risk_register.md",
+      "purpose": "risk_register",
+      "action": "skipped",
+      "reason": "File does not exist; handoff_writer will not create duplicate risk structure."
+    }
+  ],
+  "created_files": [],
+  "updated_files": [
+    {
+      "path": "AGENT_HANDOFF.md",
+      "reason": "Required handoff artifact refreshed."
+    },
+    {
+      "path": "PROGRESS.md",
+      "reason": "Required progress artifact refreshed."
+    }
+  ],
+  "appended_files": [
+    {
+      "path": "SESSION_LOG.jsonl",
+      "reason": "Required session log entry appended."
+    }
+  ],
+  "skipped_files": [
+    {
+      "path": "docs/risk_register.md",
+      "reason": "File does not exist and no duplicate structure should be created."
+    }
+  ],
+  "blocked_files": [],
+  "validation_summary": {
+    "artifact_validation": [
+      {
+        "name": "AGENT_HANDOFF.md sections",
+        "kind": "review",
+        "status": "passed",
+        "evidence": "All required sections were present in generated content.",
+        "limitations": "Markdown rendering was not separately checked."
+      },
+      {
+        "name": "SESSION_LOG.jsonl entry",
+        "kind": "review",
+        "status": "passed",
+        "evidence": "session_log_entry is valid JSON.",
+        "limitations": "Existing historical JSONL entries were not rewritten."
+      }
+    ],
+    "runtime_validation": [
+      {
+        "name": "tests",
+        "kind": "test",
+        "status": "skipped",
+        "evidence": "No test command was run by handoff_writer.",
+        "limitations": "Handoff writing does not validate product behavior."
+      }
+    ],
+    "limitations": [
+      "handoff_writer did not rerun QA or tests."
+    ]
+  },
+  "evidence_gaps": [
+    {
+      "summary": "No independent test command was run during handoff.",
+      "evidence": [
+        "validation_evidence status for tests is skipped"
+      ]
+    }
+  ],
+  "handoff_summary": {
+    "current_status": "Handoff refreshed and ready for orchestration.",
+    "handoff_completed": true,
+    "files_written": [
+      "AGENT_HANDOFF.md",
+      "PROGRESS.md",
+      "SESSION_LOG.jsonl"
+    ],
+    "validation_summary": "Handoff artifacts were checked; product tests were skipped.",
+    "known_gaps": [
+      "No product tests were run by handoff_writer."
+    ],
+    "blockers": [],
+    "notes_for_harness_orchestrator": [
+      "Route final human review or next repair step based on QA result and steering contract."
+    ],
+    "notes_for_human": [
+      "Review skipped test status before treating runtime behavior as independently revalidated."
+    ],
+    "notes_for_future_agents": [
+      "Use AGENT_HANDOFF.md and SESSION_LOG.jsonl as continuity inputs."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "orchestration",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "handoff_complete"
+}

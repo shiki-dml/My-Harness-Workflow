@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/qa_evaluator/input.schema.json",
+  "title": "qa_evaluator input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "sprint_contract",
+    "implementation_result",
+    "repository_map",
+    "changed_files",
+    "acceptance_criteria",
+    "validation_requirements",
+    "approval_policy",
+    "current_phase",
+    "evaluation_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object"
+    },
+    "orchestration_decision": {
+      "type": "object"
+    },
+    "sprint_contract": {
+      "type": "object"
+    },
+    "implementation_result": {
+      "type": "object"
+    },
+    "implementation_report": {
+      "type": "object"
+    },
+    "repository_map": {
+      "type": "object"
+    },
+    "codemap_summary": {
+      "type": "string"
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approval_policy": {
+      "type": "object"
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    },
+    "allowed_file_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "forbidden_file_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "allowed_change_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "forbidden_change_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "qa",
+        "blocked"
+      ]
+    },
+    "evaluation_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "evaluate_artifacts",
+        "run_safe_validations",
+        "produce_qa_report",
+        "re_evaluate_fix"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    }
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "cartography_plan": {
+    "steering_contract_status": "ready",
+    "orchestration_decision_status": "route_ready",
+    "initialization_status": "initialized",
+    "scan_scope": [
+      "."
+    ],
+    "ignore_paths": [
+      ".git/**",
+      "node_modules/**",
+      ".env",
+      ".env.*",
+      "secret files"
+    ],
+    "planned_outputs": [
+      "CODEMAP.md",
+      ".harness/state/repository_map.json",
+      ".harness/state/cartography_manifest.json"
+    ],
+    "approval_check": "No unmarked CODEMAP.md overwrite, restricted scope expansion, or out-of-scope modification is requested.",
+    "validation_plan": [
+      "Verify only allowed mapping artifacts are created",
+      "Verify CODEMAP.md contains managed section markers",
+      "Verify repository_map.json and cartography_manifest.json are parseable",
+      "Verify no sensitive file contents are included"
+    ]
+  },
+  "scanned_paths": [
+    ".harness/agents/human_steering",
+    ".harness/agents/harness_orchestrator",
+    ".harness/agents/initializer_agent",
+    ".harness/agents/repo_cartographer",
+    "AGENTS.md",
+    "PROGRESS.md",
+    "feature_registry.json",
+    "docs/project_overview.md",
+    "docs/workflow_overview.md",
+    "docs/approval_policy.md"
+  ],
+  "ignored_paths": [
+    ".git/**",
+    "node_modules/**",
+    ".env",
+    ".env.*",
+    "secret files"
+  ],
+  "repository_inventory": [
+    {
+      "path": ".harness/agents/human_steering",
+      "category": "harness_agents",
+      "purpose": "Steering contract agent definition",
+      "safe_to_read": true,
+      "safe_to_modify": false,
+      "notes": "Existing harness agent definition"
+    },
+    {
+      "path": ".harness/agents/harness_orchestrator",
+      "category": "harness_agents",
+      "purpose": "Workflow orchestration agent definition",
+      "safe_to_read": true,
+      "safe_to_modify": false,
+      "notes": "Existing harness agent definition"
+    },
+    {
+      "path": ".harness/agents/initializer_agent",
+      "category": "harness_agents",
+      "purpose": "Initialization agent definition",
+      "safe_to_read": true,
+      "safe_to_modify": false,
+      "notes": "Existing harness agent definition"
+    },
+    {
+      "path": "feature_registry.json",
+      "category": "governance_files",
+      "purpose": "Empty feature registry created by initializer_agent",
+      "safe_to_read": true,
+      "safe_to_modify": false,
+      "notes": "Downstream agents should modify only when routed and approved"
+    }
+  ],
+  "codemap_changes": {
+    "action": "create",
+    "target_path": "CODEMAP.md",
+    "managed_sections_updated": true,
+    "human_content_preserved": true,
+    "conflict_detected": false
+  },
+  "created_files": [
+    {
+      "path": "CODEMAP.md",
+      "reason": "Create repository map for downstream agents"
+    },
+    {
+      "path": ".harness/state/repository_map.json",
+      "reason": "Create machine-readable repository map"
+    },
+    {
+      "path": ".harness/state/cartography_manifest.json",
+      "reason": "Create machine-readable cartography manifest"
+    }
+  ],
+  "updated_files": [],
+  "skipped_files": [],
+  "blocked_files": [],
+  "risk_notes": [
+    "Restricted paths are listed by path pattern only and were not read for contents."
+  ],
+  "validation_results": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "allowed_outputs_only",
+        "passed": true,
+        "message": "Only CODEMAP.md and machine-readable map artifacts are created."
+      },
+      {
+        "name": "managed_markers_present",
+        "passed": true,
+        "message": "CODEMAP.md contains repo cartographer managed section markers."
+      },
+      {
+        "name": "no_sensitive_content",
+        "passed": true,
+        "message": "No restricted file contents or secret values are included."
+      }
+    ]
+  },
+  "map_update_report": {
+    "summary": "Mapped the initialized harness repository scaffold without creating product plans or implementation tasks.",
+    "warnings": [],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "product_planning"
+  },
+  "repository_map": {
+    "schema_version": "1.0",
+    "generated_by": "repo_cartographer",
+    "top_level_structure": [
+      ".harness",
+      "docs",
+      "scripts"
+    ],
+    "harness_agents": [
+      "human_steering",
+      "harness_orchestrator",
+      "initializer_agent",
+      "repo_cartographer"
+    ],
+    "governance_files": [
+      "AGENTS.md",
+      "PROGRESS.md",
+      "feature_registry.json"
+    ],
+    "documentation_files": [
+      "docs/project_overview.md",
+      "docs/workflow_overview.md",
+      "docs/approval_policy.md"
+    ],
+    "scripts": [
+      "scripts/validate_harness_structure.py"
+    ],
+    "source_areas": [],
+    "test_areas": [],
+    "restricted_paths": [
+      ".git/**",
+      ".env",
+      ".env.*"
+    ],
+    "unknown_paths": []
+  },
+  "cartography_manifest": {
+    "generated_by": "repo_cartographer",
+    "scanned_path_count": 10,
+    "ignored_path_count": 5,
+    "created_files": [
+      "CODEMAP.md",
+      ".harness/state/repository_map.json",
+      ".harness/state/cartography_manifest.json"
+    ],
+    "updated_files": [],
+    "blocked_files": [],
+    "warnings": []
+  },
+  "handoff_summary": {
+    "current_status": "mapped",
+    "mapping_completed": true,
+    "codemap_status": "created",
+    "repository_map_status": "created",
+    "known_gaps": [],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "product_planning",
+    "notes_for_harness_orchestrator": [
+      "Review map artifacts before routing to product_planner.",
+      "Do not invoke product_planner directly from repo_cartographer output."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "product_planning",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "mapped"
+}

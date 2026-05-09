@@ -1,0 +1,153 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Accessing restricted or sensitive files",
+        "Running commands with side effects",
+        "Expanding evaluation scope",
+        "Approving deployment or release"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "qa_evaluator",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "Implementation output exists and independent QA is pending."
+  },
+  "sprint_contract": {
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "source_feature_title": "Workflow Visibility",
+    "objective": "Add contract-authorized workflow status behavior for downstream review.",
+    "approval_status": "approved_for_implementation",
+    "allowed_file_areas": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "forbidden_file_areas": [
+      ".harness/agents/**",
+      "AGENTS.md",
+      "CODEMAP.md",
+      "feature_registry.json"
+    ],
+    "allowed_change_types": [
+      "create_file",
+      "add_test"
+    ],
+    "forbidden_change_types": [
+      "delete_file",
+      "dependency_addition",
+      "deployment_change",
+      "ci_cd_change"
+    ]
+  },
+  "implementation_result": {
+    "schema_version": "1.0",
+    "generated_by": "implementation_generator",
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "contract_status": "approved_for_implementation",
+    "files_changed": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "acceptance_criteria_addressed": [
+      "AC-001",
+      "AC-002"
+    ],
+    "validation_summary": "Local self-check completed; independent QA is required.",
+    "known_gaps": [
+      "qa_evaluator has not run."
+    ],
+    "qa_required": true,
+    "status": "implemented"
+  },
+  "implementation_report": {
+    "summary": "Implemented only the approved sprint contract within allowed file areas.",
+    "qa_required": true
+  },
+  "repository_map": {
+    "schema_version": "1.0",
+    "generated_by": "repo_cartographer",
+    "source_areas": [
+      "src/**"
+    ],
+    "test_areas": [
+      "tests/**"
+    ],
+    "restricted_paths": [
+      ".git/**",
+      ".env",
+      ".env.*"
+    ]
+  },
+  "codemap_summary": "Repository map allows contract-scoped source and test review only.",
+  "changed_files": [
+    {
+      "path": "src/workflow_status.py",
+      "action": "created",
+      "change_type": "create_file"
+    },
+    {
+      "path": "tests/test_workflow_status.py",
+      "action": "created",
+      "change_type": "add_test"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Workflow status includes current phase.",
+      "required": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Workflow status includes blockers and next phase.",
+      "required": true
+    }
+  ],
+  "validation_requirements": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "purpose": "Run contract-authorized local test validation",
+      "requires_network": false,
+      "destructive": false
+    }
+  ],
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "allowed_file_areas": [
+    "src/workflow_status.py",
+    "tests/test_workflow_status.py"
+  ],
+  "forbidden_file_areas": [
+    ".harness/agents/**",
+    "AGENTS.md",
+    "CODEMAP.md",
+    "feature_registry.json"
+  ],
+  "allowed_change_types": [
+    "create_file",
+    "add_test"
+  ],
+  "forbidden_change_types": [
+    "delete_file",
+    "dependency_addition",
+    "deployment_change",
+    "ci_cd_change"
+  ],
+  "current_phase": "qa",
+  "evaluation_mode": "produce_qa_report",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Evaluate only the implemented sprint contract.",
+      "approval_granted": false
+    }
+  ]
+}

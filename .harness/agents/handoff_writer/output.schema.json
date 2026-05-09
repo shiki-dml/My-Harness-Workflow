@@ -1,0 +1,632 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/handoff_writer/output.schema.json",
+  "title": "handoff_writer output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_plan",
+    "agent_handoff",
+    "progress_update",
+    "session_log_entry",
+    "validation_summary",
+    "handoff_summary",
+    "recommended_next_agent",
+    "suggested_next_phase",
+    "requires_human_approval",
+    "status"
+  ],
+  "properties": {
+    "handoff_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safety_checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_documents_considered": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/path_reason"
+          }
+        }
+      }
+    },
+    "agent_handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_summary",
+        "current_project_state",
+        "completed_work",
+        "incomplete_work",
+        "validation_status",
+        "decisions_made",
+        "risks_and_blockers",
+        "recommended_next_actions",
+        "files_changed",
+        "suggested_next_agent",
+        "suggested_next_agent_reason"
+      ],
+      "properties": {
+        "session_summary": {
+          "type": "string"
+        },
+        "current_project_state": {
+          "type": "string"
+        },
+        "completed_work": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_item"
+          }
+        },
+        "incomplete_work": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_item"
+          }
+        },
+        "validation_status": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_record"
+          }
+        },
+        "decisions_made": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision_record"
+          }
+        },
+        "risks_and_blockers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risk_record"
+          }
+        },
+        "recommended_next_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/next_action"
+          }
+        },
+        "files_changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/file_record"
+          }
+        },
+        "suggested_next_agent": {
+          "type": "string"
+        },
+        "suggested_next_agent_reason": {
+          "type": "string"
+        }
+      }
+    },
+    "progress_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_status",
+        "milestones",
+        "recent_updates",
+        "open_threads"
+      ],
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "status",
+              "evidence"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "completed",
+                  "in_progress",
+                  "blocked",
+                  "deferred",
+                  "unknown"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "recent_updates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_item"
+          }
+        },
+        "open_threads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/next_action"
+          }
+        }
+      }
+    },
+    "session_log_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timestamp",
+        "session_id",
+        "trigger",
+        "agents_involved",
+        "summary",
+        "files_changed",
+        "feature_ids",
+        "validation",
+        "decisions",
+        "risks",
+        "next_actions"
+      ],
+      "properties": {
+        "timestamp": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "agents_involved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "summary": {
+          "type": "string"
+        },
+        "files_changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/file_record"
+          }
+        },
+        "feature_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_record"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision_record"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risk_record"
+          }
+        },
+        "next_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/next_action"
+          }
+        }
+      }
+    },
+    "optional_document_updates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "purpose",
+          "action",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "skipped",
+              "blocked"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "created_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "updated_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "appended_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "blocked_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "validation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_validation",
+        "runtime_validation",
+        "limitations"
+      ],
+      "properties": {
+        "artifact_validation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_record"
+          }
+        },
+        "runtime_validation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_record"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence_gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence_item"
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "handoff_completed": {
+          "type": "boolean"
+        },
+        "files_written": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation_summary": {
+          "type": "string"
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_harness_orchestrator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_human": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_future_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "feature_registry_curator",
+        "test_strategist",
+        "human",
+        "none"
+      ]
+    },
+    "suggested_next_phase": {
+      "type": "string",
+      "enum": [
+        "orchestration",
+        "human_review",
+        "feature_registry",
+        "documentation",
+        "test_strategy",
+        "complete",
+        "blocked"
+      ]
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "handoff_plan_ready",
+        "handoff_complete",
+        "progress_updated",
+        "session_log_appended",
+        "blocked_missing_steering_contract",
+        "blocked_missing_orchestration_decision",
+        "blocked_missing_evidence",
+        "blocked_human_approval_required",
+        "blocked_artifact_conflict",
+        "blocked_scope_conflict",
+        "failed_artifact_validation"
+      ]
+    }
+  },
+  "$defs": {
+    "path_reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "reason"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "evidence"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "file_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "action",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "incomplete",
+            "skipped",
+            "blocked",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kind",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    },
+    "decision_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "source",
+        "evidence"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_status": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "level",
+        "status"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "mitigation": {
+          "type": "string"
+        }
+      }
+    },
+    "next_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "owner",
+        "priority"
+      ],
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "required_evidence": {
+          "type": "string"
+        },
+        "requires_approval": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

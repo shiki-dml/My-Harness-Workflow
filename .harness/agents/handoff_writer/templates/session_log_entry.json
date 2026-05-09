@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-05-07T10:30:00Z",
+  "session_id": "SESSION-2026-05-07-001",
+  "trigger": "handoff_requested",
+  "agents_involved": [
+    "handoff_writer"
+  ],
+  "summary": "Handoff artifacts were prepared from available evidence.",
+  "files_changed": [
+    {
+      "path": "AGENT_HANDOFF.md",
+      "action": "updated",
+      "status": "completed",
+      "evidence": [
+        "handoff_writer output"
+      ]
+    }
+  ],
+  "feature_ids": [],
+  "validation": [
+    {
+      "name": "tests",
+      "kind": "test",
+      "status": "skipped",
+      "evidence": "No test command was run by handoff_writer.",
+      "limitations": "Handoff writing does not validate product behavior."
+    }
+  ],
+  "decisions": [],
+  "risks": [],
+  "next_actions": [
+    {
+      "action": "Return to harness_orchestrator for routing.",
+      "owner": "harness_orchestrator",
+      "priority": "high",
+      "requires_approval": false
+    }
+  ]
+}

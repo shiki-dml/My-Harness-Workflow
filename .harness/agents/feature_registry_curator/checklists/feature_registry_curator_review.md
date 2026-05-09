@@ -1,0 +1,25 @@
+# feature_registry_curator Review Checklist
+
+- [ ] Only `feature_registry_curator` was defined during setup, except required routing/index references.
+- [ ] No root `feature_registry.json` was created during setup unless repository convention required it.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `feature_registry_curator`.
+- [ ] Runtime registry scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] Feature lifecycle states are explicit.
+- [ ] Critical status distinctions are explicit.
+- [ ] Existing registry schema preservation is explicit.
+- [ ] Feature ID stability and uniqueness rules are explicit.
+- [ ] Status transition evidence rules are explicit.
+- [ ] Acceptance criteria rules are explicit.
+- [ ] Dependency tracking rules are explicit.
+- [ ] Duplicate prevention rules are explicit.
+- [ ] Blocker and risk distinctions are explicit.
+- [ ] Reconciliation source precedence is explicit.
+- [ ] Product code modification is forbidden.
+- [ ] Test design and broad docs ownership are forbidden.
+- [ ] Verification and release cannot be invented.
+- [ ] Registry JSON validation is required.
+- [ ] Handoff returns to `harness_orchestrator` or escalates clearly.
+- [ ] Schemas are valid JSON.
+- [ ] Examples conform to schemas.

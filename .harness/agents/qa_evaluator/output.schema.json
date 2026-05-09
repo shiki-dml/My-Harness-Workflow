@@ -1,0 +1,650 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/qa_evaluator/output.schema.json",
+  "title": "qa_evaluator output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "qa_plan",
+    "evaluation_summary",
+    "acceptance_criteria_results",
+    "validation_plan",
+    "validation_results",
+    "defect_reports",
+    "qa_report",
+    "recommended_next_agent",
+    "suggested_next_phase",
+    "requires_human_approval",
+    "status"
+  ],
+  "properties": {
+    "qa_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "steering_contract_status": {
+          "type": "string"
+        },
+        "orchestration_decision_status": {
+          "type": "string"
+        },
+        "sprint_contract_status": {
+          "type": "string"
+        },
+        "implementation_result_status": {
+          "type": "string"
+        },
+        "repository_map_status": {
+          "type": "string"
+        },
+        "acceptance_criteria_to_evaluate": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "files_to_review": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation_plan_summary": {
+          "type": "string"
+        },
+        "approval_check": {
+          "type": "string"
+        },
+        "stop_condition_check": {
+          "type": "string"
+        }
+      }
+    },
+    "evaluation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "overall_result": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "evidence_basis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_phase": {
+          "type": "string"
+        }
+      }
+    },
+    "acceptance_criteria_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id",
+          "description",
+          "result",
+          "verification_method",
+          "evidence",
+          "limitations",
+          "defect_ids",
+          "blocking"
+        ],
+        "properties": {
+          "criterion_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "failed",
+              "not_evaluable",
+              "not_applicable"
+            ]
+          },
+          "verification_method": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defect_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "blocking": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "validation_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "command",
+          "purpose",
+          "allowed_by_contract",
+          "destructive",
+          "requires_network",
+          "expected_result"
+        ],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "allowed_by_contract": {
+            "type": "boolean"
+          },
+          "destructive": {
+            "type": "boolean"
+          },
+          "requires_network": {
+            "type": "boolean"
+          },
+          "expected_result": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "command",
+          "status",
+          "exit_code",
+          "output_summary",
+          "limitations"
+        ],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "exit_code": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "output_summary": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "defect_reports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "defect_id",
+          "severity",
+          "defect_type",
+          "title",
+          "description",
+          "affected_files",
+          "related_acceptance_criteria",
+          "evidence",
+          "recommended_owner",
+          "recommended_next_phase",
+          "requires_human_decision"
+        ],
+        "properties": {
+          "defect_id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "defect_type": {
+            "type": "string",
+            "enum": [
+              "acceptance_criteria_failure",
+              "scope_violation",
+              "unauthorized_file_change",
+              "forbidden_change_type",
+              "validation_failure",
+              "regression_risk",
+              "security_or_privacy_risk",
+              "documentation_gap",
+              "test_gap",
+              "unclear_contract",
+              "blocked_by_missing_evidence"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "affected_files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "related_acceptance_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recommended_owner": {
+            "type": "string"
+          },
+          "recommended_next_phase": {
+            "type": "string"
+          },
+          "requires_human_decision": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "files_reviewed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_not_reviewed": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "unauthorized_changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "scope_findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "updated_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "blocked_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "qa_report": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "sprint_contract": {
+          "type": "string"
+        },
+        "implementation_result": {
+          "type": "string"
+        },
+        "overall_qa_result": {
+          "type": "string"
+        },
+        "human_review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "qa_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "generated_by",
+        "sprint_id",
+        "source_feature_id",
+        "overall_result",
+        "acceptance_criteria_summary",
+        "validation_summary",
+        "defect_summary",
+        "unauthorized_change_summary",
+        "risk_summary",
+        "recommendation",
+        "human_review_required"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "generated_by": {
+          "type": "string"
+        },
+        "sprint_id": {
+          "type": "string"
+        },
+        "source_feature_id": {
+          "type": "string"
+        },
+        "overall_result": {
+          "type": "string"
+        },
+        "acceptance_criteria_summary": {
+          "type": "string"
+        },
+        "validation_summary": {
+          "type": "string"
+        },
+        "defect_summary": {
+          "type": "string"
+        },
+        "unauthorized_change_summary": {
+          "type": "string"
+        },
+        "risk_summary": {
+          "type": "string"
+        },
+        "recommendation": {
+          "type": "string"
+        },
+        "human_review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "qa_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_by",
+        "created_files",
+        "updated_files",
+        "skipped_files",
+        "blocked_files",
+        "validation_commands_run",
+        "files_reviewed",
+        "warnings",
+        "status"
+      ],
+      "properties": {
+        "generated_by": {
+          "type": "string"
+        },
+        "created_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skipped_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocked_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validation_commands_run": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "files_reviewed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "qa_completed": {
+          "type": "boolean"
+        },
+        "sprint_id": {
+          "type": "string"
+        },
+        "source_feature": {
+          "type": "string"
+        },
+        "overall_result": {
+          "type": "string"
+        },
+        "defect_summary": {
+          "type": "string"
+        },
+        "validation_summary": {
+          "type": "string"
+        },
+        "human_review_required": {
+          "type": "boolean"
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_agent": {
+          "type": "string"
+        },
+        "suggested_next_phase": {
+          "type": "string"
+        },
+        "notes_for_harness_orchestrator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_implementation_generator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_human": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "human"
+      ]
+    },
+    "suggested_next_phase": {
+      "type": "string",
+      "enum": [
+        "implementation",
+        "sprint_contracting",
+        "product_planning",
+        "test_strategy",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "qa_plan_ready",
+        "passed",
+        "failed",
+        "needs_fix",
+        "blocked_missing_steering_contract",
+        "blocked_missing_orchestration_decision",
+        "blocked_missing_sprint_contract",
+        "blocked_missing_implementation_result",
+        "blocked_missing_repository_map",
+        "blocked_human_approval_required",
+        "blocked_scope_conflict",
+        "blocked_validation_unsafe",
+        "failed_validation_execution"
+      ]
+    }
+  },
+  "$defs": {
+    "path_reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "reason"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "description",
+        "evidence"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

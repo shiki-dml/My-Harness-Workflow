@@ -1,0 +1,23 @@
+# implementation_generator Review Checklist
+
+- [ ] Only `implementation_generator` was defined during setup.
+- [ ] Previous agents were not modified.
+- [ ] No root implementation files were created during setup.
+- [ ] `qa_evaluator` was not created.
+- [ ] Runtime implementation scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `implementation_generator`.
+- [ ] A valid approved sprint contract is required.
+- [ ] Repository map context is required.
+- [ ] Allowed and forbidden file areas are enforced.
+- [ ] Allowed and forbidden change types are enforced.
+- [ ] Dependency changes require explicit approval.
+- [ ] Control-plane files are protected.
+- [ ] Validation is separated from QA.
+- [ ] Final QA and feature completion claims are forbidden.
+- [ ] `qa_evaluator` cannot be bypassed.
+- [ ] File deletion is forbidden without explicit approval.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/product_planner/input.schema.json",
+  "title": "product_planner input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "repository_map",
+    "existing_feature_registry",
+    "planning_scope",
+    "success_criteria",
+    "non_goals",
+    "constraints",
+    "current_phase",
+    "planning_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "orchestration_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_next_agent": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "routing_rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "initialization_result": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "repository_map": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "codemap_summary": {
+      "type": "string"
+    },
+    "existing_feature_registry": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "planning_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "product_context": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "user_needs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_policy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "approval_for": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "granted_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "approval_for",
+          "status"
+        ]
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "product_planning",
+        "blocked"
+      ]
+    },
+    "planning_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "draft_feature_backlog",
+        "update_feature_registry",
+        "refresh_existing_plan"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "approval_granted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}

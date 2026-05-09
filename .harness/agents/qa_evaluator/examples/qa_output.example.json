@@ -1,0 +1,189 @@
+{
+  "qa_plan": {
+    "steering_contract_status": "ready",
+    "orchestration_decision_status": "route_ready",
+    "sprint_contract_status": "approved_for_implementation",
+    "implementation_result_status": "implemented",
+    "repository_map_status": "available",
+    "acceptance_criteria_to_evaluate": [
+      "AC-001",
+      "AC-002"
+    ],
+    "files_to_review": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "validation_plan_summary": "Run contract-authorized local validation only.",
+    "approval_check": "No additional human approval required for the normal QA example.",
+    "stop_condition_check": "No stop condition triggered."
+  },
+  "evaluation_summary": {
+    "overall_result": "passed",
+    "summary": "All required acceptance criteria have evidence and no defects were found in the normal example.",
+    "evidence_basis": [
+      "Implementation result lists expected changed files.",
+      "Changed files are within allowed file areas.",
+      "Allowed local validation result is recorded."
+    ],
+    "limitations": [
+      "This QA result is not a deployment, release, production-use, or final human acceptance approval."
+    ],
+    "recommended_next_phase": "complete"
+  },
+  "acceptance_criteria_results": [
+    {
+      "criterion_id": "AC-001",
+      "description": "Workflow status includes current phase.",
+      "result": "passed",
+      "verification_method": "artifact inspection and allowed local validation",
+      "evidence": [
+        "Implementation result states AC-001 was addressed.",
+        "Local validation completed without reported failure."
+      ],
+      "limitations": [
+        "Human release approval remains outside QA scope."
+      ],
+      "defect_ids": [],
+      "blocking": false
+    },
+    {
+      "criterion_id": "AC-002",
+      "description": "Workflow status includes blockers and next phase.",
+      "result": "passed",
+      "verification_method": "artifact inspection and allowed local validation",
+      "evidence": [
+        "Implementation result states AC-002 was addressed.",
+        "Local validation completed without reported failure."
+      ],
+      "limitations": [
+        "Human release approval remains outside QA scope."
+      ],
+      "defect_ids": [],
+      "blocking": false
+    }
+  ],
+  "validation_plan": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "purpose": "Run contract-authorized local test validation",
+      "allowed_by_contract": true,
+      "destructive": false,
+      "requires_network": false,
+      "expected_result": "Local validation completes without failures."
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "status": "passed",
+      "exit_code": 0,
+      "output_summary": "Contract-authorized local validation completed successfully.",
+      "limitations": "This does not approve deployment, release, production use, or final human acceptance."
+    }
+  ],
+  "defect_reports": [],
+  "files_reviewed": [
+    "src/workflow_status.py",
+    "tests/test_workflow_status.py"
+  ],
+  "files_not_reviewed": [],
+  "unauthorized_changes": [],
+  "scope_findings": [],
+  "risk_notes": [
+    "No critical, high, or blocking defects were found in the normal example."
+  ],
+  "created_files": [
+    {
+      "path": "docs/qa/QA-0001.md",
+      "reason": "QA report artifact within allowed runtime scope."
+    },
+    {
+      "path": ".harness/state/qa_runs/QA-0001.json",
+      "reason": "Machine-readable QA result within allowed runtime scope."
+    }
+  ],
+  "updated_files": [
+    {
+      "path": ".harness/state/qa_manifest.json",
+      "reason": "QA manifest update within allowed runtime scope."
+    }
+  ],
+  "skipped_files": [],
+  "blocked_files": [],
+  "qa_report": {
+    "summary": "Normal example QA passed with evidence for all required acceptance criteria.",
+    "sprint_contract": "SPRINT-0001",
+    "implementation_result": "implemented",
+    "overall_qa_result": "passed",
+    "human_review_required": false
+  },
+  "qa_result": {
+    "schema_version": "1.0",
+    "generated_by": "qa_evaluator",
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "overall_result": "passed",
+    "acceptance_criteria_summary": "2 required criteria passed with evidence.",
+    "validation_summary": "Allowed local validation completed successfully.",
+    "defect_summary": "No defects reported.",
+    "unauthorized_change_summary": "No unauthorized file or change-type violations reported.",
+    "risk_summary": "No critical, high, or blocking risks reported.",
+    "recommendation": "Return to harness_orchestrator for completion routing.",
+    "human_review_required": false
+  },
+  "qa_manifest": {
+    "generated_by": "qa_evaluator",
+    "created_files": [
+      "docs/qa/QA-0001.md",
+      ".harness/state/qa_runs/QA-0001.json"
+    ],
+    "updated_files": [
+      ".harness/state/qa_manifest.json"
+    ],
+    "skipped_files": [],
+    "blocked_files": [],
+    "validation_commands_run": [
+      "python -m pytest tests/test_workflow_status.py"
+    ],
+    "files_reviewed": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "warnings": [
+      "QA pass is not release approval or final human acceptance."
+    ],
+    "status": "passed"
+  },
+  "handoff_summary": {
+    "current_status": "passed",
+    "qa_completed": true,
+    "sprint_id": "SPRINT-0001",
+    "source_feature": "FEAT-0001",
+    "overall_result": "passed",
+    "defect_summary": "No defects reported.",
+    "validation_summary": "Allowed local validation completed successfully.",
+    "human_review_required": false,
+    "blockers": [],
+    "known_gaps": [
+      "Human release approval remains outside QA scope."
+    ],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "complete",
+    "notes_for_harness_orchestrator": [
+      "Route according to workflow completion policy.",
+      "Do not treat QA pass as release approval."
+    ],
+    "notes_for_implementation_generator": [
+      "No implementation defects reported in this normal example."
+    ],
+    "notes_for_human": [
+      "QA does not approve deployment, release, production use, or final acceptance."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "complete",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "passed"
+}

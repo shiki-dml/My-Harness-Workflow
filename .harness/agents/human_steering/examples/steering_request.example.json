@@ -1,0 +1,48 @@
+{
+  "project_name": "Harness Workflow Example",
+  "user_intent": "Establish a controlled agentic workflow where later agents follow explicit human steering rules.",
+  "project_goal": "Build an agentic workflow project",
+  "success_criteria": [
+    "A steering contract exists before downstream agents begin substantive work",
+    "Approval gates are explicit and enforceable by later agents",
+    "Stop and escalation conditions are recorded in both human-readable and machine-readable form"
+  ],
+  "non_goals": [
+    "Create a product backlog",
+    "Write business code",
+    "Initialize the full repository structure"
+  ],
+  "constraints": [
+    "Only steering-related artifacts may be created at this stage",
+    "High-risk actions require explicit human approval",
+    "Later agents must follow the steering contract"
+  ],
+  "risk_tolerance": "conservative",
+  "autonomy_level": "execute_with_approval_gates",
+  "approval_requirements": [
+    "Changing project direction",
+    "Introducing external dependencies",
+    "Performing irreversible actions"
+  ],
+  "forbidden_actions": [
+    "Bypass human approval gates",
+    "Claim the project has been initialized",
+    "Create downstream agent definitions"
+  ],
+  "stakeholders": [
+    {
+      "name": "Project owner",
+      "role": "Approver",
+      "approval_authority": true
+    }
+  ],
+  "timeline_preference": "Proceed one agent at a time after steering is established.",
+  "budget_or_resource_constraints": [
+    "Do not introduce paid services or external infrastructure without approval"
+  ],
+  "external_dependencies": [],
+  "compliance_or_security_requirements": [
+    "Do not handle secrets or user data without explicit approval"
+  ],
+  "preferred_working_style": "Ask concise questions when approval or direction is required."
+}

@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/handoff_writer/input.schema.json",
+  "title": "handoff_writer input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "workflow_state",
+    "session_context",
+    "changed_files",
+    "validation_evidence",
+    "current_phase",
+    "handoff_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object"
+    },
+    "orchestration_decision": {
+      "type": "object"
+    },
+    "workflow_state": {
+      "type": "object"
+    },
+    "session_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id",
+        "trigger",
+        "current_status",
+        "agents_involved"
+      ],
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agents_involved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prior_handoff_summary": {
+          "type": "string"
+        },
+        "last_agent_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "default": []
+        }
+      }
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/file_record"
+      }
+    },
+    "validation_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/validation_record"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision_record"
+      },
+      "default": []
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk_record"
+      },
+      "default": []
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/next_action"
+      },
+      "default": []
+    },
+    "feature_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "existing_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "agent_handoff_md": {
+          "type": "string"
+        },
+        "progress_md": {
+          "type": "string"
+        },
+        "session_log_jsonl_tail": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "optional_documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "purpose",
+          "exists"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "decision_log",
+              "risk_register",
+              "next_actions",
+              "feature_registry",
+              "documentation",
+              "test_strategy",
+              "other"
+            ]
+          },
+          "exists": {
+            "type": "boolean"
+          },
+          "update_allowed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "default": []
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "handoff",
+        "qa",
+        "feature_registry",
+        "test_strategy",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "handoff_mode": {
+      "type": "string",
+      "enum": [
+        "prepare_handoff",
+        "update_progress",
+        "append_session_log",
+        "refresh_all",
+        "repair_handoff_artifacts"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    }
+  },
+  "$defs": {
+    "file_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "action",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "incomplete",
+            "skipped",
+            "blocked",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kind",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "build",
+            "test",
+            "lint",
+            "typecheck",
+            "qa",
+            "manual",
+            "review",
+            "other"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    },
+    "decision_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "source",
+        "evidence"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_status": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "level",
+        "status"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "mitigation": {
+          "type": "string"
+        }
+      }
+    },
+    "next_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "owner",
+        "priority"
+      ],
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "required_evidence": {
+          "type": "string"
+        },
+        "requires_approval": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

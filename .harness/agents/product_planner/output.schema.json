@@ -1,0 +1,841 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/product_planner/output.schema.json",
+  "title": "product_planner output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_planning_brief",
+    "feature_candidates",
+    "prioritized_features",
+    "feature_registry_changes",
+    "validation_results",
+    "planning_report",
+    "recommended_next_agent",
+    "suggested_next_phase",
+    "requires_human_approval",
+    "status"
+  ],
+  "properties": {
+    "product_planning_brief": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "steering_contract_status": {
+          "type": "string"
+        },
+        "orchestration_decision_status": {
+          "type": "string"
+        },
+        "repository_map_status": {
+          "type": "string"
+        },
+        "project_goal": {
+          "type": "string"
+        },
+        "human_intent": {
+          "type": "string"
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "planning_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "feature_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feature_id",
+          "title",
+          "problem_statement",
+          "target_user_or_actor",
+          "user_value",
+          "scope",
+          "non_goals",
+          "acceptance_criteria",
+          "priority",
+          "effort_estimate",
+          "risk_level",
+          "dependencies",
+          "assumptions",
+          "open_questions",
+          "status"
+        ],
+        "properties": {
+          "feature_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "problem_statement": {
+            "type": "string"
+          },
+          "target_user_or_actor": {
+            "type": "string"
+          },
+          "user_value": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "non_goals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "P0",
+              "P1",
+              "P2",
+              "P3"
+            ]
+          },
+          "effort_estimate": {
+            "type": "string"
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "open_questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "deferred",
+              "blocked"
+            ]
+          }
+        }
+      }
+    },
+    "prioritized_features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feature_id",
+          "title",
+          "problem_statement",
+          "target_user_or_actor",
+          "user_value",
+          "scope",
+          "non_goals",
+          "acceptance_criteria",
+          "priority",
+          "effort_estimate",
+          "risk_level",
+          "dependencies",
+          "assumptions",
+          "open_questions",
+          "status"
+        ],
+        "properties": {
+          "feature_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "problem_statement": {
+            "type": "string"
+          },
+          "target_user_or_actor": {
+            "type": "string"
+          },
+          "user_value": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "non_goals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "P0",
+              "P1",
+              "P2",
+              "P3"
+            ]
+          },
+          "effort_estimate": {
+            "type": "string"
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "open_questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "deferred",
+              "blocked"
+            ]
+          }
+        }
+      }
+    },
+    "rejected_or_deferred_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "reason",
+          "decision",
+          "revisit_condition"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "revisit_condition": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "feature_registry_changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "target_path",
+        "added_features",
+        "updated_features",
+        "preserved_features",
+        "removed_features",
+        "approval_required",
+        "conflict_detected"
+      ],
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "target_path": {
+          "type": "string"
+        },
+        "added_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preserved_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removed_features": {
+          "type": "array",
+          "description": "Normally empty unless explicit human approval exists.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "conflict_detected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "created_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "updated_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blocked_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dependency_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "passed",
+              "message"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "planning_report": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "prioritized_feature_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deferred_or_rejected_count": {
+          "type": "number"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "product_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "generated_by",
+        "planning_basis",
+        "feature_summary",
+        "prioritized_features",
+        "deferred_features",
+        "blocked_features",
+        "assumptions",
+        "open_questions",
+        "recommended_sprint_candidate"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "generated_by": {
+          "type": "string"
+        },
+        "planning_basis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "feature_summary": {
+          "type": "string"
+        },
+        "prioritized_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deferred_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocked_features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_sprint_candidate": {
+          "type": "string"
+        }
+      }
+    },
+    "planning_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_by",
+        "created_files",
+        "updated_files",
+        "skipped_files",
+        "blocked_files",
+        "feature_count",
+        "warnings",
+        "status"
+      ],
+      "properties": {
+        "generated_by": {
+          "type": "string"
+        },
+        "created_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skipped_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocked_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "feature_count": {
+          "type": "number"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "planning_completed": {
+          "type": "boolean"
+        },
+        "feature_registry_status": {
+          "type": "string"
+        },
+        "product_backlog_status": {
+          "type": "string"
+        },
+        "product_roadmap_status": {
+          "type": "string"
+        },
+        "recommended_sprint_candidate": {
+          "type": "string"
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_agent": {
+          "type": "string"
+        },
+        "suggested_next_phase": {
+          "type": "string"
+        },
+        "notes_for_harness_orchestrator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "human"
+      ]
+    },
+    "suggested_next_phase": {
+      "type": "string",
+      "enum": [
+        "sprint_contracting",
+        "human_review",
+        "blocked"
+      ]
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "plan_ready",
+        "planned",
+        "registry_updated",
+        "blocked_missing_steering_contract",
+        "blocked_missing_orchestration_decision",
+        "blocked_missing_repository_map",
+        "blocked_human_approval_required",
+        "blocked_scope_conflict",
+        "blocked_insufficient_product_input",
+        "blocked_feature_registry_conflict",
+        "failed_validation"
+      ]
+    }
+  },
+  "$defs": {
+    "feature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature_id",
+        "title",
+        "problem_statement",
+        "target_user_or_actor",
+        "user_value",
+        "scope",
+        "non_goals",
+        "acceptance_criteria",
+        "priority",
+        "effort_estimate",
+        "risk_level",
+        "dependencies",
+        "assumptions",
+        "open_questions",
+        "status"
+      ],
+      "properties": {
+        "feature_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "problem_statement": {
+          "type": "string"
+        },
+        "target_user_or_actor": {
+          "type": "string"
+        },
+        "user_value": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        "effort_estimate": {
+          "type": "string"
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "deferred",
+            "blocked"
+          ]
+        }
+      }
+    },
+    "file_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

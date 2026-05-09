@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/human_steering/output.schema.json",
+  "title": "human_steering output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_brief",
+    "approval_policy",
+    "risk_register",
+    "decision_log_seed",
+    "escalation_rules",
+    "stop_conditions",
+    "unresolved_questions",
+    "assumptions",
+    "recommended_next_agent",
+    "status"
+  ],
+  "properties": {
+    "steering_brief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_name",
+        "human_intent",
+        "primary_goal",
+        "success_criteria",
+        "non_goals",
+        "constraints",
+        "assumptions",
+        "open_questions",
+        "recommended_next_agent"
+      ],
+      "properties": {
+        "project_name": {
+          "type": "string"
+        },
+        "human_intent": {
+          "type": "string"
+        },
+        "primary_goal": {
+          "type": "string"
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_agent": {
+          "type": "string",
+          "enum": [
+            "harness_orchestrator",
+            "human"
+          ]
+        }
+      }
+    },
+    "approval_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autonomy_level",
+        "requires_human_approval_for",
+        "forbidden_actions",
+        "default_when_uncertain"
+      ],
+      "properties": {
+        "autonomy_level": {
+          "type": "string",
+          "enum": [
+            "advisory_only",
+            "propose_then_wait",
+            "execute_low_risk_only",
+            "execute_with_approval_gates"
+          ]
+        },
+        "requires_human_approval_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "default_when_uncertain": {
+          "type": "string",
+          "enum": [
+            "stop_and_ask_human"
+          ]
+        }
+      }
+    },
+    "risk_register": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "risk",
+          "level",
+          "trigger",
+          "mitigation",
+          "requires_human_approval"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "mitigation": {
+            "type": "string"
+          },
+          "requires_human_approval": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "decision_log_seed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "date",
+          "decision",
+          "made_by",
+          "reason",
+          "impact",
+          "reversible",
+          "requires_follow_up"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "made_by": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "string"
+          },
+          "reversible": {
+            "type": "boolean"
+          },
+          "requires_follow_up": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "escalation_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "human"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "blocked_missing_human_input",
+        "blocked_risk_too_high",
+        "blocked_scope_conflict"
+      ]
+    }
+  }
+}

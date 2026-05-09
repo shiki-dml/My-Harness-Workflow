@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/repo_cartographer/output.schema.json",
+  "title": "repo_cartographer output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cartography_plan",
+    "scanned_paths",
+    "ignored_paths",
+    "repository_inventory",
+    "validation_results",
+    "map_update_report",
+    "recommended_next_agent",
+    "suggested_next_phase",
+    "requires_human_approval",
+    "status"
+  ],
+  "properties": {
+    "cartography_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "steering_contract_status": {
+          "type": "string"
+        },
+        "orchestration_decision_status": {
+          "type": "string"
+        },
+        "initialization_status": {
+          "type": "string"
+        },
+        "scan_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ignore_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "planned_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_check": {
+          "type": "string"
+        },
+        "validation_plan": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scanned_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ignored_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "repository_inventory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "category",
+          "purpose",
+          "safe_to_read",
+          "safe_to_modify",
+          "notes"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "harness_agents",
+              "governance_files",
+              "documentation",
+              "scripts",
+              "source_code",
+              "tests",
+              "configuration",
+              "generated_outputs",
+              "external_dependencies",
+              "restricted_sensitive",
+              "unknown_or_unmapped"
+            ]
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "safe_to_read": {
+            "type": "boolean"
+          },
+          "safe_to_modify": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "codemap_changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "target_path",
+        "managed_sections_updated",
+        "human_content_preserved",
+        "conflict_detected"
+      ],
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "target_path": {
+          "type": "string"
+        },
+        "managed_sections_updated": {
+          "type": "boolean"
+        },
+        "human_content_preserved": {
+          "type": "boolean"
+        },
+        "conflict_detected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "created_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "updated_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blocked_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "passed",
+              "message"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "map_update_report": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_agent": {
+          "type": "string"
+        },
+        "suggested_next_phase": {
+          "type": "string"
+        }
+      }
+    },
+    "repository_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "generated_by",
+        "top_level_structure",
+        "harness_agents",
+        "governance_files",
+        "documentation_files",
+        "scripts",
+        "source_areas",
+        "test_areas",
+        "restricted_paths",
+        "unknown_paths"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "generated_by": {
+          "type": "string"
+        },
+        "top_level_structure": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "harness_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "governance_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "documentation_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scripts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_areas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "test_areas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "restricted_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unknown_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cartography_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_by",
+        "scanned_path_count",
+        "ignored_path_count",
+        "created_files",
+        "updated_files",
+        "blocked_files",
+        "warnings"
+      ],
+      "properties": {
+        "generated_by": {
+          "type": "string"
+        },
+        "scanned_path_count": {
+          "type": "number"
+        },
+        "ignored_path_count": {
+          "type": "number"
+        },
+        "created_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocked_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "mapping_completed": {
+          "type": "boolean"
+        },
+        "codemap_status": {
+          "type": "string"
+        },
+        "repository_map_status": {
+          "type": "string"
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_next_agent": {
+          "type": "string"
+        },
+        "suggested_next_phase": {
+          "type": "string"
+        },
+        "notes_for_harness_orchestrator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "human"
+      ]
+    },
+    "suggested_next_phase": {
+      "type": "string",
+      "enum": [
+        "product_planning",
+        "human_review",
+        "blocked"
+      ]
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "plan_ready",
+        "mapped",
+        "refreshed",
+        "blocked_missing_steering_contract",
+        "blocked_missing_orchestration_decision",
+        "blocked_initialization_incomplete",
+        "blocked_human_approval_required",
+        "blocked_scope_conflict",
+        "blocked_existing_codemap_conflict",
+        "failed_validation"
+      ]
+    }
+  }
+}

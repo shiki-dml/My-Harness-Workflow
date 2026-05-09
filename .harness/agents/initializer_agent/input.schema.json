@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/initializer_agent/input.schema.json",
+  "title": "initializer_agent input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "repository_state_summary",
+    "initialization_scope",
+    "requested_initialization_outputs",
+    "current_phase",
+    "initialization_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "orchestration_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_next_agent": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "routing_rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "repository_state_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "expected_state": {
+          "type": "string"
+        },
+        "material_differences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "initialization_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed_runtime_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_runtime_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overwrite_policy": {
+          "type": "string"
+        }
+      }
+    },
+    "existing_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requested_initialization_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_policy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "approval_for": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "granted_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "approval_for",
+          "status"
+        ]
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "initialization",
+        "blocked"
+      ]
+    },
+    "initialization_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "apply_minimal_scaffold"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "approval_granted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}

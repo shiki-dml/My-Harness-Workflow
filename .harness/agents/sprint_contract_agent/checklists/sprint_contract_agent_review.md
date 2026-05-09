@@ -1,0 +1,23 @@
+# sprint_contract_agent Review Checklist
+
+- [ ] Only `sprint_contract_agent` was defined during setup.
+- [ ] Previous agents were not modified.
+- [ ] No root sprint contract files were created during setup.
+- [ ] No later agents were created.
+- [ ] Runtime sprint contract scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `sprint_contract_agent`.
+- [ ] Product planning or accepted partial planning is required.
+- [ ] Repository mapping or accepted partial mapping is required.
+- [ ] Exactly one selected feature is required by default.
+- [ ] Feature eligibility rules are explicit.
+- [ ] Acceptance criteria must be testable.
+- [ ] Implementation boundaries are explicit.
+- [ ] Code writing is forbidden.
+- [ ] Test modification is forbidden.
+- [ ] QA is forbidden.
+- [ ] Contract approval cannot be assumed.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

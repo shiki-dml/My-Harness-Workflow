@@ -1,0 +1,55 @@
+{
+  "orchestration_decision": "route",
+  "selected_next_agent": "initializer_agent",
+  "routing_rationale": "A valid steering contract exists, the workflow is in the orchestration phase after human_steering, no initialization has occurred, no approval-gated action is requested, and initializer_agent is available.",
+  "required_inputs_for_next_agent": [
+    "steering_contract",
+    "workflow_state",
+    "repository_state_summary",
+    "constraints"
+  ],
+  "approval_required": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "escalation_request": {
+    "escalation_type": "",
+    "blocked_reason": "",
+    "required_human_decision": "",
+    "relevant_context": [],
+    "recommended_question_to_human": "",
+    "safe_next_options": []
+  },
+  "stop_conditions_triggered": [],
+  "workflow_state_update": {
+    "current_phase": "initialization",
+    "completed_agents": [
+      "human_steering",
+      "harness_orchestrator"
+    ],
+    "pending_agents": [
+      "initializer_agent"
+    ],
+    "pending_approvals": [],
+    "known_risks": [],
+    "blockers": [],
+    "next_decision_needed": "initializer_agent should initialize only within its own future scope and return output to harness_orchestrator."
+  },
+  "agent_call_record": {
+    "target_agent": "initializer_agent",
+    "reason": "The steering contract is ready and repository initialization has not yet occurred.",
+    "inputs_to_provide": [
+      "steering_contract",
+      "workflow_state",
+      "repository_state_summary",
+      "constraints"
+    ],
+    "expected_output": "Initialization result or blocker report for harness_orchestrator review.",
+    "approval_context": "No approval-gated action is included in this routing decision.",
+    "constraints": [
+      "Follow the steering contract",
+      "Do not bypass approval gates",
+      "Return blockers to harness_orchestrator"
+    ]
+  },
+  "status": "route_ready"
+}

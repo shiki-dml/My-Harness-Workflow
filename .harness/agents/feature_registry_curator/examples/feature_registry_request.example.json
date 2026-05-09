@@ -1,0 +1,113 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop"
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "feature_registry_curator",
+    "status": "route_ready"
+  },
+  "feature_registry": {
+    "schema_version": "1.0",
+    "project_name": "Harness Workflow",
+    "source_of_truth": "human_steering steering contract",
+    "features": [
+      {
+        "id": "FEAT-0001",
+        "name": "Persist handoff artifacts",
+        "status": "implemented",
+        "priority": "P0",
+        "owner_agent": "handoff_writer",
+        "description": "Maintain session handoff files for long-running work.",
+        "acceptance_criteria": [
+          "AGENT_HANDOFF.md records current project state",
+          "SESSION_LOG.jsonl receives valid JSONL entries"
+        ],
+        "dependencies": [],
+        "related_files": [
+          "AGENT_HANDOFF.md",
+          "SESSION_LOG.jsonl"
+        ],
+        "evidence": {
+          "implementation": [
+            {
+              "type": "file",
+              "reference": ".harness/agents/handoff_writer/agent.md",
+              "summary": "handoff_writer defines required handoff behavior"
+            }
+          ],
+          "verification": [],
+          "release": []
+        },
+        "risks": [],
+        "blockers": [],
+        "history": [
+          {
+            "date": "2026-05-07",
+            "from_status": "planned",
+            "to_status": "implemented",
+            "reason": "Agent definition exists",
+            "evidence": ".harness/agents/handoff_writer/agent.md"
+          }
+        ],
+        "notes": ""
+      }
+    ],
+    "status_definitions": {
+      "proposed": "A possible feature recorded for later human review.",
+      "planned": "A feature accepted into the backlog.",
+      "implemented": "Implementation artifacts exist but verification is incomplete."
+    },
+    "last_updated": "2026-05-07"
+  },
+  "feature_registry_path": "feature_registry.json",
+  "registry_schema_notes": [
+    "Registry already uses schema_version, project_name, source_of_truth, features, status_definitions, and last_updated."
+  ],
+  "handoff_artifacts": [
+    {
+      "path": "AGENT_HANDOFF.md",
+      "kind": "handoff",
+      "summary": "Handoff says FEAT-0001 lacks verification evidence.",
+      "feature_ids": [
+        "FEAT-0001"
+      ]
+    }
+  ],
+  "task_tree_artifacts": [],
+  "planning_artifacts": [],
+  "sprint_artifacts": [],
+  "implementation_artifacts": [
+    {
+      "path": ".harness/agents/handoff_writer/agent.md",
+      "kind": "agent_report",
+      "summary": "Implementation artifact for the handoff writer definition.",
+      "feature_ids": [
+        "FEAT-0001"
+      ]
+    }
+  ],
+  "verification_artifacts": [
+    {
+      "path": ".harness/agents/handoff_writer/output.schema.json",
+      "kind": "review",
+      "summary": "Schema was parse-checked, but no runtime feature verification was recorded.",
+      "feature_ids": [
+        "FEAT-0001"
+      ]
+    }
+  ],
+  "release_artifacts": [],
+  "human_messages": [],
+  "candidate_features": [],
+  "changed_files": [
+    {
+      "path": "feature_registry.json",
+      "reason": "Registry curation target"
+    }
+  ],
+  "current_phase": "feature_registry",
+  "curation_mode": "refresh_evidence"
+}

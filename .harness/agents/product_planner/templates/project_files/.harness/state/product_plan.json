@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "product_planner",
+  "generated_at": "",
+  "planning_basis": [],
+  "feature_summary": "",
+  "prioritized_features": [],
+  "deferred_features": [],
+  "blocked_features": [],
+  "assumptions": [],
+  "open_questions": [],
+  "recommended_sprint_candidate": ""
+}

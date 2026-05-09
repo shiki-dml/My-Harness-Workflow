@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/test_strategist/input.schema.json",
+  "title": "test_strategist input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "current_phase",
+    "strategy_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object"
+    },
+    "orchestration_decision": {
+      "type": "object"
+    },
+    "feature_registry": {
+      "type": "object"
+    },
+    "feature_registry_path": {
+      "type": "string",
+      "default": "feature_registry.json"
+    },
+    "test_strategy_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "coverage_matrix_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "test_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "ci_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "handoff_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "planning_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "implementation_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "verification_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "candidate_features": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feature_reference"
+      },
+      "default": []
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criterion_reference"
+      },
+      "default": []
+    },
+    "validation_commands": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/command_reference"
+      },
+      "default": []
+    },
+    "risk_context": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk_reference"
+      },
+      "default": []
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "test_strategy",
+        "feature_registry",
+        "product_planning",
+        "sprint_contracting",
+        "implementation",
+        "qa",
+        "handoff",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "strategy_mode": {
+      "type": "string",
+      "enum": [
+        "create_strategy",
+        "update_strategy",
+        "create_coverage_matrix",
+        "map_acceptance_criteria",
+        "plan_validation_commands",
+        "triage_test_gaps",
+        "classify_flaky_tests",
+        "plan_release_gate",
+        "reconcile_strategy"
+      ]
+    }
+  },
+  "$defs": {
+    "artifact_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "kind",
+        "summary"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "feature_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "feature_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "risk": {
+          "$ref": "#/$defs/risk_level"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "criterion_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature_id",
+        "criterion"
+      ],
+      "properties": {
+        "feature_id": {
+          "type": "string"
+        },
+        "criterion": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "command_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "purpose"
+      ],
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "expected_runtime": {
+          "type": "string"
+        },
+        "safety": {
+          "$ref": "#/$defs/command_safety"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "level"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "level": {
+          "$ref": "#/$defs/risk_level"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "command_safety": {
+      "type": "string",
+      "enum": [
+        "cheap",
+        "safe",
+        "medium",
+        "expensive",
+        "destructive",
+        "environment_sensitive",
+        "unknown"
+      ]
+    }
+  }
+}

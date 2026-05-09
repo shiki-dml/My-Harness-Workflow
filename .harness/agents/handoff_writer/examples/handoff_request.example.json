@@ -1,0 +1,118 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop"
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "handoff_writer",
+    "status": "route_ready"
+  },
+  "workflow_state": {
+    "current_phase": "handoff",
+    "completed_agents": [
+      "qa_evaluator"
+    ],
+    "pending_agents": [
+      "harness_orchestrator"
+    ],
+    "known_outputs": [
+      "qa_result"
+    ],
+    "pending_approvals": [],
+    "known_risks": [
+      "Validation may need rerun if source files change after QA."
+    ],
+    "blockers": []
+  },
+  "session_context": {
+    "session_id": "SESSION-2026-05-07-001",
+    "trigger": "qa_complete",
+    "current_status": "QA output is ready for routing and handoff artifacts need refresh.",
+    "agents_involved": [
+      "qa_evaluator",
+      "handoff_writer"
+    ],
+    "prior_handoff_summary": "No prior handoff found.",
+    "last_agent_outputs": [
+      {
+        "agent": "qa_evaluator",
+        "status": "passed",
+        "summary": "Acceptance criteria were evaluated by QA."
+      }
+    ]
+  },
+  "changed_files": [
+    {
+      "path": "docs/qa/QA-2026-05-07.md",
+      "action": "created",
+      "status": "completed",
+      "evidence": [
+        "qa_evaluator output"
+      ]
+    }
+  ],
+  "validation_evidence": [
+    {
+      "name": "qa_evaluator",
+      "kind": "qa",
+      "status": "passed",
+      "evidence": "qa_evaluator output reported passed.",
+      "limitations": "Handoff writer did not rerun QA."
+    },
+    {
+      "name": "tests",
+      "kind": "test",
+      "status": "skipped",
+      "evidence": "No test command was run by handoff_writer.",
+      "limitations": "Use QA or implementation evidence for product validation."
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Refresh handoff artifacts before final routing.",
+      "source": "orchestration_decision",
+      "evidence": [
+        "selected_next_agent was handoff_writer"
+      ],
+      "approval_status": "not_required"
+    }
+  ],
+  "risks": [
+    {
+      "description": "Validation evidence may become stale if files change after QA.",
+      "level": "medium",
+      "status": "open",
+      "mitigation": "Record validation timestamp and require rerun after additional changes."
+    }
+  ],
+  "blockers": [],
+  "next_actions": [
+    {
+      "action": "Return to harness_orchestrator for final routing.",
+      "owner": "harness_orchestrator",
+      "priority": "high",
+      "requires_approval": false
+    }
+  ],
+  "feature_ids": [
+    "FEAT-001"
+  ],
+  "existing_artifacts": {
+    "agent_handoff_md": "",
+    "progress_md": "",
+    "session_log_jsonl_tail": []
+  },
+  "optional_documents": [
+    {
+      "path": "docs/risk_register.md",
+      "purpose": "risk_register",
+      "exists": false,
+      "update_allowed": false
+    }
+  ],
+  "current_phase": "handoff",
+  "handoff_mode": "refresh_all",
+  "human_messages": []
+}

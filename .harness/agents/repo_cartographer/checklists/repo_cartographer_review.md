@@ -1,0 +1,22 @@
+# repo_cartographer Review Checklist
+
+- [ ] Only `repo_cartographer` was defined during setup.
+- [ ] `human_steering`, `harness_orchestrator`, and `initializer_agent` were not modified.
+- [ ] No root `CODEMAP.md` was created during setup.
+- [ ] No later agents were created.
+- [ ] Runtime mapping scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `repo_cartographer`.
+- [ ] Initializer completion or accepted partial initialization is required.
+- [ ] Static inspection only is required.
+- [ ] Restricted paths and secrets are handled safely.
+- [ ] CODEMAP managed section rules are defined.
+- [ ] Human-authored CODEMAP content is preserved.
+- [ ] File deletion is forbidden.
+- [ ] Product planning is forbidden.
+- [ ] Implementation is forbidden.
+- [ ] QA is forbidden.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

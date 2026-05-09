@@ -1,0 +1,130 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "steering_brief": {
+      "project_name": "Harness Workflow Example",
+      "human_intent": "Establish a controlled agentic workflow where later agents follow explicit steering and approval rules.",
+      "primary_goal": "Build an agentic workflow project",
+      "success_criteria": [
+        "A product-level backlog exists before sprint contracting",
+        "Features remain proposed, deferred, or blocked unless explicitly approved",
+        "Planning outputs avoid implementation details"
+      ],
+      "non_goals": [
+        "Write business code during planning",
+        "Create sprint contracts during planning",
+        "Perform QA during planning"
+      ],
+      "constraints": [
+        "Return control to harness_orchestrator after planning",
+        "Do not create later agent definitions"
+      ]
+    },
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Changing the project goal",
+        "Removing existing features",
+        "Marking a feature as approved for sprint or implementation",
+        "Changing approved or in-progress feature statuses",
+        "Expanding scope beyond the steering contract"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "product_planner",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "Repository mapping is complete and product planning is the next required phase."
+  },
+  "initialization_result": {
+    "status": "initialized"
+  },
+  "repository_map": {
+    "schema_version": "1.0",
+    "generated_by": "repo_cartographer",
+    "top_level_structure": [
+      ".harness",
+      "docs"
+    ],
+    "harness_agents": [
+      "human_steering",
+      "harness_orchestrator",
+      "initializer_agent",
+      "repo_cartographer",
+      "product_planner"
+    ],
+    "governance_files": [
+      "feature_registry.json"
+    ],
+    "documentation_files": [
+      "docs/product_backlog.md",
+      "docs/product_roadmap.md"
+    ],
+    "scripts": [],
+    "source_areas": [],
+    "test_areas": [],
+    "restricted_paths": [
+      ".git/**",
+      ".env",
+      ".env.*"
+    ],
+    "unknown_paths": []
+  },
+  "codemap_summary": "Repository mapping is complete enough to plan product-level features. No source or test areas exist yet.",
+  "existing_feature_registry": {
+    "schema_version": "1.0",
+    "project_name": "Harness Workflow Example",
+    "source_of_truth": "human_steering steering contract",
+    "features": [],
+    "status_definitions": {
+      "proposed": "Feature is proposed for later review.",
+      "deferred": "Feature is intentionally postponed.",
+      "blocked": "Feature needs human decision or missing input."
+    },
+    "last_updated": ""
+  },
+  "planning_scope": [
+    "feature_registry.json",
+    "docs/product_backlog.md",
+    "docs/product_roadmap.md",
+    ".harness/state/product_plan.json",
+    ".harness/state/planning_manifest.json"
+  ],
+  "product_context": {
+    "domain": "agentic workflow governance",
+    "audience": "future harness agents and human reviewers"
+  },
+  "user_needs": [
+    "Understand which product-level capabilities should be planned next",
+    "Keep planning separate from implementation"
+  ],
+  "success_criteria": [
+    "A product-level backlog exists before sprint contracting",
+    "Features remain proposed, deferred, or blocked unless explicitly approved",
+    "Planning outputs avoid implementation details"
+  ],
+  "non_goals": [
+    "Write business code during planning",
+    "Create sprint contracts during planning",
+    "Perform QA during planning"
+  ],
+  "constraints": [
+    "Do not create sprint contracts",
+    "Do not write implementation tasks",
+    "Return control to harness_orchestrator"
+  ],
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "current_phase": "product_planning",
+  "planning_mode": "draft_feature_backlog",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Draft product-level features only after repo_cartographer has completed and harness_orchestrator selects product_planner.",
+      "approval_granted": false
+    }
+  ]
+}

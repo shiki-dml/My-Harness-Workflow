@@ -1,0 +1,22 @@
+# product_planner Review Checklist
+
+- [ ] Only `product_planner` was defined during setup.
+- [ ] `human_steering`, `harness_orchestrator`, `initializer_agent`, and `repo_cartographer` were not modified.
+- [ ] No root planning files were created during setup.
+- [ ] No later agents were created.
+- [ ] Runtime planning scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `product_planner`.
+- [ ] Repository mapping or accepted partial mapping is required.
+- [ ] Product planning is separated from sprint contracting.
+- [ ] Product planning is separated from implementation.
+- [ ] `feature_registry.json` preservation rules are defined.
+- [ ] Feature approval rules are defined.
+- [ ] Deleting features is forbidden without approval.
+- [ ] Implementation details are forbidden.
+- [ ] Sprint contracts are forbidden.
+- [ ] QA is forbidden.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

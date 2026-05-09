@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/repo_cartographer/input.schema.json",
+  "title": "repo_cartographer input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "repository_state_summary",
+    "scan_scope",
+    "ignore_paths",
+    "current_phase",
+    "cartography_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "orchestration_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_next_agent": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "routing_rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "initialization_result": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "repository_state_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "expected_state": {
+          "type": "string"
+        },
+        "material_differences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "existing_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scan_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ignore_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "existing_codemap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "has_managed_markers": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "conflict_detected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "approval_policy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "approval_for": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "granted_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "approval_for",
+          "status"
+        ]
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "repository_mapping",
+        "blocked"
+      ]
+    },
+    "cartography_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "scan_and_report",
+        "write_codemap",
+        "refresh_codemap"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "approval_granted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}

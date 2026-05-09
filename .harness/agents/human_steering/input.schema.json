@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/human_steering/input.schema.json",
+  "title": "human_steering input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_name",
+    "user_intent",
+    "project_goal"
+  ],
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_tolerance": {
+      "type": "string",
+      "enum": [
+        "conservative",
+        "moderate",
+        "aggressive"
+      ]
+    },
+    "autonomy_level": {
+      "type": "string",
+      "enum": [
+        "advisory_only",
+        "propose_then_wait",
+        "execute_low_risk_only",
+        "execute_with_approval_gates"
+      ]
+    },
+    "approval_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "approval_authority": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "timeline_preference": {
+      "type": "string"
+    },
+    "budget_or_resource_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "external_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "compliance_or_security_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_working_style": {
+      "type": "string"
+    }
+  }
+}

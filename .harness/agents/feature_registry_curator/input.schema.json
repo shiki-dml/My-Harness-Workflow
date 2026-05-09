@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/feature_registry_curator/input.schema.json",
+  "title": "feature_registry_curator input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "feature_registry_path",
+    "current_phase",
+    "curation_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object"
+    },
+    "orchestration_decision": {
+      "type": "object"
+    },
+    "feature_registry": {
+      "type": "object"
+    },
+    "feature_registry_path": {
+      "type": "string",
+      "default": "feature_registry.json"
+    },
+    "registry_schema_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "handoff_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "task_tree_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "planning_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "sprint_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "implementation_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "verification_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "release_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact_reference"
+      },
+      "default": []
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    },
+    "candidate_features": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feature_candidate"
+      },
+      "default": []
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      },
+      "default": []
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "feature_registry",
+        "product_planning",
+        "sprint_contracting",
+        "implementation",
+        "qa",
+        "handoff",
+        "test_strategy",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "curation_mode": {
+      "type": "string",
+      "enum": [
+        "validate_registry",
+        "reconcile_registry",
+        "create_feature_record",
+        "update_status",
+        "refresh_evidence",
+        "repair_conflict",
+        "report_gaps"
+      ]
+    }
+  },
+  "$defs": {
+    "artifact_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "kind",
+        "summary"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "feature_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "feature_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "source",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/feature_status"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "owner_agent": {
+          "type": "string"
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "related_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "source": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_record"
+          }
+        }
+      }
+    },
+    "feature_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "in_progress",
+        "blocked",
+        "implemented",
+        "verified",
+        "released",
+        "deferred",
+        "rejected",
+        "approved",
+        "in_sprint_contract",
+        "accepted"
+      ]
+    },
+    "evidence_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "reference",
+        "summary"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "file",
+            "commit",
+            "diff",
+            "test",
+            "build",
+            "lint",
+            "review",
+            "manual_check",
+            "manual_note",
+            "agent_report",
+            "release_note",
+            "deployment_note"
+          ]
+        },
+        "reference": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "path_reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "reason"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

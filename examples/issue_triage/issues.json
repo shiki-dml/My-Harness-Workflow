@@ -1,0 +1,122 @@
+[
+  {
+    "number": 7999,
+    "title": "Streaming parquet dataloader warns when worker count equals shard count",
+    "state": "open",
+    "labels": [{"name": "enhancement"}],
+    "comments": ["Need a clearer rule for num_shards and dataloader workers."],
+    "reactions": {"total_count": 2},
+    "created_at": "2026-02-09T09:26:37",
+    "updated_at": "2026-02-09T10:13:25",
+    "body": "Training with streaming parquet data is slow and the worker warning remains confusing.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7998,
+    "title": "Docs disagree on progress bar environment variable name",
+    "state": "open",
+    "labels": [{"name": "documentation"}],
+    "comments": [],
+    "reactions": {"total_count": 1},
+    "created_at": "2026-02-08T12:16:44",
+    "updated_at": "2026-02-08T12:16:44",
+    "body": "The documentation says one env var while code and warnings use another.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7997,
+    "title": "Fix Dataset.map writer initialization when first examples return None",
+    "state": "open",
+    "labels": [],
+    "comments": [],
+    "reactions": {"total_count": 0},
+    "created_at": "2026-02-08T07:02:00",
+    "updated_at": "2026-02-08T07:02:00",
+    "body": "Fixes a crash in Dataset.map when early examples return no update.",
+    "is_pull_request": true
+  },
+  {
+    "number": 7990,
+    "title": "Dataset.map crashes when initial examples return None",
+    "state": "open",
+    "labels": [{"name": "bug"}],
+    "comments": ["Reproducible with a three-row dataset.", "Regression from writer setup."],
+    "reactions": {"total_count": 5},
+    "created_at": "2026-01-29T11:00:00",
+    "updated_at": "2026-02-08T07:00:00",
+    "body": "Dataset.map raises an exception because the writer is not initialized after empty early rows.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7988,
+    "title": "Map writer crashes after None examples in first batch",
+    "state": "open",
+    "labels": [{"name": "bug"}],
+    "comments": ["Looks related to the writer initialization issue."],
+    "reactions": {"total_count": 1},
+    "created_at": "2026-01-27T09:30:00",
+    "updated_at": "2026-02-01T10:00:00",
+    "body": "The first batch has None outputs and a later row crashes the writer.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7980,
+    "title": "Private dataset token refresh fails after cache restore",
+    "state": "open",
+    "labels": [{"name": "bug"}],
+    "comments": ["Affects private data access.", "Seen in CI cache restore."],
+    "reactions": {"total_count": 3},
+    "created_at": "2026-01-12T08:00:00",
+    "updated_at": "2026-02-02T08:00:00",
+    "body": "A restored cache can leave stale token state and private downloads fail.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7975,
+    "title": "CLI should show dataset download retry attempts",
+    "state": "open",
+    "labels": [{"name": "enhancement"}],
+    "comments": ["Would help debug flaky network jobs."],
+    "reactions": {"total_count": 4},
+    "created_at": "2025-12-20T18:20:00",
+    "updated_at": "2026-01-25T18:20:00",
+    "body": "Users need a concise retry summary for download failures.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7970,
+    "title": "Support nested sub-issue summaries in issue exports",
+    "state": "open",
+    "labels": [{"name": "enhancement"}],
+    "comments": [],
+    "reactions": {"total_count": 1},
+    "created_at": "2025-12-15T12:00:00",
+    "updated_at": "2026-01-12T12:00:00",
+    "body": "Issue exports should preserve nested sub-issue summary fields.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7965,
+    "title": "Large JSONL import causes memory spike on Windows",
+    "state": "open",
+    "labels": [{"name": "bug"}],
+    "comments": ["Seen with 8GB machines.", "Chunked reads may help.", "Blocks a release job."],
+    "reactions": {"total_count": 6},
+    "created_at": "2025-12-01T10:00:00",
+    "updated_at": "2026-02-05T10:00:00",
+    "body": "Large JSONL files on Windows trigger memory growth and eventual failure.",
+    "is_pull_request": false
+  },
+  {
+    "number": 7951,
+    "title": "README typo in quickstart install command",
+    "state": "closed",
+    "labels": [{"name": "documentation"}],
+    "comments": [],
+    "reactions": {"total_count": 0},
+    "created_at": "2025-11-01T10:00:00",
+    "updated_at": "2025-11-02T10:00:00",
+    "body": "A closed typo fix should not enter the sprint.",
+    "is_pull_request": false
+  }
+]

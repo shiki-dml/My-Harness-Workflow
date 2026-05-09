@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/implementation_generator/input.schema.json",
+  "title": "implementation_generator input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "orchestration_decision",
+    "sprint_contract",
+    "repository_map",
+    "implementation_scope",
+    "allowed_file_areas",
+    "forbidden_file_areas",
+    "allowed_change_types",
+    "forbidden_change_types",
+    "acceptance_criteria",
+    "validation_requirements",
+    "approval_policy",
+    "current_phase",
+    "implementation_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object"
+    },
+    "orchestration_decision": {
+      "type": "object"
+    },
+    "sprint_contract": {
+      "type": "object"
+    },
+    "repository_map": {
+      "type": "object"
+    },
+    "codemap_summary": {
+      "type": "string"
+    },
+    "implementation_scope": {
+      "type": "object"
+    },
+    "allowed_file_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_file_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_change_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_change_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approval_policy": {
+      "type": "object"
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    },
+    "existing_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "implementation",
+        "blocked"
+      ]
+    },
+    "implementation_mode": {
+      "type": "string",
+      "enum": [
+        "plan_only",
+        "apply_changes",
+        "repair_failed_validation",
+        "produce_patch_only"
+      ]
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    }
+  }
+}

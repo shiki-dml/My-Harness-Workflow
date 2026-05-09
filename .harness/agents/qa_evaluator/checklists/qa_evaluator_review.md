@@ -1,0 +1,25 @@
+# qa_evaluator Review Checklist
+
+- [ ] Only `qa_evaluator` was defined during setup.
+- [ ] Previous agents were not modified.
+- [ ] No root QA files were created during setup.
+- [ ] Runtime QA scope is explicit.
+- [ ] Forbidden runtime outputs are explicit.
+- [ ] The agent requires a steering contract.
+- [ ] The agent requires an orchestration decision selecting `qa_evaluator`.
+- [ ] A valid sprint contract is required.
+- [ ] Implementation result or accepted partial implementation state is required.
+- [ ] Repository map context is required.
+- [ ] Every acceptance criterion is evaluated separately.
+- [ ] QA conclusions require evidence.
+- [ ] Validation command safety rules are explicit.
+- [ ] External network commands are forbidden.
+- [ ] Dependency installation is forbidden.
+- [ ] Destructive commands are forbidden.
+- [ ] Source and test modification are forbidden.
+- [ ] Fixing defects is forbidden.
+- [ ] Result fabrication is forbidden.
+- [ ] Release approval on behalf of human is forbidden.
+- [ ] Handoff returns to `harness_orchestrator`.
+- [ ] Schemas are valid.
+- [ ] Examples conform to schemas.

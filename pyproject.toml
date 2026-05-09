@@ -1,0 +1,11 @@
+[project]
+name = "my-harness-workflow"
+version = "0.1.0"
+description = "Contract-driven checks for reusable agent harnesses."
+requires-python = ">=3.10"
+
+[project.scripts]
+harness-check = "harness.__main__:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

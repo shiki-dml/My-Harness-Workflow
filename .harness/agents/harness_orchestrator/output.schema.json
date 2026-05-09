@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/harness_orchestrator/output.schema.json",
+  "title": "harness_orchestrator output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "orchestration_decision",
+    "selected_next_agent",
+    "routing_rationale",
+    "approval_required",
+    "workflow_state_update",
+    "status"
+  ],
+  "properties": {
+    "orchestration_decision": {
+      "type": "string",
+      "enum": [
+        "route",
+        "block",
+        "escalate",
+        "complete",
+        "none"
+      ]
+    },
+    "selected_next_agent": {
+      "type": "string",
+      "enum": [
+        "initializer_agent",
+        "repo_cartographer",
+        "product_planner",
+        "sprint_contract_agent",
+        "implementation_generator",
+        "qa_evaluator",
+        "handoff_writer",
+        "feature_registry_curator",
+        "test_strategist",
+        "harness_orchestrator",
+        "human",
+        "none"
+      ]
+    },
+    "routing_rationale": {
+      "type": "string"
+    },
+    "required_inputs_for_next_agent": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "escalation_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "escalation_type",
+        "blocked_reason",
+        "required_human_decision",
+        "recommended_question_to_human",
+        "safe_next_options"
+      ],
+      "properties": {
+        "escalation_type": {
+          "type": "string"
+        },
+        "blocked_reason": {
+          "type": "string"
+        },
+        "required_human_decision": {
+          "type": "string"
+        },
+        "relevant_context": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_question_to_human": {
+          "type": "string"
+        },
+        "safe_next_options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stop_conditions_triggered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "workflow_state_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_phase": {
+          "type": "string",
+          "enum": [
+            "steering",
+            "orchestration",
+            "initialization",
+            "repository_mapping",
+            "product_planning",
+            "sprint_contracting",
+            "implementation",
+            "qa",
+            "handoff",
+            "feature_registry",
+            "test_strategy",
+            "human_review",
+            "complete",
+            "blocked"
+          ]
+        },
+        "completed_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending_approvals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_risks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_decision_needed": {
+          "type": "string"
+        }
+      }
+    },
+    "agent_call_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_agent",
+        "reason",
+        "inputs_to_provide",
+        "expected_output",
+        "approval_context",
+        "constraints"
+      ],
+      "properties": {
+        "target_agent": {
+          "type": "string",
+          "enum": [
+            "initializer_agent",
+            "repo_cartographer",
+            "product_planner",
+            "sprint_contract_agent",
+            "implementation_generator",
+            "qa_evaluator",
+            "handoff_writer",
+            "feature_registry_curator",
+            "test_strategist",
+            "harness_orchestrator",
+            "human",
+            "none"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "inputs_to_provide": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_output": {
+          "type": "string"
+        },
+        "approval_context": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "route_ready",
+        "blocked_missing_steering_contract",
+        "blocked_human_approval_required",
+        "blocked_invalid_workflow_state",
+        "blocked_missing_required_input",
+        "blocked_scope_conflict",
+        "blocked_risk_too_high",
+        "complete"
+      ]
+    }
+  }
+}

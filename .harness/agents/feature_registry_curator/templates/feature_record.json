@@ -1,0 +1,59 @@
+{
+  "id": "FEAT-0001",
+  "name": "Human-readable feature name",
+  "status": "proposed",
+  "priority": "critical",
+  "owner_agent": "agent_name",
+  "description": "Short feature description",
+  "user_value": "Why this matters",
+  "acceptance_criteria": [
+    "Concrete criterion 1",
+    "Concrete criterion 2"
+  ],
+  "dependencies": [
+    "FEAT-0000"
+  ],
+  "related_files": [
+    "path/to/file"
+  ],
+  "evidence": {
+    "implementation": [
+      {
+        "type": "file",
+        "reference": "path/to/file",
+        "summary": "What this file proves"
+      }
+    ],
+    "verification": [
+      {
+        "type": "test",
+        "reference": "command or report path",
+        "summary": "What was verified",
+        "result": "passed"
+      }
+    ],
+    "release": [
+      {
+        "type": "manual_note",
+        "reference": "release note, tag, deployment note, or user confirmation",
+        "summary": "What was released"
+      }
+    ]
+  },
+  "risks": [
+    "Known risk"
+  ],
+  "blockers": [
+    "Known blocker"
+  ],
+  "history": [
+    {
+      "date": "YYYY-MM-DD",
+      "from_status": "proposed",
+      "to_status": "planned",
+      "reason": "Why the status changed",
+      "evidence": "Evidence reference"
+    }
+  ],
+  "notes": "Optional notes"
+}

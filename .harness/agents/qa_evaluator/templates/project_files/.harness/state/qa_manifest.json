@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "qa_evaluator",
+  "generated_at": "",
+  "qa_runs": [],
+  "latest_qa_run": "",
+  "created_files": [],
+  "updated_files": [],
+  "skipped_files": [],
+  "blocked_files": [],
+  "validation_commands_run": [],
+  "files_reviewed": [],
+  "warnings": [],
+  "status": ""
+}

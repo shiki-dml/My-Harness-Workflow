@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/harness_orchestrator/input.schema.json",
+  "title": "harness_orchestrator input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steering_contract",
+    "workflow_state",
+    "requested_action",
+    "available_agents",
+    "current_phase",
+    "orchestration_mode"
+  ],
+  "properties": {
+    "steering_contract": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "workflow_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_phase": {
+          "type": "string",
+          "enum": [
+            "steering",
+            "orchestration",
+            "initialization",
+            "repository_mapping",
+            "product_planning",
+            "sprint_contracting",
+            "implementation",
+            "qa",
+            "handoff",
+            "feature_registry",
+            "test_strategy",
+            "human_review",
+            "complete",
+            "blocked"
+          ]
+        },
+        "completed_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending_agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "last_agent": {
+          "type": "string"
+        },
+        "known_outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending_approvals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_risks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requested_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "available_agents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "human_steering",
+          "harness_orchestrator",
+          "initializer_agent",
+          "repo_cartographer",
+          "product_planner",
+          "sprint_contract_agent",
+          "implementation_generator",
+          "qa_evaluator",
+          "handoff_writer",
+          "feature_registry_curator",
+          "test_strategist",
+          "human"
+        ]
+      }
+    },
+    "last_agent_output": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "repository_state_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "expected_state": {
+          "type": "string"
+        },
+        "material_differences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "approval_for": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "requested",
+              "granted",
+              "denied",
+              "expired"
+            ]
+          },
+          "granted_by": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "approval_for",
+          "status"
+        ]
+      }
+    },
+    "risk_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "level"
+        ]
+      }
+    },
+    "human_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "approval_granted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": [
+        "steering",
+        "orchestration",
+        "initialization",
+        "repository_mapping",
+        "product_planning",
+        "sprint_contracting",
+        "implementation",
+        "qa",
+        "handoff",
+        "feature_registry",
+        "test_strategy",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "orchestration_mode": {
+      "type": "string",
+      "enum": [
+        "route_next_agent",
+        "evaluate_agent_output",
+        "handle_blocker",
+        "request_human_decision"
+      ]
+    }
+  }
+}

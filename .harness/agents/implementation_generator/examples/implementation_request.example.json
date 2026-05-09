@@ -1,0 +1,167 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Deleting or renaming files",
+        "Adding dependencies",
+        "Changing deployment, CI/CD, secrets, credentials, permissions, or security policy",
+        "Modifying control-plane files",
+        "Expanding product scope"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "implementation_generator",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "A valid sprint contract is approved for implementation and repository map context is available."
+  },
+  "sprint_contract": {
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "source_feature_title": "Workflow Visibility",
+    "objective": "Add contract-authorized workflow status behavior for downstream review.",
+    "scope": [
+      "Create a small workflow status representation",
+      "Expose current phase, blockers, and next expected phase"
+    ],
+    "non_goals": [
+      "Do not change routing rules",
+      "Do not modify control-plane agent definitions",
+      "Do not perform final QA"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-001",
+        "description": "Workflow status includes current phase.",
+        "verification_method": "local self-check allowed by contract",
+        "source": "sprint contract",
+        "required": true
+      },
+      {
+        "id": "AC-002",
+        "description": "Workflow status includes blockers and next phase.",
+        "verification_method": "local self-check allowed by contract",
+        "source": "sprint contract",
+        "required": true
+      }
+    ],
+    "implementation_boundary": {
+      "allowed_file_areas": [
+        "src/workflow_status.py",
+        "tests/test_workflow_status.py"
+      ],
+      "forbidden_file_areas": [
+        ".harness/agents/**",
+        "AGENTS.md",
+        "CODEMAP.md",
+        "feature_registry.json",
+        "docs/sprints/SPRINT-*.md"
+      ],
+      "allowed_change_types": [
+        "create_file",
+        "add_test"
+      ],
+      "forbidden_change_types": [
+        "delete_file",
+        "rename_file",
+        "dependency_addition",
+        "deployment_change",
+        "ci_cd_change",
+        "secret_or_permission_change"
+      ],
+      "dependency_restrictions": [
+        "No new dependencies"
+      ],
+      "approval_gates": [
+        "Return to harness_orchestrator before any out-of-scope change"
+      ],
+      "stop_conditions": [
+        "Missing approval",
+        "Forbidden file area",
+        "Forbidden change type"
+      ]
+    },
+    "approval_status": "approved_for_implementation"
+  },
+  "repository_map": {
+    "schema_version": "1.0",
+    "generated_by": "repo_cartographer",
+    "source_areas": [
+      "src/**"
+    ],
+    "test_areas": [
+      "tests/**"
+    ],
+    "restricted_paths": [
+      ".git/**",
+      ".env",
+      ".env.*"
+    ]
+  },
+  "codemap_summary": "Repository map allows contract-scoped source and test changes only.",
+  "implementation_scope": {
+    "sprint_id": "SPRINT-0001",
+    "mode": "contract_authorized",
+    "selected_feature_id": "FEAT-0001"
+  },
+  "allowed_file_areas": [
+    "src/workflow_status.py",
+    "tests/test_workflow_status.py"
+  ],
+  "forbidden_file_areas": [
+    ".harness/agents/**",
+    "AGENTS.md",
+    "CODEMAP.md",
+    "feature_registry.json",
+    "docs/sprints/SPRINT-*.md"
+  ],
+  "allowed_change_types": [
+    "create_file",
+    "add_test"
+  ],
+  "forbidden_change_types": [
+    "delete_file",
+    "rename_file",
+    "dependency_addition",
+    "deployment_change",
+    "ci_cd_change",
+    "secret_or_permission_change"
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "description": "Workflow status includes current phase.",
+      "required": true
+    },
+    {
+      "id": "AC-002",
+      "description": "Workflow status includes blockers and next phase.",
+      "required": true
+    }
+  ],
+  "validation_requirements": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "purpose": "Run contract-authorized local tests",
+      "requires_network": false,
+      "destructive": false
+    }
+  ],
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "existing_files": [],
+  "current_phase": "implementation",
+  "implementation_mode": "apply_changes",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Implement only the approved sprint contract.",
+      "approval_granted": false
+    }
+  ]
+}

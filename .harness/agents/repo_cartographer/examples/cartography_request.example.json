@@ -1,0 +1,94 @@
+{
+  "steering_contract": {
+    "status": "ready",
+    "approval_policy": {
+      "default_when_uncertain": "stop_and_ask_human",
+      "requires_human_approval_for": [
+        "Overwriting unmarked CODEMAP.md content",
+        "Expanding scan scope into restricted paths",
+        "Printing sensitive file contents",
+        "Modifying files outside the allowed runtime output list",
+        "Deleting files"
+      ],
+      "forbidden_actions": [
+        "Write business code",
+        "Create product backlog items",
+        "Create sprint contracts",
+        "Perform QA",
+        "Create later agent definitions"
+      ]
+    }
+  },
+  "orchestration_decision": {
+    "selected_next_agent": "repo_cartographer",
+    "status": "route_ready",
+    "approval_required": false,
+    "routing_rationale": "Initializer output is complete and repository mapping is the next required workflow phase."
+  },
+  "initialization_result": {
+    "status": "initialized",
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "repository_mapping"
+  },
+  "repository_state_summary": {
+    "description": "Early harness scaffold exists after initializer_agent completed.",
+    "expected_state": "Harness agents and minimal project governance placeholders exist.",
+    "material_differences": []
+  },
+  "existing_files": [
+    "AGENTS.md",
+    "PROGRESS.md",
+    "feature_registry.json",
+    "docs/project_overview.md",
+    "docs/workflow_overview.md",
+    "docs/approval_policy.md"
+  ],
+  "scan_scope": [
+    "."
+  ],
+  "ignore_paths": [
+    ".git/**",
+    "node_modules/**",
+    "vendor/**",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    ".venv/**",
+    "venv/**",
+    "__pycache__/**",
+    ".pytest_cache/**",
+    ".mypy_cache/**",
+    ".env",
+    ".env.*",
+    "secrets files",
+    "key files",
+    "certificate files",
+    "credential files"
+  ],
+  "existing_codemap": {
+    "exists": false,
+    "has_managed_markers": false,
+    "summary": "CODEMAP.md does not exist yet.",
+    "conflict_detected": false
+  },
+  "approval_policy": {
+    "default_when_uncertain": "stop_and_ask_human"
+  },
+  "pending_approvals": [],
+  "constraints": [
+    "Create only mapping artifacts",
+    "Do not create product plans",
+    "Do not write business code",
+    "Do not read or print secret values",
+    "Return control to harness_orchestrator after completion"
+  ],
+  "current_phase": "repository_mapping",
+  "cartography_mode": "write_codemap",
+  "human_messages": [
+    {
+      "date": "2026-05-07",
+      "message": "Map the repository only after initializer_agent has completed and harness_orchestrator selects repo_cartographer.",
+      "approval_granted": false
+    }
+  ]
+}

@@ -1,0 +1,600 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/harness/agents/test_strategist/output.schema.json",
+  "title": "test_strategist output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "strategy_plan",
+    "coverage_changes",
+    "validation_commands",
+    "test_gaps",
+    "risk_summary",
+    "reconciliation_summary",
+    "handoff_summary",
+    "recommended_next_agent",
+    "suggested_next_phase",
+    "requires_human_approval",
+    "status"
+  ],
+  "properties": {
+    "strategy_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy_mode": {
+          "type": "string"
+        },
+        "features_in_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safe_update_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "coverage_changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coverage_entry"
+      }
+    },
+    "validation_commands": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/validation_command"
+      }
+    },
+    "test_gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test_gap"
+      }
+    },
+    "flaky_tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flaky_test"
+      }
+    },
+    "manual_checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/manual_check"
+      }
+    },
+    "smoke_tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test_recommendation"
+      }
+    },
+    "regression_tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test_recommendation"
+      }
+    },
+    "risk_summary": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk_summary"
+      }
+    },
+    "created_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "updated_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "blocked_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path_reason"
+      }
+    },
+    "validation_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/validation_result"
+      }
+    },
+    "reconciliation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "source_precedence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_status": {
+          "type": "string"
+        },
+        "strategy_updated": {
+          "type": "boolean"
+        },
+        "features_with_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_harness_orchestrator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_feature_registry_curator": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_handoff_writer": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes_for_human": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommended_next_agent": {
+      "type": "string",
+      "enum": [
+        "harness_orchestrator",
+        "feature_registry_curator",
+        "handoff_writer",
+        "human",
+        "none"
+      ]
+    },
+    "suggested_next_phase": {
+      "type": "string",
+      "enum": [
+        "orchestration",
+        "feature_registry",
+        "handoff",
+        "implementation",
+        "qa",
+        "documentation",
+        "human_review",
+        "complete",
+        "blocked"
+      ]
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "approval_reason": {
+      "type": "string"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "strategy_validated",
+        "strategy_updated",
+        "coverage_matrix_updated",
+        "validation_commands_updated",
+        "gaps_reported",
+        "blocked_missing_steering_contract",
+        "blocked_missing_orchestration_decision",
+        "blocked_missing_acceptance_criteria",
+        "blocked_missing_feature_registry",
+        "blocked_missing_test_artifacts",
+        "blocked_human_approval_required",
+        "blocked_scope_conflict",
+        "failed_artifact_validation"
+      ]
+    }
+  },
+  "$defs": {
+    "coverage_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature_id",
+        "acceptance_criterion",
+        "risk",
+        "test_level",
+        "coverage_status",
+        "evidence",
+        "gap_or_next_step"
+      ],
+      "properties": {
+        "feature_id": {
+          "type": "string"
+        },
+        "feature_name": {
+          "type": "string"
+        },
+        "acceptance_criterion": {
+          "type": "string"
+        },
+        "risk": {
+          "$ref": "#/$defs/risk_level"
+        },
+        "test_level": {
+          "$ref": "#/$defs/test_level"
+        },
+        "test_case_or_command": {
+          "type": "string"
+        },
+        "coverage_status": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "gap_or_next_step": {
+          "type": "string"
+        }
+      }
+    },
+    "validation_command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "purpose",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "expected_runtime": {
+          "type": "string"
+        },
+        "when_to_run": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "safety": {
+          "$ref": "#/$defs/command_safety"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "run",
+            "skipped",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        }
+      }
+    },
+    "test_gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap_type",
+        "description",
+        "impact",
+        "recommended_next_step",
+        "blocks_verification"
+      ],
+      "properties": {
+        "gap_type": {
+          "$ref": "#/$defs/gap_type"
+        },
+        "feature_id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string"
+        },
+        "recommended_next_step": {
+          "type": "string"
+        },
+        "owner_agent": {
+          "type": "string"
+        },
+        "blocks_verification": {
+          "type": "boolean"
+        }
+      }
+    },
+    "flaky_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "test",
+        "symptom",
+        "impact",
+        "recommended_action"
+      ],
+      "properties": {
+        "test": {
+          "type": "string"
+        },
+        "symptom": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "suspected_cause": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string"
+        },
+        "recommended_action": {
+          "type": "string"
+        }
+      }
+    },
+    "manual_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario",
+        "steps",
+        "expected_result",
+        "evidence_required"
+      ],
+      "properties": {
+        "scenario": {
+          "type": "string"
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_result": {
+          "type": "string"
+        },
+        "evidence_required": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    },
+    "test_recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "purpose",
+        "trigger",
+        "evidence_required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "feature_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "evidence_required": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature_id",
+        "risk",
+        "reason",
+        "required_coverage"
+      ],
+      "properties": {
+        "feature_id": {
+          "type": "string"
+        },
+        "risk": {
+          "$ref": "#/$defs/risk_level"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "required_coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/test_level"
+          }
+        }
+      }
+    },
+    "validation_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check",
+        "result",
+        "evidence"
+      ],
+      "properties": {
+        "check": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        }
+      }
+    },
+    "path_reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "reason"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "test_level": {
+      "type": "string",
+      "enum": [
+        "static_check",
+        "unit",
+        "integration",
+        "contract",
+        "end_to_end",
+        "smoke",
+        "regression",
+        "manual",
+        "exploratory"
+      ]
+    },
+    "coverage_status": {
+      "type": "string",
+      "enum": [
+        "missing",
+        "planned",
+        "implemented",
+        "passing",
+        "failing",
+        "flaky",
+        "skipped",
+        "manual",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "gap_type": {
+      "type": "string",
+      "enum": [
+        "no_acceptance_criteria",
+        "no_test_coverage",
+        "test_exists_not_run",
+        "test_failing",
+        "test_flaky",
+        "test_skipped",
+        "test_not_mapped_to_criterion",
+        "manual_only_coverage",
+        "missing_regression_test",
+        "missing_smoke_test",
+        "missing_contract_check",
+        "missing_ci_coverage",
+        "unknown_validation_command"
+      ]
+    },
+    "command_safety": {
+      "type": "string",
+      "enum": [
+        "cheap",
+        "safe",
+        "medium",
+        "expensive",
+        "destructive",
+        "environment_sensitive",
+        "unknown"
+      ]
+    }
+  }
+}

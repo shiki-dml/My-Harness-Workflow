@@ -1,0 +1,174 @@
+{
+  "implementation_plan": {
+    "steering_contract_status": "ready",
+    "orchestration_decision_status": "route_ready",
+    "sprint_contract_status": "approved_for_implementation",
+    "repository_map_status": "available",
+    "sprint_objective": "Add contract-authorized workflow status behavior for downstream review.",
+    "acceptance_criteria_to_address": [
+      "AC-001",
+      "AC-002"
+    ],
+    "allowed_file_areas": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "forbidden_file_areas": [
+      ".harness/agents/**",
+      "AGENTS.md",
+      "CODEMAP.md",
+      "feature_registry.json",
+      "docs/sprints/SPRINT-*.md"
+    ],
+    "planned_changes": [
+      "Create a small workflow status representation.",
+      "Add contract-authorized local test coverage."
+    ],
+    "approval_check": "No additional human approval required for the normal approved-contract example.",
+    "validation_plan_summary": "Run the local command allowed by the sprint contract.",
+    "stop_condition_check": "No stop condition triggered."
+  },
+  "change_set": [
+    {
+      "path": "src/workflow_status.py",
+      "action": "created",
+      "change_type": "create_file",
+      "contract_basis": "SPRINT-0001 allowed_file_areas and AC-001/AC-002",
+      "acceptance_criteria_covered": [
+        "AC-001",
+        "AC-002"
+      ],
+      "approval_required": false,
+      "risk_level": "low",
+      "notes": "Contract-authorized source file creation only."
+    },
+    {
+      "path": "tests/test_workflow_status.py",
+      "action": "created",
+      "change_type": "add_test",
+      "contract_basis": "SPRINT-0001 allowed_change_types includes add_test",
+      "acceptance_criteria_covered": [
+        "AC-001",
+        "AC-002"
+      ],
+      "approval_required": false,
+      "risk_level": "low",
+      "notes": "Local tests support independent QA but do not replace it."
+    }
+  ],
+  "created_files": [
+    {
+      "path": "src/workflow_status.py",
+      "reason": "Created within sprint contract allowed file areas."
+    },
+    {
+      "path": "tests/test_workflow_status.py",
+      "reason": "Created within sprint contract allowed test area."
+    }
+  ],
+  "updated_files": [],
+  "deleted_files": [],
+  "skipped_files": [],
+  "blocked_files": [],
+  "validation_plan": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "purpose": "Run contract-authorized local tests",
+      "allowed_by_contract": true,
+      "destructive": false,
+      "requires_network": false,
+      "expected_result": "Local tests complete without network access."
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest tests/test_workflow_status.py",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Local self-check completed for contract-authorized tests.",
+      "limitations": "This is not final QA; qa_evaluator must independently evaluate acceptance criteria."
+    }
+  ],
+  "implementation_report": {
+    "summary": "Implemented the approved sprint contract within allowed file areas.",
+    "sprint_contract": "SPRINT-0001",
+    "acceptance_criteria_addressed": [
+      "AC-001",
+      "AC-002"
+    ],
+    "validation_summary": "Allowed local self-check ran successfully.",
+    "known_gaps": [
+      "Independent qa_evaluator review is still required."
+    ],
+    "qa_required": true
+  },
+  "implementation_result": {
+    "schema_version": "1.0",
+    "generated_by": "implementation_generator",
+    "sprint_id": "SPRINT-0001",
+    "source_feature_id": "FEAT-0001",
+    "contract_status": "approved_for_implementation",
+    "files_changed": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "acceptance_criteria_addressed": [
+      "AC-001",
+      "AC-002"
+    ],
+    "validation_summary": "Local self-check completed; independent QA is required.",
+    "known_gaps": [
+      "qa_evaluator has not run."
+    ],
+    "qa_required": true
+  },
+  "implementation_manifest": {
+    "generated_by": "implementation_generator",
+    "created_files": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "updated_files": [],
+    "deleted_files": [],
+    "skipped_files": [],
+    "blocked_files": [],
+    "validation_commands_run": [
+      "python -m pytest tests/test_workflow_status.py"
+    ],
+    "warnings": [
+      "Local self-check does not replace qa_evaluator."
+    ],
+    "status": "implemented"
+  },
+  "handoff_summary": {
+    "current_status": "implemented",
+    "implementation_completed": true,
+    "sprint_id": "SPRINT-0001",
+    "source_feature": "FEAT-0001",
+    "changed_files": [
+      "src/workflow_status.py",
+      "tests/test_workflow_status.py"
+    ],
+    "validation_summary": "Allowed local self-check ran successfully.",
+    "known_gaps": [
+      "Independent QA has not run."
+    ],
+    "blockers": [],
+    "recommended_next_agent": "harness_orchestrator",
+    "suggested_next_phase": "qa",
+    "notes_for_harness_orchestrator": [
+      "Route to qa_evaluator when ready.",
+      "Do not treat local validation as final QA."
+    ],
+    "notes_for_qa_evaluator": [
+      "Review changed files against SPRINT-0001 acceptance criteria.",
+      "Verify implementation independently."
+    ]
+  },
+  "recommended_next_agent": "harness_orchestrator",
+  "suggested_next_phase": "qa",
+  "requires_human_approval": false,
+  "approval_reason": "",
+  "blocked_reason": "",
+  "status": "implemented"
+}
