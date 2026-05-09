@@ -1,0 +1,104 @@
+{
+  "project": {
+    "name": "fastapi-inspired-api-framework",
+    "target_version": "0.116.0",
+    "source_project": "https://github.com/fastapi/fastapi",
+    "python_versions": ["3.8", "3.9", "3.10", "3.11", "3.12"]
+  },
+  "dependencies": [
+    {
+      "name": "starlette",
+      "kind": "runtime",
+      "current": "0.37.2",
+      "target": "0.38.6",
+      "requires": ["anyio"],
+      "breaking": false,
+      "risk": "medium"
+    },
+    {
+      "name": "pydantic",
+      "kind": "runtime",
+      "current": "2.7.1",
+      "target": "2.8.2",
+      "requires": [],
+      "breaking": false,
+      "risk": "medium"
+    },
+    {
+      "name": "anyio",
+      "kind": "runtime",
+      "current": "4.3.0",
+      "target": "4.4.0",
+      "requires": [],
+      "breaking": false,
+      "risk": "low"
+    },
+    {
+      "name": "httpx",
+      "kind": "test",
+      "current": "0.27.0",
+      "target": "0.27.2",
+      "requires": ["anyio"],
+      "breaking": false,
+      "risk": "low"
+    },
+    {
+      "name": "mkdocs-material",
+      "kind": "docs",
+      "current": "9.5.18",
+      "target": "9.5.29",
+      "requires": [],
+      "breaking": false,
+      "risk": "low"
+    }
+  ],
+  "changes": [
+    {
+      "id": "REL-001",
+      "title": "Refresh ASGI compatibility stack",
+      "component": "runtime",
+      "risk": "high",
+      "touches": ["starlette", "anyio"],
+      "tests": ["unit", "integration"],
+      "release_blocker": true
+    },
+    {
+      "id": "REL-002",
+      "title": "Validate Pydantic schema edge cases",
+      "component": "runtime",
+      "risk": "medium",
+      "touches": ["pydantic"],
+      "tests": ["unit", "integration"],
+      "release_blocker": true
+    },
+    {
+      "id": "REL-003",
+      "title": "Refresh TestClient dependency coverage",
+      "component": "ci",
+      "risk": "medium",
+      "touches": ["httpx", "starlette"],
+      "tests": ["unit", "ci"],
+      "release_blocker": false
+    },
+    {
+      "id": "REL-004",
+      "title": "Rebuild documentation theme snapshots",
+      "component": "docs",
+      "risk": "low",
+      "touches": ["mkdocs-material"],
+      "tests": ["docs"],
+      "release_blocker": false
+    }
+  ],
+  "ci": {
+    "required_checks": ["unit", "integration", "docs", "typecheck", "packaging"],
+    "matrix": [
+      {"python": "3.8", "os": "ubuntu-latest"},
+      {"python": "3.9", "os": "ubuntu-latest"},
+      {"python": "3.10", "os": "ubuntu-latest"},
+      {"python": "3.11", "os": "ubuntu-latest"},
+      {"python": "3.12", "os": "ubuntu-latest"},
+      {"python": "3.12", "os": "windows-latest"}
+    ]
+  }
+}

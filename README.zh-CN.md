@@ -2,10 +2,11 @@
 
 **语言:** [English](README.md) | 中文
 
-这是一个契约驱动的 agent harness 工作区。它目前包含两个可执行 harness：
+这是一个契约驱动的 agent harness 工作区。它目前包含三个可执行 harness：
 
 - Contract Validation Harness：校验 `.harness/agents/*` 的 agent 契约、schema、examples 和代码行数预算。
 - Issue Triage Harness：基于离线 GitHub-like fixture 跑完整的 11-agent issue 分诊、sprint planning、QA 和 handoff 工作流。
+- Release Readiness Harness：基于 FastAPI-inspired Python API framework 的 release engineering 场景，检查依赖、CI 矩阵、风险门禁、测试策略和交接。
 
 设计目标是把 agent 工作拆成可验证契约、显式状态、可复现输入、机器可检查输出和端到端测试。运行时代码没有第三方依赖，并通过自检约束 Python 代码文件不超过 300 行。
 
@@ -15,6 +16,7 @@
 python -m harness .
 python -m harness . --json
 python -m harness issue-triage examples\issue_triage\issues.json --capacity 13
+python -m harness release-readiness examples\release_readiness\manifest.json --risk-budget 72
 python -m unittest discover -s tests -v
 ```
 
@@ -102,18 +104,48 @@ flowchart LR
 10. `qa_evaluator`
 11. `handoff_writer`
 
+### Release Readiness Harness
+
+详细说明：[examples/release_readiness/README.zh-CN.md](examples/release_readiness/README.zh-CN.md)
+
+用途：评估一个 FastAPI-inspired Python API framework release 是否能在风险预算内发布。
+
+文件：
+
+| 文件 | 用途 |
+| --- | --- |
+| [harness/release_readiness.py](harness/release_readiness.py) | 标准化 release manifest、构建 dependency graph、计算 release risk、生成 release contract、QA 和 handoff。 |
+| [examples/release_readiness/manifest.json](examples/release_readiness/manifest.json) | 离线 FastAPI-inspired release fixture。 |
+| [examples/release_readiness/README.zh-CN.md](examples/release_readiness/README.zh-CN.md) | Release readiness harness 中文说明。 |
+| [tests/test_release_readiness.py](tests/test_release_readiness.py) | agent 覆盖、依赖图、风险预算、测试矩阵、CLI JSON 和非法 manifest 的测试。 |
+
+使用的 agents：
+
+1. `human_steering`
+2. `harness_orchestrator`
+3. `initializer_agent`
+4. `repo_cartographer`
+5. `feature_registry_curator`
+6. `product_planner`
+7. `sprint_contract_agent`
+8. `implementation_generator`
+9. `test_strategist`
+10. `qa_evaluator`
+11. `handoff_writer`
+
 ## 质量门禁
 
 ```powershell
 python -m unittest discover -s tests -v
 python -m harness .
 python -m harness issue-triage examples\issue_triage\issues.json --capacity 13
-python -m py_compile harness\__init__.py harness\__main__.py harness\core.py harness\issue_triage.py tests\test_harness.py tests\test_issue_triage.py
+python -m harness release-readiness examples\release_readiness\manifest.json --risk-budget 72
+python -m py_compile harness\__init__.py harness\__main__.py harness\core.py harness\issue_triage.py harness\release_readiness.py tests\test_harness.py tests\test_issue_triage.py tests\test_release_readiness.py
 ```
 
 期望结果：
 
-- 15 个测试通过。
+- 22 个测试通过。
 - `python -m harness .` 返回 `PASS: 11 agent(s) checked`。
 - Issue triage 返回 `PASSED`、`agents: 11/11`，且 sprint 不超过容量。
-
+- Release readiness 返回 `PASSED`、`agents: 11/11`，且 release contract 不超过风险预算。

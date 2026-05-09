@@ -7,12 +7,15 @@ from pathlib import Path
 
 from .core import run
 from .issue_triage import render_issue_report, run_issue_triage
+from .release_readiness import render_release_report, run_release_readiness
 
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv[:1] == ["issue-triage"]:
         return issue_triage_main(argv[1:])
+    if argv[:1] == ["release-readiness"]:
+        return release_readiness_main(argv[1:])
 
     parser = argparse.ArgumentParser(description="Validate a contract-driven agent harness.")
     parser.add_argument("root", nargs="?", default=".", help="Project root containing .harness/agents")
@@ -39,6 +42,21 @@ def issue_triage_main(argv: list[str]) -> int:
         print(json.dumps(report, indent=2, ensure_ascii=False))
     else:
         print(render_issue_report(report))
+    return 0 if report["qa"]["status"] == "passed" else 1
+
+
+def release_readiness_main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(description="Run the all-agent release readiness sample workflow.")
+    parser.add_argument("manifest", help="JSON file containing a release readiness manifest")
+    parser.add_argument("--risk-budget", type=int, default=72, help="Maximum accepted release risk score")
+    parser.add_argument("--json", action="store_true", help="Emit machine-readable report")
+    args = parser.parse_args(argv)
+
+    report = run_release_readiness(Path(args.manifest), risk_budget=args.risk_budget)
+    if args.json:
+        print(json.dumps(report, indent=2, ensure_ascii=False))
+    else:
+        print(render_release_report(report))
     return 0 if report["qa"]["status"] == "passed" else 1
 
 
