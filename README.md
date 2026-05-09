@@ -51,15 +51,36 @@ flowchart LR
 | `feature_registry_curator` | Maintains stable feature records and duplicate/status reconciliation. |
 | `test_strategist` | Plans validation commands, coverage, and regression strategy. |
 
-## Harnesses
+## Harness Architectures
 
-### Contract Validation Harness
+Each harness is intentionally small, explicit, and testable. The sections below show the boundary, entrypoint, files, agent coverage, and execution flow for each architecture.
 
-Detailed README: [harness/README.md](harness/README.md)
+---
 
-Purpose: validate the control-plane contracts that define the available agents.
+## Harness Architecture 01 - Contract Validation Harness
 
-Files:
+**Detailed README:** [harness/README.md](harness/README.md)
+
+**Purpose:** validate the control-plane contracts that define the available agents.
+
+**Entrypoint:**
+
+```powershell
+python -m harness .
+python -m harness . --json
+```
+
+**At a glance:**
+
+| Aspect | Design |
+| --- | --- |
+| Input | `.harness/agents/*` contract directories |
+| Output | `PASS/FAIL` report with structured findings |
+| Scope | Agent specs, JSON schemas, examples, interface shape, Python line budget |
+| Runtime dependency | Python standard library only |
+| Failure mode | Non-zero exit code when any error-level finding exists |
+
+**Core files:**
 
 | File | Purpose |
 | --- | --- |
@@ -68,12 +89,12 @@ Files:
 | [harness/__init__.py](harness/__init__.py) | Public Python API exports. |
 | [tests/test_harness.py](tests/test_harness.py) | Regression tests for schema validation, agent checks, CLI JSON, and line-budget enforcement. |
 
-Agents used:
+**Agents used:**
 
-- All agents under `.harness/agents/*` are discovered and validated.
-- The harness does not execute those agents; it verifies their contracts and examples.
+- Discovers and validates every agent under `.harness/agents/*`.
+- It does not execute agent behavior; it verifies contracts, schemas, examples, and support files.
 
-Flow:
+**Architecture flow:**
 
 ```mermaid
 flowchart TD
@@ -87,13 +108,32 @@ flowchart TD
     G -->|Yes| I["FAIL + findings"]
 ```
 
-### Issue Triage Harness
+---
 
-Detailed README: [examples/issue_triage/README.md](examples/issue_triage/README.md)
+## Harness Architecture 02 - Issue Triage Harness
 
-Purpose: run a realistic but compact GitHub issue triage workflow from offline fixture data.
+**Detailed README:** [examples/issue_triage/README.md](examples/issue_triage/README.md)
 
-Files:
+**Purpose:** run a realistic but compact GitHub issue triage workflow from offline fixture data.
+
+**Entrypoint:**
+
+```powershell
+python -m harness issue-triage examples\issue_triage\issues.json --capacity 13
+python -m harness issue-triage examples\issue_triage\issues.json --capacity 13 --json
+```
+
+**At a glance:**
+
+| Aspect | Design |
+| --- | --- |
+| Input | Offline GitHub-like issue/PR JSON fixture |
+| Output | Backlog, related groups, sprint contract, test strategy, QA, handoff |
+| Scope | Full 11-agent workflow from steering to handoff |
+| Runtime dependency | Python standard library only |
+| Failure mode | Non-zero exit code when QA invariants fail |
+
+**Core files:**
 
 | File | Purpose |
 | --- | --- |
@@ -102,7 +142,7 @@ Files:
 | [examples/issue_triage/README.md](examples/issue_triage/README.md) | Detailed guide for the issue triage harness. |
 | [tests/test_issue_triage.py](tests/test_issue_triage.py) | End-to-end tests for all-agent execution, scoring, duplicate detection, capacity, CLI JSON, and invalid input. |
 
-Agents used:
+**Agents used:**
 
 1. `human_steering`
 2. `harness_orchestrator`
@@ -116,7 +156,7 @@ Agents used:
 10. `qa_evaluator`
 11. `handoff_writer`
 
-Flow:
+**Architecture flow:**
 
 ```mermaid
 flowchart TD
@@ -132,6 +172,8 @@ flowchart TD
     J --> K["qa_evaluator<br/>invariant checks"]
     K --> L["handoff_writer<br/>summary"]
 ```
+
+---
 
 ## Quality Gates
 
