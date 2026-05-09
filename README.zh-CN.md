@@ -22,27 +22,7 @@ python -m unittest discover -s tests -v
 
 ## 架构
 
-```mermaid
-flowchart LR
-    A[".harness/agents<br/>agent specs"] --> B["Contract Validation Harness"]
-    B --> C["Report<br/>PASS/FAIL + findings"]
-
-    D["examples/issue_triage/issues.json"] --> E["Issue Triage Harness"]
-    E --> F["Backlog"]
-    E --> G["Sprint Contract"]
-    E --> H["QA + Handoff"]
-
-    J["examples/release_readiness/manifest.json"] --> K["Release Readiness Harness"]
-    K --> L["Dependency Graph"]
-    K --> M["Release Contract"]
-    K --> N["QA Gate"]
-
-    B -. "validates agent contracts" .-> E
-    B -. "validates agent contracts" .-> K
-    I["tests/"] --> B
-    I --> E
-    I --> K
-```
+![My Harness Workflow architecture](docs/assets/harness-architecture.png)
 
 ## 已有 Agents
 

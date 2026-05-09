@@ -22,27 +22,7 @@ python -m unittest discover -s tests -v
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A[".harness/agents<br/>agent specs"] --> B["Contract Validation Harness"]
-    B --> C["Report<br/>PASS/FAIL + findings"]
-
-    D["examples/issue_triage/issues.json"] --> E["Issue Triage Harness"]
-    E --> F["Backlog"]
-    E --> G["Sprint Contract"]
-    E --> H["QA + Handoff"]
-
-    J["examples/release_readiness/manifest.json"] --> K["Release Readiness Harness"]
-    K --> L["Dependency Graph"]
-    K --> M["Release Contract"]
-    K --> N["QA Gate"]
-
-    B -. "validates agent contracts" .-> E
-    B -. "validates agent contracts" .-> K
-    I["tests/"] --> B
-    I --> E
-    I --> K
-```
+![My Harness Workflow architecture](docs/assets/harness-architecture.png)
 
 ## Existing Agents
 
@@ -107,15 +87,24 @@ python -m harness . --json
 **Architecture flow:**
 
 ```mermaid
-flowchart TD
-    A["Project root"] --> B["Discover .harness/agents/*"]
-    B --> C["Check required files"]
-    C --> D["Validate schema shape"]
-    D --> E["Validate request/output examples"]
-    E --> F["Check Python file line budget"]
-    F --> G{"Any error?"}
-    G -->|No| H["PASS"]
-    G -->|Yes| I["FAIL + findings"]
+%%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
+flowchart LR
+    A["Input<br/>Project Root"] --> B["Discover<br/>Agent Specs"]
+    B --> C["Validate<br/>Files + Schemas"]
+    C --> D["Validate<br/>Examples"]
+    D --> E["Check<br/>300-Line Budget"]
+    E --> F{"Clean?"}
+    F -->|Yes| G["PASS"]
+    F -->|No| H["FAIL<br/>Findings"]
+    classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
+    classDef step fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
+    classDef decision fill:#fefce8,stroke:#ca8a04,stroke-width:3px,color:#0f172a
+    classDef result fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
+    class A source
+    class B,C,D,E step
+    class F decision
+    class G,H result
+    linkStyle default stroke:#334155,stroke-width:3px
 ```
 
 ---
@@ -169,18 +158,21 @@ python -m harness issue-triage examples\issue_triage\issues.json --capacity 13 -
 **Architecture flow:**
 
 ```mermaid
-flowchart TD
-    A["Issue fixture"] --> B["human_steering<br/>task contract"]
-    B --> C["harness_orchestrator<br/>fixed stage order"]
-    C --> D["initializer_agent<br/>normalized issues"]
-    D --> E["repo_cartographer<br/>fixture map"]
-    E --> F["feature_registry_curator<br/>feature records"]
-    F --> G["product_planner<br/>ranked backlog"]
-    G --> H["sprint_contract_agent<br/>capacity-bound sprint"]
-    H --> I["implementation_generator<br/>scoped plan"]
-    I --> J["test_strategist<br/>validation matrix"]
-    J --> K["qa_evaluator<br/>invariant checks"]
-    K --> L["handoff_writer<br/>summary"]
+%%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
+flowchart LR
+    A["Input<br/>Issue JSON"] --> B["Steer + Route<br/>human / orchestrator"]
+    B --> C["Normalize + Map<br/>initializer / cartographer"]
+    C --> D["Register + Rank<br/>registry / planner"]
+    D --> E["Sprint Contract<br/>contract agent"]
+    E --> F["Plan + Test<br/>implementation / test strategist"]
+    F --> G["QA + Handoff<br/>evaluator / writer"]
+    classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
+    classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
+    classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
+    class A source
+    class B,C,D,E,F stage
+    class G output
+    linkStyle default stroke:#334155,stroke-width:3px
 ```
 
 ---
@@ -234,18 +226,21 @@ python -m harness release-readiness examples\release_readiness\manifest.json --r
 **Architecture flow:**
 
 ```mermaid
-flowchart TD
-    A["Release manifest"] --> B["human_steering<br/>release boundary"]
-    B --> C["harness_orchestrator<br/>fixed stage order"]
-    C --> D["initializer_agent<br/>normalized manifest"]
-    D --> E["repo_cartographer<br/>source map"]
-    E --> F["feature_registry_curator<br/>change registry"]
-    F --> G["product_planner<br/>ranked release backlog"]
-    G --> H["sprint_contract_agent<br/>release contract"]
-    H --> I["implementation_generator<br/>release actions"]
-    I --> J["test_strategist<br/>CI/test matrix"]
-    J --> K["qa_evaluator<br/>release gate"]
-    K --> L["handoff_writer<br/>summary"]
+%%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
+flowchart LR
+    A["Input<br/>Release Manifest"] --> B["Steer + Route<br/>release boundary"]
+    B --> C["Normalize + Map<br/>manifest + source"]
+    C --> D["Registry + Risk<br/>changes + risk ledger"]
+    D --> E["Release Contract<br/>risk budget gate"]
+    E --> F["Plan + CI Matrix<br/>actions + tests"]
+    F --> G["QA + Handoff<br/>ship / block"]
+    classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
+    classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
+    classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
+    class A source
+    class B,C,D,E,F stage
+    class G output
+    linkStyle default stroke:#334155,stroke-width:3px
 ```
 
 ---
