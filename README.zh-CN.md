@@ -65,8 +65,9 @@ flowchart LR
 
 | 文件 | 用途 |
 | --- | --- |
+| [harness/common.py](harness/common.py) | 共享 agent pipeline、JSON 加载、输入校验、状态渲染和通用 guard helper。 |
 | [harness/core.py](harness/core.py) | 发现 agents，校验必需文件、JSON schemas/examples，并执行代码行数预算检查。 |
-| [harness/__main__.py](harness/__main__.py) | Contract validation 和 issue triage 的 CLI 入口。 |
+| [harness/__main__.py](harness/__main__.py) | Contract validation 和可执行样例 harness 的 CLI 入口。 |
 | [harness/__init__.py](harness/__init__.py) | 对外 Python API exports。 |
 | [tests/test_harness.py](tests/test_harness.py) | schema、agent 检查、CLI JSON 和行数预算的回归测试。 |
 
@@ -140,12 +141,12 @@ python -m unittest discover -s tests -v
 python -m harness .
 python -m harness issue-triage examples\issue_triage\issues.json --capacity 13
 python -m harness release-readiness examples\release_readiness\manifest.json --risk-budget 72
-python -m py_compile harness\__init__.py harness\__main__.py harness\core.py harness\issue_triage.py harness\release_readiness.py tests\test_harness.py tests\test_issue_triage.py tests\test_release_readiness.py
+python -m py_compile harness\__init__.py harness\__main__.py harness\common.py harness\core.py harness\issue_triage.py harness\release_readiness.py tests\test_harness.py tests\test_issue_triage.py tests\test_release_readiness.py
 ```
 
 期望结果：
 
-- 22 个测试通过。
+- 24 个测试通过。
 - `python -m harness .` 返回 `PASS: 11 agent(s) checked`。
 - Issue triage 返回 `PASSED`、`agents: 11/11`，且 sprint 不超过容量。
 - Release readiness 返回 `PASSED`、`agents: 11/11`，且 release contract 不超过风险预算。

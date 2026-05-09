@@ -1,29 +1,17 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
 
-RELEASE_AGENT_PIPELINE = (
-    "human_steering",
-    "harness_orchestrator",
-    "initializer_agent",
-    "repo_cartographer",
-    "feature_registry_curator",
-    "product_planner",
-    "sprint_contract_agent",
-    "implementation_generator",
-    "test_strategist",
-    "qa_evaluator",
-    "handoff_writer",
-)
+from .common import AGENT_PIPELINE as RELEASE_AGENT_PIPELINE
+from .common import ensure_non_negative, load_json_file, render_status, require_fields, require_list, require_mapping, status
+
 RISK = {"low": 12, "medium": 28, "high": 48, "critical": 70}
 MUST_TEST = {"runtime": {"unit", "integration"}, "optional": {"unit"}, "docs": {"docs"}, "ci": {"ci"}}
 
 
 def run_release_readiness(path: str | Path, risk_budget: int = 72) -> dict[str, Any]:
-    if risk_budget < 0:
-        raise ValueError("risk_budget must be greater than or equal to 0")
+    ensure_non_negative("risk_budget", risk_budget)
     manifest = _load_manifest(path)
     project = _project(manifest)
     deps = _dependencies(manifest)
@@ -52,33 +40,28 @@ def run_release_readiness(path: str | Path, risk_budget: int = 72) -> dict[str, 
 
 def render_release_report(report: dict[str, Any]) -> str:
     contract = report["release_contract"]
-    return "\n".join(
-        [
-            f"{report['qa']['status'].upper()}: release readiness workflow completed",
-            f"- agents: {len(report['agents_run'])}/{len(RELEASE_AGENT_PIPELINE)}",
-            f"- project: {report['project']['name']} {report['project']['target_version']}",
-            f"- changes: {len(contract['included_changes'])} included, {len(contract['deferred_changes'])} deferred",
-            f"- risk: {contract['risk_score']}/{contract['risk_budget']}",
-        ]
+    return render_status(
+        report["qa"]["status"],
+        "release readiness workflow completed",
+        (
+            f"agents: {len(report['agents_run'])}/{len(RELEASE_AGENT_PIPELINE)}",
+            f"project: {report['project']['name']} {report['project']['target_version']}",
+            f"changes: {len(contract['included_changes'])} included, {len(contract['deferred_changes'])} deferred",
+            f"risk: {contract['risk_score']}/{contract['risk_budget']}",
+        ),
     )
 
 
 def _load_manifest(path: str | Path) -> dict[str, Any]:
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    if not isinstance(data, dict):
-        raise ValueError("release manifest must be a JSON object")
-    return data
+    return load_json_file(path, dict, "release manifest")
 
 
 def _project(manifest: dict[str, Any]) -> dict[str, Any]:
     project = manifest.get("project")
-    if not isinstance(project, dict):
-        raise ValueError("manifest is missing project object")
-    for field in ("name", "target_version", "python_versions"):
-        if field not in project:
-            raise ValueError(f"project is missing required field: {field}")
+    project = require_mapping(project, "manifest.project")
+    require_fields(project, ("name", "target_version", "python_versions"), "project")
     versions = project["python_versions"]
-    if not isinstance(versions, list) or not versions:
+    if not require_list(versions, "project.python_versions"):
         raise ValueError("project.python_versions must be a non-empty array")
     return {
         "name": str(project["name"]),
@@ -90,13 +73,11 @@ def _project(manifest: dict[str, Any]) -> dict[str, Any]:
 
 def _dependencies(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     deps = manifest.get("dependencies", [])
-    if not isinstance(deps, list):
-        raise ValueError("dependencies must be an array")
+    deps = require_list(deps, "dependencies")
     normalized = []
-    for dep in deps:
-        for field in ("name", "kind", "current", "target"):
-            if field not in dep:
-                raise ValueError(f"dependency is missing required field: {field}")
+    for index, raw in enumerate(deps):
+        dep = require_mapping(raw, f"dependency[{index}]")
+        require_fields(dep, ("name", "kind", "current", "target"), "dependency")
         normalized.append(
             {
                 "name": str(dep["name"]).lower(),
@@ -117,14 +98,12 @@ def _dependencies(manifest: dict[str, Any]) -> list[dict[str, Any]]:
 def _changes(manifest: dict[str, Any], deps: list[dict[str, Any]]) -> list[dict[str, Any]]:
     changes = manifest.get("changes", [])
     dep_names = {d["name"] for d in deps}
-    if not isinstance(changes, list):
-        raise ValueError("changes must be an array")
+    changes = require_list(changes, "changes")
     normalized = []
-    for change in changes:
-        for field in ("id", "title", "component", "risk", "touches"):
-            if field not in change:
-                raise ValueError(f"change is missing required field: {field}")
-        touches = sorted(str(d).lower() for d in change["touches"])
+    for index, raw in enumerate(changes):
+        change = require_mapping(raw, f"change[{index}]")
+        require_fields(change, ("id", "title", "component", "risk", "touches"), "change")
+        touches = sorted(str(d).lower() for d in require_list(change["touches"], f"change {change['id']}.touches"))
         unknown = [d for d in touches if d not in dep_names]
         if unknown:
             raise ValueError(f"change {change['id']} touches unknown dependencies: {unknown}")
@@ -151,14 +130,20 @@ def _changes(manifest: dict[str, Any], deps: list[dict[str, Any]]) -> list[dict[
 
 def _ci(manifest: dict[str, Any]) -> dict[str, Any]:
     ci = manifest.get("ci", {})
+    ci = require_mapping(ci, "ci")
     matrix = ci.get("matrix", [])
     required = sorted(str(c) for c in ci.get("required_checks", []))
-    if not isinstance(matrix, list):
-        raise ValueError("ci.matrix must be an array")
+    matrix = require_list(matrix, "ci.matrix")
     return {
         "required_checks": required,
-        "matrix": [{"python": str(m["python"]), "os": str(m["os"])} for m in matrix],
+        "matrix": [_ci_row(row, index) for index, row in enumerate(matrix)],
     }
+
+
+def _ci_row(raw: Any, index: int) -> dict[str, str]:
+    row = require_mapping(raw, f"ci.matrix[{index}]")
+    require_fields(row, ("python", "os"), "ci matrix row")
+    return {"python": str(row["python"]), "os": str(row["os"])}
 
 
 def _risk_ledger(deps: list[dict[str, Any]], changes: list[dict[str, Any]], ci: dict[str, Any]) -> list[dict[str, Any]]:
@@ -228,7 +213,7 @@ def _qa(report: dict[str, Any]) -> dict[str, Any]:
         "tests_cover_included_changes": len(report["test_strategy"]["matrix"]) == len(contract["included_changes"]),
         "python_matrix_complete": bool(report["project"]["python_versions"]) and bool(report["test_strategy"]["ci_matrix"]),
     }
-    return {"status": "passed" if all(checks.values()) else "failed", "checks": checks}
+    return {"status": status(checks), "checks": checks}
 
 
 def _handoff(report: dict[str, Any]) -> dict[str, Any]:

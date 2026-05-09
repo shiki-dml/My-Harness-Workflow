@@ -93,8 +93,9 @@ python -m harness . --json
 
 | File | Purpose |
 | --- | --- |
+| [harness/common.py](harness/common.py) | Shared agent pipeline, JSON loading, input validation, status rendering, and common guard helpers. |
 | [harness/core.py](harness/core.py) | Discovers agents, validates required files, checks JSON schemas/examples, and enforces Python line budget. |
-| [harness/__main__.py](harness/__main__.py) | CLI entrypoint for contract validation and issue triage. |
+| [harness/__main__.py](harness/__main__.py) | CLI entrypoint for contract validation and executable sample harnesses. |
 | [harness/__init__.py](harness/__init__.py) | Public Python API exports. |
 | [tests/test_harness.py](tests/test_harness.py) | Regression tests for schema validation, agent checks, CLI JSON, and line-budget enforcement. |
 
@@ -258,12 +259,12 @@ python -m unittest discover -s tests -v
 python -m harness .
 python -m harness issue-triage examples\issue_triage\issues.json --capacity 13
 python -m harness release-readiness examples\release_readiness\manifest.json --risk-budget 72
-python -m py_compile harness\__init__.py harness\__main__.py harness\core.py harness\issue_triage.py harness\release_readiness.py tests\test_harness.py tests\test_issue_triage.py tests\test_release_readiness.py
+python -m py_compile harness\__init__.py harness\__main__.py harness\common.py harness\core.py harness\issue_triage.py harness\release_readiness.py tests\test_harness.py tests\test_issue_triage.py tests\test_release_readiness.py
 ```
 
 Expected results:
 
-- 22 tests pass.
+- 24 tests pass.
 - `python -m harness .` returns `PASS: 11 agent(s) checked`.
 - Issue triage returns `PASSED`, `agents: 11/11`, and a capacity-respecting sprint.
 - Release readiness returns `PASSED`, `agents: 11/11`, and a risk-budget-respecting release contract.

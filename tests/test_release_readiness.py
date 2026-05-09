@@ -53,6 +53,26 @@ class ReleaseReadinessTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "target_version"):
                 run_release_readiness(path)
 
+    def test_malformed_release_sections_fail_with_readable_errors(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "bad.json"
+            path.write_text(json.dumps({"project": []}), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "manifest.project must be an object"):
+                run_release_readiness(path)
+            path.write_text(
+                json.dumps(
+                    {
+                        "project": {"name": "x", "target_version": "1", "python_versions": ["3.12"]},
+                        "dependencies": [],
+                        "changes": [],
+                        "ci": {"matrix": [{"python": "3.12"}]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "ci matrix row is missing required field: os"):
+                run_release_readiness(path)
+
     def test_cli_json_output(self) -> None:
         result = subprocess.run(
             [

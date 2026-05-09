@@ -19,8 +19,9 @@ For each agent directory, the harness checks:
 
 | File | Responsibility |
 | --- | --- |
+| [common.py](common.py) | Shared pipeline, JSON loading, input validation, status rendering, and guard helpers used by executable harnesses. |
 | [core.py](core.py) | Core validator, report model, schema subset validator, example validation, and line-budget check. |
-| [__main__.py](__main__.py) | CLI routing for contract validation and issue triage. |
+| [__main__.py](__main__.py) | CLI routing for contract validation and executable sample harnesses. |
 | [__init__.py](__init__.py) | Public exports for tests and downstream callers. |
 
 ## Agents Used

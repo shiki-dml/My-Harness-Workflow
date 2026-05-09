@@ -6,25 +6,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-AGENT_PIPELINE = (
-    "human_steering",
-    "harness_orchestrator",
-    "initializer_agent",
-    "repo_cartographer",
-    "feature_registry_curator",
-    "product_planner",
-    "sprint_contract_agent",
-    "implementation_generator",
-    "test_strategist",
-    "qa_evaluator",
-    "handoff_writer",
-)
+from .common import AGENT_PIPELINE, ensure_non_negative, load_json_file, render_status, require_fields, require_list, require_mapping, status
+
 STOPWORDS = {"a", "an", "and", "for", "in", "is", "of", "on", "the", "to", "with", "when"}
 
 
 def run_issue_triage(path: str | Path, capacity: int = 13, today: str = "2026-05-09") -> dict[str, Any]:
-    if capacity < 0:
-        raise ValueError("capacity must be greater than or equal to 0")
+    ensure_non_negative("capacity", capacity)
     issues = _normalize(_load(path), today)
     groups = _related_groups(issues)
     registry = _registry(issues, groups)
@@ -49,30 +37,28 @@ def run_issue_triage(path: str | Path, capacity: int = 13, today: str = "2026-05
 
 def render_issue_report(report: dict[str, Any]) -> str:
     sprint = report["sprint_contract"]
-    lines = [
-        f"{report['qa']['status'].upper()}: issue triage workflow completed",
-        f"- agents: {len(report['agents_run'])}/{len(AGENT_PIPELINE)}",
-        f"- backlog: {len(report['backlog'])} open issue(s)",
-        f"- sprint: {len(sprint['items'])} item(s), {sprint['used_capacity']}/{sprint['capacity']} points",
-    ]
-    return "\n".join(lines)
+    return render_status(
+        report["qa"]["status"],
+        "issue triage workflow completed",
+        (
+            f"agents: {len(report['agents_run'])}/{len(AGENT_PIPELINE)}",
+            f"backlog: {len(report['backlog'])} open issue(s)",
+            f"sprint: {len(sprint['items'])} item(s), {sprint['used_capacity']}/{sprint['capacity']} points",
+        ),
+    )
 
 
 def _load(path: str | Path) -> list[dict[str, Any]]:
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        raise ValueError("issue fixture must be a JSON array")
-    return data
+    return load_json_file(path, list, "issue fixture")
 
 
 def _normalize(rows: list[dict[str, Any]], today: str) -> list[dict[str, Any]]:
     now = _date(today)
     seen: set[int] = set()
     normalized = []
-    for row in rows:
-        for required in ("number", "title"):
-            if required not in row:
-                raise ValueError(f"issue is missing required field: {required}")
+    for index, raw in enumerate(rows):
+        row = require_mapping(raw, f"issue[{index}]")
+        require_fields(row, ("number", "title"), "issue")
         number = int(row["number"])
         if number in seen:
             raise ValueError(f"duplicate issue number: {number}")
@@ -106,7 +92,7 @@ def _normalize(rows: list[dict[str, Any]], today: str) -> list[dict[str, Any]]:
 
 def _label_names(labels: list[Any]) -> set[str]:
     names = set()
-    for label in labels:
+    for label in require_list(labels, "issue.labels"):
         name = label.get("name") if isinstance(label, dict) else label
         if name:
             names.add(str(name).lower())
@@ -256,7 +242,7 @@ def _qa(report: dict[str, Any]) -> dict[str, Any]:
         "registry_complete": len(report["feature_registry"]) >= len([i for i in report["backlog"] if not i["is_pull_request"]]),
         "outcomes_complete": len(report["triage_outcomes"]) == report["source"]["issue_count"],
     }
-    return {"status": "passed" if all(checks.values()) else "failed", "checks": checks}
+    return {"status": status(checks), "checks": checks}
 
 
 def _handoff(report: dict[str, Any]) -> dict[str, Any]:

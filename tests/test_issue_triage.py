@@ -81,6 +81,16 @@ class IssueTriageTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "capacity"):
                 run_issue_triage(path, capacity=-1)
 
+    def test_malformed_issue_rows_fail_with_readable_errors(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "issues.json"
+            path.write_text("[1]", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, r"issue\[0\] must be an object"):
+                run_issue_triage(path)
+            path.write_text('[{"number": 1, "title": "x", "labels": "bug"}]', encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "issue.labels must be an array"):
+                run_issue_triage(path)
+
 
 if __name__ == "__main__":
     unittest.main()

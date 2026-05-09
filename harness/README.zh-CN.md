@@ -19,8 +19,9 @@
 
 | 文件 | 责任 |
 | --- | --- |
+| [common.py](common.py) | 可执行 harness 共享的 pipeline、JSON 加载、输入校验、状态渲染和 guard helpers。 |
 | [core.py](core.py) | 核心校验器、report model、schema 子集校验、example 校验和行数预算检查。 |
-| [__main__.py](__main__.py) | Contract validation 和 issue triage 的 CLI 路由。 |
+| [__main__.py](__main__.py) | Contract validation 和可执行样例 harness 的 CLI 路由。 |
 | [__init__.py](__init__.py) | 对测试和下游调用方暴露的 public exports。 |
 
 ## 使用的 Agents
@@ -78,4 +79,3 @@ JSON 输出包含：
 ## 设计说明
 
 JSON schema validator 只实现当前 agent contracts 实际使用的本地子集：`type`、`required`、`properties`、`additionalProperties`、`items`、`enum`、`minLength` 和本地 `$ref`。这样可以保持实现紧凑，同时覆盖当前工作区里的真实契约。
-
