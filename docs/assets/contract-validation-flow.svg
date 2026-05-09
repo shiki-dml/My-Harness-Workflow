@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 32px Arial,sans-serif;fill:#0f172a}
+      .subtitle{font:400 18px Arial,sans-serif;fill:#475569}
+      .label{font:700 20px Arial,sans-serif;fill:#0f172a}
+      .body{font:400 15px Arial,sans-serif;fill:#334155}
+      .small{font:700 15px Arial,sans-serif;fill:#0f172a}
+      .line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .thin{stroke:#94a3b8;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="680" fill="#ffffff"/>
+  <text x="60" y="58" class="title">Contract Validation Harness</text>
+  <text x="60" y="88" class="subtitle">A white-box gate that verifies every agent contract before downstream workflows trust it.</text>
+
+  <rect x="70" y="130" width="230" height="105" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+  <text x="105" y="174" class="label">Project root</text>
+  <text x="105" y="204" class="body">.harness/agents/*</text>
+
+  <rect x="485" y="130" width="230" height="105" rx="16" fill="#f8fafc" stroke="#64748b" stroke-width="3"/>
+  <text x="526" y="174" class="label">Discover</text>
+  <text x="526" y="204" class="body">all agent folders</text>
+
+  <rect x="900" y="130" width="230" height="105" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <text x="942" y="174" class="label">Build report</text>
+  <text x="942" y="204" class="body">structured findings</text>
+
+  <path class="line" d="M300 182 H475"/>
+  <path class="line" d="M715 182 H890"/>
+
+  <rect x="60" y="320" width="250" height="110" rx="16" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+  <text x="96" y="362" class="label">Required files</text>
+  <text x="96" y="392" class="body">agent.md, interface.md</text>
+
+  <rect x="335" y="320" width="250" height="110" rx="16" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+  <text x="376" y="362" class="label">JSON schemas</text>
+  <text x="376" y="392" class="body">input and output shape</text>
+
+  <rect x="610" y="320" width="250" height="110" rx="16" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+  <text x="655" y="362" class="label">Examples</text>
+  <text x="655" y="392" class="body">request and response</text>
+
+  <rect x="885" y="320" width="250" height="110" rx="16" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+  <text x="931" y="362" class="label">Line budget</text>
+  <text x="931" y="392" class="body">compact Python files</text>
+
+  <path class="thin" d="M600 235 V285 H185 V310"/>
+  <path class="thin" d="M600 285 H460 V310"/>
+  <path class="thin" d="M600 285 H735 V310"/>
+  <path class="thin" d="M600 285 H1010 V310"/>
+
+  <polygon points="600,500 675,570 600,640 525,570" fill="#fefce8" stroke="#ca8a04" stroke-width="4"/>
+  <text x="570" y="577" class="label">Valid?</text>
+  <path class="line" d="M185 430 V470 H600 V492"/>
+  <path class="line" d="M460 430 V470 H600"/>
+  <path class="line" d="M735 430 V470 H600"/>
+  <path class="line" d="M1010 430 V470 H600"/>
+
+  <rect x="170" y="540" width="220" height="80" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <text x="245" y="575" class="label">PASS</text>
+  <text x="207" y="603" class="body">contracts trusted</text>
+
+  <rect x="810" y="540" width="220" height="80" rx="16" fill="#fff1f2" stroke="#e11d48" stroke-width="3"/>
+  <text x="875" y="575" class="label">FAIL</text>
+  <text x="850" y="603" class="body">actionable findings</text>
+
+  <path class="line" d="M525 570 H400"/>
+  <path class="line" d="M675 570 H800"/>
+</svg>

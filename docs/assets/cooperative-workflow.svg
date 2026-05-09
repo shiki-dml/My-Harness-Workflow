@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 32px Arial,sans-serif;fill:#0f172a}
+      .subtitle{font:400 18px Arial,sans-serif;fill:#475569}
+      .card-title{font:700 22px Arial,sans-serif;fill:#0f172a}
+      .card-body{font:400 16px Arial,sans-serif;fill:#334155}
+      .num{font:700 18px Arial,sans-serif;fill:#ffffff}
+      .line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="460" rx="0" fill="#ffffff"/>
+  <text x="60" y="58" class="title">Independent harnesses, cooperative quality gates</text>
+  <text x="60" y="88" class="subtitle">Run each harness alone, or chain them into a clear path from agent contracts to release decision.</text>
+
+  <rect x="70" y="135" width="460" height="110" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="112" cy="174" r="22" fill="#2563eb"/>
+  <text x="106" y="181" class="num">1</text>
+  <text x="150" y="171" class="card-title">Validate agent contracts</text>
+  <text x="150" y="204" class="card-body">Stable files, schemas, examples, support dirs</text>
+
+  <rect x="670" y="135" width="460" height="110" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <circle cx="712" cy="174" r="22" fill="#16a34a"/>
+  <text x="706" y="181" class="num">2</text>
+  <text x="750" y="171" class="card-title">Triage task work</text>
+  <text x="750" y="204" class="card-body">Rank issues, pack sprint, define validation</text>
+
+  <rect x="70" y="300" width="460" height="110" rx="18" fill="#fff7ed" stroke="#f97316" stroke-width="3"/>
+  <circle cx="112" cy="339" r="22" fill="#f97316"/>
+  <text x="106" y="346" class="num">3</text>
+  <text x="150" y="336" class="card-title">Check release readiness</text>
+  <text x="150" y="369" class="card-body">Risk budget, CI matrix, dependency impact</text>
+
+  <rect x="670" y="300" width="460" height="110" rx="18" fill="#f8fafc" stroke="#64748b" stroke-width="3"/>
+  <circle cx="712" cy="339" r="22" fill="#64748b"/>
+  <text x="706" y="346" class="num">4</text>
+  <text x="750" y="336" class="card-title">Ship or block with evidence</text>
+  <text x="750" y="369" class="card-body">Final QA verdict and handoff summary</text>
+
+  <path class="line" d="M530 190 H660"/>
+  <path class="line" d="M900 245 V278 H300 V292"/>
+  <path class="line" d="M530 355 H660"/>
+</svg>

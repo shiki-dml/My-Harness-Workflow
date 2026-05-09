@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 32px Arial,sans-serif;fill:#0f172a}
+      .subtitle{font:400 18px Arial,sans-serif;fill:#475569}
+      .phase{font:700 19px Arial,sans-serif;fill:#0f172a}
+      .agent{font:700 15px Arial,sans-serif;fill:#0f172a}
+      .body{font:400 14px Arial,sans-serif;fill:#475569}
+      .line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:3}
+      .pill{fill:#f0fdf4;stroke:#16a34a;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1200" height="760" fill="#ffffff"/>
+  <text x="60" y="58" class="title">Issue Triage Harness</text>
+  <text x="60" y="88" class="subtitle">Transforms issue fixtures into backlog ranking, sprint scope, validation plan, QA result, and handoff.</text>
+
+  <rect x="70" y="132" width="210" height="96" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+  <text x="113" y="174" class="phase">Issue JSON</text>
+  <text x="112" y="202" class="body">offline GitHub-like fixture</text>
+
+  <rect class="box" x="330" y="115" width="340" height="145" rx="20"/>
+  <text x="360" y="150" class="phase">1. Intake</text>
+  <rect class="pill" x="360" y="170" width="130" height="58" rx="12"/>
+  <text x="381" y="194" class="agent">human steering</text>
+  <text x="389" y="216" class="body">goal + limits</text>
+  <rect class="pill" x="510" y="170" width="130" height="58" rx="12"/>
+  <text x="523" y="194" class="agent">orchestrator</text>
+  <text x="538" y="216" class="body">route order</text>
+
+  <rect class="box" x="730" y="115" width="390" height="145" rx="20"/>
+  <text x="760" y="150" class="phase">2. Discovery</text>
+  <rect class="pill" x="760" y="170" width="105" height="58" rx="12"/>
+  <text x="775" y="194" class="agent">initializer</text>
+  <text x="775" y="216" class="body">normalize</text>
+  <rect class="pill" x="882" y="170" width="110" height="58" rx="12"/>
+  <text x="893" y="194" class="agent">cartographer</text>
+  <text x="902" y="216" class="body">map source</text>
+  <rect class="pill" x="1008" y="170" width="84" height="58" rx="12"/>
+  <text x="1024" y="194" class="agent">curator</text>
+  <text x="1021" y="216" class="body">dedupe</text>
+
+  <rect class="box" x="70" y="400" width="320" height="145" rx="20"/>
+  <text x="100" y="435" class="phase">3. Planning</text>
+  <rect class="pill" x="100" y="455" width="120" height="58" rx="12"/>
+  <text x="112" y="479" class="agent">planner</text>
+  <text x="116" y="501" class="body">rank backlog</text>
+  <rect class="pill" x="240" y="455" width="120" height="58" rx="12"/>
+  <text x="252" y="479" class="agent">contract</text>
+  <text x="255" y="501" class="body">fit capacity</text>
+
+  <rect class="box" x="445" y="400" width="320" height="145" rx="20"/>
+  <text x="475" y="435" class="phase">4. Execution Design</text>
+  <rect class="pill" x="475" y="455" width="120" height="58" rx="12"/>
+  <text x="493" y="479" class="agent">generator</text>
+  <text x="493" y="501" class="body">scoped plan</text>
+  <rect class="pill" x="615" y="455" width="120" height="58" rx="12"/>
+  <text x="637" y="479" class="agent">test strategist</text>
+  <text x="638" y="501" class="body">coverage</text>
+
+  <rect class="box" x="820" y="400" width="320" height="145" rx="20"/>
+  <text x="850" y="435" class="phase">5. Review</text>
+  <rect class="pill" x="850" y="455" width="120" height="58" rx="12"/>
+  <text x="875" y="479" class="agent">QA evaluator</text>
+  <text x="871" y="501" class="body">invariants</text>
+  <rect class="pill" x="990" y="455" width="120" height="58" rx="12"/>
+  <text x="1005" y="479" class="agent">handoff writer</text>
+  <text x="1021" y="501" class="body">summary</text>
+
+  <rect x="820" y="615" width="320" height="75" rx="16" fill="#fff7ed" stroke="#f97316" stroke-width="3"/>
+  <text x="892" y="645" class="phase">Planning packet</text>
+  <text x="875" y="672" class="body">backlog, sprint, tests, QA, handoff</text>
+
+  <path class="line" d="M280 180 H320"/>
+  <path class="line" d="M670 188 H720"/>
+  <path class="line" d="M925 260 V330 H230 V390"/>
+  <path class="line" d="M390 472 H435"/>
+  <path class="line" d="M765 472 H810"/>
+  <path class="line" d="M980 545 V605"/>
+</svg>
