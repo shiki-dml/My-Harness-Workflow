@@ -40,7 +40,7 @@ Typical cooperative order:
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
-flowchart LR
+flowchart TB
     A["1. Validate<br/>Agent Contracts"] --> B["2. Triage<br/>Task Work"]
     B --> C["3. Check<br/>Release Readiness"]
     C --> D["4. Ship / Block<br/>With QA Evidence"]
@@ -118,7 +118,7 @@ python -m harness . --json
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
-flowchart LR
+flowchart TB
     A["Project Root"] --> B["Discover<br/>All Agents"]
     B --> C["Check<br/>agent.md + interface.md"]
     C --> D["Check<br/>input/output schemas"]
@@ -178,30 +178,58 @@ python -m harness issue-triage examples\issue_triage\issues.json --capacity 13 -
 | [examples/issue_triage/README.md](examples/issue_triage/README.md) | Detailed guide for the issue triage harness. |
 | [tests/test_issue_triage.py](tests/test_issue_triage.py) | End-to-end tests for all-agent execution, scoring, duplicate detection, capacity, CLI JSON, and invalid input. |
 
-**Agents used:** `human_steering`, `harness_orchestrator`, `initializer_agent`, `repo_cartographer`, `feature_registry_curator`, `product_planner`, `sprint_contract_agent`, `implementation_generator`, `test_strategist`, `qa_evaluator`, `handoff_writer`.
+**Agents used by phase:**
+
+| Phase | Agents | Responsibility |
+| --- | --- | --- |
+| Intake | `human_steering`<br>`harness_orchestrator` | Capture the triage goal and route the workflow. |
+| Discovery | `initializer_agent`<br>`repo_cartographer`<br>`feature_registry_curator` | Normalize tickets, map the fixture, and reconcile related work. |
+| Planning | `product_planner`<br>`sprint_contract_agent` | Rank backlog items and fit the sprint to capacity. |
+| Execution design | `implementation_generator`<br>`test_strategist` | Produce implementation scope and validation coverage. |
+| Review | `qa_evaluator`<br>`handoff_writer` | Check invariants and produce the final handoff. |
 
 **Architecture flow:**
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
-flowchart LR
-    A["Issue JSON"] --> B["human_steering<br/>Goal + constraints"]
-    B --> C["harness_orchestrator<br/>Route order"]
-    C --> D["initializer_agent<br/>Normalize issues"]
-    D --> E["repo_cartographer<br/>Map fixture"]
-    E --> F["feature_registry_curator<br/>Feature records"]
-    F --> G["product_planner<br/>Rank backlog"]
-    G --> H["sprint_contract_agent<br/>Capacity sprint"]
-    H --> I["implementation_generator<br/>Scoped plan"]
-    I --> J["test_strategist<br/>Validation matrix"]
-    J --> K["qa_evaluator<br/>Invariant checks"]
-    K --> L["handoff_writer<br/>Summary"]
+flowchart TB
+    A["Issue JSON<br/>offline fixture"] --> B
+    subgraph P1["1. Intake"]
+        direction LR
+        B["human_steering<br/>goal + constraints"] --> C["harness_orchestrator<br/>route order"]
+    end
+    subgraph P2["2. Discovery"]
+        direction LR
+        D["initializer_agent<br/>normalize issues"] --> E["repo_cartographer<br/>map fixture"]
+        E --> F["feature_registry_curator<br/>related work"]
+    end
+    subgraph P3["3. Planning"]
+        direction LR
+        G["product_planner<br/>rank backlog"] --> H["sprint_contract_agent<br/>capacity sprint"]
+    end
+    subgraph P4["4. Execution Design"]
+        direction LR
+        I["implementation_generator<br/>scoped plan"] --> J["test_strategist<br/>validation matrix"]
+    end
+    subgraph P5["5. Review"]
+        direction LR
+        K["qa_evaluator<br/>invariant checks"] --> L["handoff_writer<br/>summary"]
+    end
+    C --> D
+    F --> G
+    H --> I
+    J --> K
     classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
     classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
     classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
     class A source
     class B,C,D,E,F,G,H,I,J,K stage
     class L output
+    style P1 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style P2 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style P3 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style P4 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style P5 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
     linkStyle default stroke:#334155,stroke-width:3px
 ```
 
@@ -245,30 +273,58 @@ python -m harness release-readiness examples\release_readiness\manifest.json --r
 | [examples/release_readiness/README.md](examples/release_readiness/README.md) | Detailed guide for the release readiness harness. |
 | [tests/test_release_readiness.py](tests/test_release_readiness.py) | Tests for agent coverage, dependency graph, risk budget, test matrix, CLI JSON, and invalid manifests. |
 
-**Agents used:** `human_steering`, `harness_orchestrator`, `initializer_agent`, `repo_cartographer`, `feature_registry_curator`, `product_planner`, `sprint_contract_agent`, `implementation_generator`, `test_strategist`, `qa_evaluator`, `handoff_writer`.
+**Agents used by phase:**
+
+| Phase | Agents | Responsibility |
+| --- | --- | --- |
+| Intake | `human_steering`<br>`harness_orchestrator` | Set the release boundary and route the workflow. |
+| Discovery | `initializer_agent`<br>`repo_cartographer`<br>`feature_registry_curator` | Normalize the manifest, map source surfaces, and register changes. |
+| Planning | `product_planner`<br>`sprint_contract_agent` | Rank release work and enforce the risk budget. |
+| Execution design | `implementation_generator`<br>`test_strategist` | Produce release actions and CI/test coverage. |
+| Review | `qa_evaluator`<br>`handoff_writer` | Gate shipment and write the final release decision. |
 
 **Architecture flow:**
 
 ```mermaid
 %%{init: {"theme":"base","flowchart":{"curve":"linear","htmlLabels":true},"themeVariables":{"background":"#ffffff","mainBkg":"#ffffff","primaryTextColor":"#0f172a","fontSize":"20px","lineColor":"#334155"}}}%%
-flowchart LR
-    A["Release Manifest"] --> B["human_steering<br/>Risk budget"]
-    B --> C["harness_orchestrator<br/>Route order"]
-    C --> D["initializer_agent<br/>Normalize manifest"]
-    D --> E["repo_cartographer<br/>Source map"]
-    E --> F["feature_registry_curator<br/>Change registry"]
-    F --> G["product_planner<br/>Rank release work"]
-    G --> H["sprint_contract_agent<br/>Release contract"]
-    H --> I["implementation_generator<br/>Release actions"]
-    I --> J["test_strategist<br/>CI/test matrix"]
-    J --> K["qa_evaluator<br/>Release gate"]
-    K --> L["handoff_writer<br/>Ship / block"]
+flowchart TB
+    A["Release Manifest<br/>risk-budgeted input"] --> B
+    subgraph R1["1. Intake"]
+        direction LR
+        B["human_steering<br/>risk budget"] --> C["harness_orchestrator<br/>route order"]
+    end
+    subgraph R2["2. Discovery"]
+        direction LR
+        D["initializer_agent<br/>normalize manifest"] --> E["repo_cartographer<br/>source map"]
+        E --> F["feature_registry_curator<br/>change registry"]
+    end
+    subgraph R3["3. Planning"]
+        direction LR
+        G["product_planner<br/>rank release work"] --> H["sprint_contract_agent<br/>release contract"]
+    end
+    subgraph R4["4. Execution Design"]
+        direction LR
+        I["implementation_generator<br/>release actions"] --> J["test_strategist<br/>CI/test matrix"]
+    end
+    subgraph R5["5. Review"]
+        direction LR
+        K["qa_evaluator<br/>release gate"] --> L["handoff_writer<br/>ship / block"]
+    end
+    C --> D
+    F --> G
+    H --> I
+    J --> K
     classDef source fill:#eff6ff,stroke:#2563eb,stroke-width:3px,color:#0f172a
     classDef stage fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#0f172a
     classDef output fill:#fff7ed,stroke:#f97316,stroke-width:3px,color:#0f172a
     class A source
     class B,C,D,E,F,G,H,I,J,K stage
     class L output
+    style R1 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style R2 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style R3 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style R4 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
+    style R5 fill:#ffffff,stroke:#94a3b8,stroke-width:2px,color:#0f172a
     linkStyle default stroke:#334155,stroke-width:3px
 ```
 
